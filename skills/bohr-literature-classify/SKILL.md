@@ -124,3 +124,14 @@ python -I /skills/weekly-skill/common/engine/answer.py \
 - [ ] 未分类与 needs_tool 已单列并说明，未伪装完成
 - [ ] operation_evidence 给出可复跑命令原文
 - [ ] 资源总量在上限内、无杜撰元数据
+## 7. 依赖、版本与安装
+
+- **运行环境**：Python ≥ 3.8，仅标准库（stdlib only），零第三方依赖；PDF/Office/
+  OCR 等二进制解析一律走平台预装工具（`environment/resources.yaml` 所列
+  pdf-text-tool / office-renderer / ocr-tool 等），本 Skill 不捆绑二进制。
+- **引擎版本**：`bohrium-weekly-common@1.0`（2026-11-20 提交，随仓库同版本锁定；
+  SHA-256 与提交记录见仓库 commit）。引擎源码：仓库
+  `skills/common/engine/`（lib.py / scan_index.py / answer.py / run_case.py）。
+- **安装**：无构建步骤。将本目录内容放入评测约定位置（Skill 本体在
+  `/skills/weekly-skill/`，共用引擎随附同一相对路径 `common/engine/`），按第 1/5 节
+  命令直接调用。README 与自测记录不随提交打包（见仓库根 .gitignore）。
