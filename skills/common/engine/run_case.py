@@ -31,7 +31,7 @@ from lib import now_iso, sha256_file, sha256_text, write_json
 
 # reuse engine internals (same directory package)
 from scan_index import main as scan_main  # noqa: F401  (cli form kept simple)
-from answer import apply_filters, rank_chunks, tokenize
+from answer import apply_filters, rank_chunks, query_plans, tokenize
 
 
 def load_case(case_path):
@@ -138,7 +138,9 @@ def main():
     expanded_q = (question + "\n" + terms_txt) if terms_txt else question
 
     kept_chunks = [c for c in index.get("chunks", []) if c.get("file") in keep]
-    hits, ranked = rank_chunks(kept_chunks, tokenize(expanded_q), args.top)
+    hits, ranked = rank_chunks(kept_chunks, question or expanded_q[:512],
+                              top=args.top, plans=query_plans(question or expanded_q[:512], terms_txt),
+                              terms_txt=terms_txt)
 
     file_meta = {f["relpath"]: f for f in index.get("files", [])}
 
@@ -167,8 +169,27 @@ def main():
             "chunk_id": c.get("chunk_id"), "kind": c.get("kind"),
             "offset": {"start": c.get("start"), "end": c.get("end")},
             "snippet": (c.get("text", "") or "")[:320],
-            "score_raw": round(float(ranked[i][0]), 4) if i < len(ranked) else None,
+            "score_raw": round(float(c.get("score_raw", 0.0)), 4),
+            "bm25_main": c.get("bm25_main"),
+            "rrf_score": c.get("rrf_score"),
+            "plan_evidence": c.get("plan_evidence") or [],
         })
+
+    # ---- compose evidence windows for the report renderer ----
+    from answer import evidence_windows, tokenize
+    ev_windows = []
+    for h in hit_rows:
+        win = None
+        for c in kept_chunks:
+            if c.get("chunk_id") == h["chunk_id"] and c.get("file") == h["file"]:
+                wins = evidence_windows(c.get("text", "") or "",
+                                        tokenize(question + "\n" + (terms_txt or "")))
+                if wins:
+                    win = {"file": h["file"],
+                           "offset": wins[0]["offset"], "text": wins[0]["text"]}
+                break
+        if win:
+            ev_windows.append(win)
 
     result = {
         "case_id": case_id,
@@ -181,6 +202,7 @@ def main():
         "candidates_after_filter": len(keep),
         "hit_count": len(hits),
         "hits": hit_rows,
+        "evidence_windows": ev_windows,
         "needs_tool_list": index.get("needs_tool", []),
         "dedup_groups": index.get("dedup_groups", {}),
         "families": {

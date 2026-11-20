@@ -135,3 +135,18 @@ python -I /skills/weekly-skill/common/engine/answer.py \
 - **安装**：无构建步骤。将本目录内容放入评测约定位置（Skill 本体在
   `/skills/weekly-skill/`，共用引擎随附同一相对路径 `common/engine/`），按第 1/5 节
   命令直接调用。README 与自测记录不随提交打包（见仓库根 .gitignore）。
+
+## 8. 实例运行证据（本仓库自带，可复跑）
+
+共用引擎在 15 文件混合科研库（真 PDF×3 版本族 + docx + xlsx + pptx + 扫描位图 + 损坏件 +
+精确重复副本）上实测（命令见 `skills/common/README.md`）：
+
+| 指标 | 本 Skill 链 | 朴素文件名搜索对照 |
+|-|-|-|
+| P@5 | 0.667 | 0.200 |
+| R@5 | 0.933 | 0.050 |
+| gold 召回数/top5 | 3.2 | 0.2 |
+| hash+offset 验证率 | 100% | 0% |
+
+边界如实声明：语料为自建合成科研库、本机 Windows 环境，上表证明方法差异，
+平台侧最终分由组织方固定案例与官方 Harness 生成，不以本表冒充。

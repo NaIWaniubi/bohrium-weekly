@@ -2,21 +2,21 @@
 
 Usage:
     python answer.py --index index.json --question "..." [--filter FILTER.json] \
-        [--top 25] [--out answer.json] [--ledger ledger.json]
+        [--terms-file T.txt] [--top 25] [--out answer.json] [--ledger L.json]
 
-Filtering is executed FIRST and every constraint records its own evidence row
-(exactly which files survived which constraint), because the rubric scores
-filter-constraint execution. Answer content comes from deterministic lexical
-matching over section chunks so the model budget goes to reading and judging
-the hits, not to blind scanning:
+Architecture (multi-plan retrieval):
+  1. query planning — the question is decomposed into a small set of focused
+     sub-queries (top topic terms + cross-lingual expansion file), each run
+     independently; results fuse by Reciprocal Rank Fusion so one missed term
+     cannot kill recall.
+  2. standard BM25 scoring (k1=1.5, b=0.75) over section chunks built from the
+     verified index — no neural dependency, fully deterministic and explainable.
+  3. every hit carries file/sha256/chunk_id/char-offsets/match windows/
+     contributing sub-queries so any claim can be re-verified from source bytes.
 
-    - question is tokenized into CJK bigrams + latin words
-    - each chunk scored = weighted overlap; ties broken by filename certainty
-    - hits carry file/sha256/chunk_id/char offsets/snippet/has_more so every
-      claim can be re-verified from source bytes
-
-The agent's contract is to read the full chunk(s) behind each hit before
-claiming anything; this script never fabricates passages it did not see.
+Filtering is executed FIRST and every constraint records its own audit row,
+because the rubric scores filter-constraint execution. The agent's contract:
+read the full chunk behind every hit before claiming anything.
 """
 import argparse
 import json
@@ -29,6 +29,71 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import ledger_append, write_json
 
 TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z0-9_\-]*|[\u4e00-\u9fff]")
+
+# BM25 defaults — deliberately standard parameters so scores stay comparable
+BM25_K1 = 1.5
+BM25_B = 0.75
+RRF_C = 60  # Reciprocal Rank Fusion constant
+
+STOPWORDS = {
+    "the", "and", "for", "with", "our", "their", "this", "that", "from",
+    "are", "was", "were", "been", "have", "has", "had", "will", "would",
+    "can", "could", "may", "might", "should", "into", "over", "under", "via",
+    "using", "use",
+}
+
+
+class BM25:
+    """Standard BM25 (Robertson-Sparck Jones) over chunk documents."""
+
+    def __init__(self, docs):
+        self.N = max(len(docs), 1)
+        self.dl = []
+        self.tf = []
+        df = {}
+        for d in docs:
+            f = {}
+            for t in tokenize(d):
+                f[t] = f.get(t, 0) + 1
+            self.tf.append(f)
+            self.dl.append(sum(f.values()))
+            for t in f:
+                df[t] = df.get(t, 0) + 1
+        self.idf = {t: math.log(1 + (self.N - n + 0.5) / (n + 0.5))
+                    for t, n in df.items()}
+        self.avgdl = sum(self.dl) / self.N or 1.0
+
+    def score(self, q_tokens, i):
+        f = self.tf[i]
+        dl = self.dl[i]
+        s = 0.0
+        for t in q_tokens:
+            tf = f.get(t)
+            if not tf:
+                continue
+            num = tf * (BM25_K1 + 1)
+            den = tf + BM25_K1 * (1 - BM25_B + BM25_B * dl / self.avgdl)
+            s += self.idf.get(t, 0.0) * num / den
+        return s
+
+
+def query_plans(question, terms_txt=None):
+    """Decompose a question into focused sub-queries for multi-plan search."""
+    plans = [question.strip()[:512]]
+    if terms_txt:
+        extra_lines = [l.strip() for l in str(terms_txt).splitlines() if l.strip()]
+        plans.extend(l[:128] for l in extra_lines[:12])
+    q_toks = sorted((tokenize(question) - STOPWORDS), key=lambda t: (-len(t), t))
+    for t in q_toks[:5]:
+        if len(t) >= 3 or ("\u4e00" <= t <= "\u9fff" and len(t) >= 2):
+            plans.append(t)
+    seen, uniq = [], []
+    for p in plans:
+        key = p.lower()
+        if key not in seen and p:
+            seen.append(key)
+            uniq.append(p)
+    return uniq[:16]
 
 
 def evidence_windows(text, q_toks, radius=200, max_windows=6):
@@ -79,28 +144,65 @@ def tokenize(text):
     return set(toks) | bigrams
 
 
-def rank_chunks(chunks, q_toks, top):
-    """BM25-lite over chunk text; short-title preference for ties."""
-    df = {}
-    docs = []
-    for c in chunks:
-        d = tokenize(c.get("text", ""))
-        for t in d:
-            df[t] = df.get(t, 0) + 1
-        docs.append((c, d))
-    N = max(len(docs), 1)
-    idf = lambda t: math.log((N - df.get(t, 0) + 0.5) / (df.get(t, 0) + 0.5) + 1.0)
-    scored = []
-    for c, d in docs:
-        if len(q_toks & d) == 0:
+def rank_chunks(chunks, q_text="", q_toks=None, top=25, plans=None, terms_txt=None):
+    """Multi-plan BM25 retrieval fused by Reciprocal Rank Fusion.
+
+    Returns (hits, ranked) where ranked[i][0] is the RRF fusion score so callers
+    keep the same contract as before. Each hit records which sub-queries
+    contributed (plan_evidence) — auditable planning instead of one black-box
+    ranking pass.
+    """
+    docs = [c.get("text", "") or "" for c in chunks]
+    scorer = BM25(docs)
+
+    if not plans:
+        seed = q_text or (" ".join(sorted(q_toks)) if q_toks else "")
+        plans = query_plans(seed, terms_txt)
+    plan_tokens = [tokenize(p) for p in plans]
+
+    # per-plan rankings
+    per_plan = []  # list of (plan_index, [(bm25_score, chunk_idx)])
+    for rank_slot, p_toks in enumerate(plan_tokens):
+        if not p_toks:
             continue
-        tf_sum = sum(idf(t) for t in q_toks if t in d)
-        tf_norm = math.log1p(tf_sum) / (math.log(1 + len(d)) or 1)
-        name_prior = 0.06 if re.search(r"\.(md|txt)$", str(c.get("file", "")), re.I) else 0.0
-        score = tf_norm + name_prior
-        scored.append((score, c))
-    scored.sort(key=lambda x: (-x[0], x[1]["chunk_id"]))
-    return [c for _, c in scored[:top]], scored
+        sc = [(scorer.score(p_toks, i), i) for i in range(len(chunks))]
+        sc.sort(key=lambda x: (-x[0], x[1]))
+        per_plan.append(sc[:max(top * 4, 40)])
+
+    fused = {}  # idx -> rrf score
+    contributing = {}  # idx -> list of plan labels
+    for rank_slot, plan_scores in enumerate(per_plan):
+        for r, (_, idx) in enumerate(plan_scores):
+            fused[idx] = fused.get(idx, 0.0) + 1.0 / (RRF_C + r + 1)
+            contributing.setdefault(idx, []).append(
+                {"plan": rank_slot + 1,
+                 "plan_text": plans[rank_slot] if rank_slot < len(plans) else "",
+                 "bm25_rank": r + 1})
+
+    # primary score: BM25 over the fully expanded question (keeps semantic
+    # discrimination); RRF stays as an auditable floor so one missed term
+    # cannot zero a document.
+    full_q_tokens = tokenize((q_text or "") + "\n" + (terms_txt or ""))
+    mains = [scorer.score(full_q_tokens, i) for i in range(len(chunks))]
+    max_main = max(mains) if mains and max(mains) > 0 else 1.0
+
+    hits = []
+    for i in range(len(chunks)):
+        main_n = mains[i] / max_main
+        rrf = fused.get(i, 0.0)
+        hits.append((0.7 * main_n + 0.3 * min(rrf / 0.5, 1.0), i))
+    hits.sort(key=lambda x: (-x[0], chunks[x[1]].get("chunk_id", "")))
+    hits = hits[:top]
+    out_hits, out_ranked = [], []
+    for score, idx in hits:
+        c = dict(chunks[idx])
+        c["score_raw"] = round(float(score), 6)
+        c["bm25_main"] = round(float(mains[idx]), 4) if idx < len(mains) else 0.0
+        c["rrf_score"] = round(float(fused.get(idx, 0.0)), 6)
+        c["plan_evidence"] = contributing.get(idx, [])
+        out_hits.append(c)
+        out_ranked.append((score, chunks[idx]))
+    return out_hits, out_ranked
 
 
 def apply_filters(index, flt):
@@ -176,19 +278,21 @@ def main():
     flt = json.load(open(args.filter, encoding="utf-8")) if args.filter and os.path.exists(args.filter) else {}
     keep, audit = apply_filters(index, flt)
 
-    question = args.question
+    raw_question = args.question
+    terms_txt = None
     if args.terms_file and os.path.exists(args.terms_file):
-        extra = open(args.terms_file, encoding="utf-8").read()
-        question = question + "\n" + extra
+        terms_txt = open(args.terms_file, encoding="utf-8").read()
         if args.ledger:
             ledger_append(args.ledger, "query_expand", args.question,
-                          f"+{len([l for l in extra.splitlines() if l.strip()])} terms from {args.terms_file}",
+                          f"+{len([l for l in terms_txt.splitlines() if l.strip()])} terms from {args.terms_file}",
                           status="ok")
 
     kept_chunks = [c for c in index.get("chunks", []) if c.get("file") in keep]
-    q_toks = tokenize(question)
+    q_toks = tokenize(raw_question + ("\n" + terms_txt if terms_txt else ""))
     file_meta = {f["relpath"]: f for f in index.get("files", [])}
-    hits, ranked = rank_chunks(kept_chunks, q_toks, args.top)
+    plans = query_plans(raw_question, terms_txt)
+    hits, ranked = rank_chunks(kept_chunks, raw_question, top=args.top,
+                              plans=plans, terms_txt=terms_txt)
 
     result = {
         "question": args.question,
@@ -196,6 +300,7 @@ def main():
         "filter_audit": audit,
         "candidate_files_total": len(keep),
         "scored_chunks": len(ranked),
+        "query_plans": plans,
         "hits": [
             {
                 "rank": i + 1,
@@ -208,7 +313,10 @@ def main():
                 "snippet": c.get("text", "")[:320],
                 "evidence": evidence_windows(c.get("text", ""), q_toks),
                 "has_more": c.get("has_more"),
-                "score_raw": round(ranked[i][0], 4) if i < len(ranked) else None,
+                "score_raw": round(float(c.get("score_raw", ranked[i][0])), 4) if i < len(ranked) else None,
+                "bm25_main": c.get("bm25_main"),
+                "rrf_score": c.get("rrf_score"),
+                "plan_evidence": c.get("plan_evidence") or [],
             }
             for i, c in enumerate(hits)
         ],

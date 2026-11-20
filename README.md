@@ -19,9 +19,10 @@
 
 - `lib.py` — 原子 JSON、哈希、CJK 分词、标题归一化、版本族排序、操作账本
 - `scan_index.py` — 库扫描 → 文件全量事实 + 章节块 + 重复组 + 版本族 + needs_tool
-- `answer.py` — 过滤先行审计 + BM25-lite 排序 + 证据窗口（file/sha256/chunk_id/offset）
+- `answer.py` — 多路查询规划 + 标准 BM25 主排序 + RRF 融合保底 + 过滤先行审计 + 证据窗口（file/sha256/chunk_id/offset）
 - `run_case.py` — 固定案例编排：按契约读 `/input/case.json`，落盘命中全文，
-  写出覆盖 output_contract 的 `result.json` 骨架
+  写出覆盖 output_contract 的 `result.json` 骨架（含 evidence_windows 供渲染）
+- `baseline.py` / `benchmark.py` / `render_report.py` — 对照基线、金标准指标（P@5/R@5/hash 验证率）、HTML 报告渲染；金标准问答集见 `skills/common/bench/queries.json`
 
 详细文档：[`skills/common/README.md`](skills/common/README.md)。
 
