@@ -15,6 +15,15 @@
 异常处理矩阵 + 最小调用示例）、依赖的引擎脚本（软链接到 common/engine 或拷贝副本，
 按评测约定以 `skills/weekly-skill/...` 路径引用）、`GITHUB_URL.txt`。
 
+| [`bohr-challenge-0467f5db-skill`](skills/bohr-challenge-0467f5db-skill/) | 检索覆盖率与遗漏分析（选题 4） | challenge-0467f5db | [查看](skills/bohr-challenge-0467f5db-skill/GITHUB_URL.txt) |
+| [`bohr-challenge-5b90f5e9-skill`](skills/bohr-challenge-5b90f5e9-skill/) | 系统性文献检索与纳排筛选（选题 5） | challenge-5b90f5e9 | [查看](skills/bohr-challenge-5b90f5e9-skill/GITHUB_URL.txt) |
+| [`bohr-challenge-5c918ff0-skill`](skills/bohr-challenge-5c918ff0-skill/) | 多数据库联合检索（选题 6） | challenge-5c918ff0 | [查看](skills/bohr-challenge-5c918ff0-skill/GITHUB_URL.txt) |
+| [`bohr-challenge-60a8202d-skill`](skills/bohr-challenge-60a8202d-skill/) | 引文追踪与关联文献发现（选题 7） | challenge-60a8202d | [查看](skills/bohr-challenge-60a8202d-skill/GITHUB_URL.txt) |
+| [`bohr-challenge-e7598a44-skill`](skills/bohr-challenge-e7598a44-skill/) | 科研问题驱动检索（选题 8） | challenge-e7598a44 | [查看](skills/bohr-challenge-e7598a44-skill/GITHUB_URL.txt) |
+| [`bohr-agent-f8fb8bda-skill`](skills/bohr-agent-f8fb8bda-skill/) | 深度研究 Agent（选题 9） | agent-f8fb8bda | [查看](skills/bohr-agent-f8fb8bda-skill/GITHUB_URL.txt) |
+| [`bohr-agent-6aefb2fd-skill`](skills/bohr-agent-6aefb2fd-skill/) | 多步骤数据分析 Agent（选题 10） | agent-6aefb2fd | [查看](skills/bohr-agent-6aefb2fd-skill/GITHUB_URL.txt) |
+| [`bohr-challenge-9ec929fe-skill`](skills/bohr-challenge-9ec929fe-skill/) | 科研代码生成与执行（选题 11） | challenge-9ec929fe | [查看](skills/bohr-challenge-9ec929fe-skill/GITHUB_URL.txt) |
+
 ## 共用引擎 `skills/common/engine/`
 
 - `lib.py` — 原子 JSON、哈希、CJK 分词、标题归一化、版本族排序、操作账本
