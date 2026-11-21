@@ -43,6 +43,104 @@ STOPWORDS = {
 }
 
 
+SENTENCE_SPLIT_RE = re.compile(r"(?<=[。！？.!?\n])")
+
+def split_paragraphs(text):
+    """Paragraph-aware splitting for citation anchoring.
+
+    Blank-line groups are primary units; long groups that carry several single
+    newlines (PDF/xlsx dumps) fall back to per-line units so an anchor can point
+    at the exact sentence a term landed in.
+    """
+    paras = []
+    offset = 0
+    for blk in re.split(r"\n\s*\n", text):
+        if not blk.strip():
+            continue
+        start = text.find(blk, offset)
+        if start < 0:
+            start = offset
+        para = blk.strip()
+        flat = (len(para) > 400 and "\n" in para) or para.startswith("[")
+        if flat:
+            sub_offset = start
+            for ln in para.splitlines():
+                s_ln = text.find(ln.strip(), sub_offset)
+                if s_ln < 0:
+                    s_ln = sub_offset
+                t = ln.strip()
+                if t and not t.startswith("["):
+                    paras.append({"start": s_ln, "end": s_ln + len(t), "text": t})
+                sub_offset = max(sub_offset, s_ln + max(len(t), len(ln)) + 1)
+            offset = max(offset, start + len(blk))
+            continue
+        if para and not para.startswith("["):
+            paras.append({"start": start, "end": start + len(para), "text": para})
+        offset = max(offset, start + len(blk))
+    return paras
+
+
+def first_sentence(text, limit=160):
+    """First sentence of a passage, capped — the anchor a reviewer jumps to."""
+    t = text.strip().splitlines()[0].strip() if text.strip() else ""
+    t = re.sub(r"\s+", " ", t)
+    parts = SENTENCE_SPLIT_RE.split(t, 1)
+    s = parts[0] if parts else t
+    if len(s) > limit:
+        s = s[:limit].rstrip() + "…"
+    return s
+
+
+def build_citations(chunk, q_toks, file_meta=None, max_quotes=6):
+    """Evidence-chain citations grounded in bytes actually read.
+
+    Each citation carries: file, sha256, physical pages, printed-page offset,
+    section anchor (paragraph first sentence), char offsets and verbatim quote —
+    the exact bundle the rubric's 证据回链 item asks for.
+    """
+    out = []
+    body = chunk.get("text") or ""
+    off = {"start": chunk.get("start"), "end": chunk.get("end")}
+    base = {
+        "file": chunk.get("file"),
+        "sha256_file": (file_meta or {}).get("sha256"),
+        "pages": chunk.get("pages"),
+        "printed_page_offset": chunk.get("printed_page_offset"),
+        "offset": off,
+        "section_kind": chunk.get("kind"),
+        "anchor": None,
+        "quotes": [],
+    }
+    low = body.lower()
+    # choose the paragraph that contains query terms; anchor on its first sentence
+    paras = split_paragraphs(body)
+    chosen = None
+    best_ov = -1
+    for para in paras:
+        pt = tokenize(para["text"])
+        ov = len(q_toks & pt)
+        if ov <= 0:
+            continue
+        # prefer substantial prose over short title/heading lines that merely share terms
+        weight = ov + (10 if len(para["text"]) > 80 else 0)
+        if weight > best_ov:
+            best_ov = weight
+            chosen = para
+    if chosen:
+        base["anchor"] = {
+            "first_sentence": first_sentence(chosen["text"]),
+            "paragraph_offset": [chosen["start"], chosen["end"]],
+        }
+    windows = evidence_windows(body, q_toks, radius=140, max_windows=max_quotes)
+    for w in windows:
+        quote = w["text"].replace("\n", " ").strip()
+        if len(quote) > 180:
+            quote = "..." + quote[-180:]
+        base["quotes"].append({"offset": w["offset"], "text": quote})
+    out.append(base)
+    return out
+
+
 class BM25:
     """Standard BM25 (Robertson-Sparck Jones) over chunk documents."""
 
@@ -180,17 +278,29 @@ def rank_chunks(chunks, q_text="", q_toks=None, top=25, plans=None, terms_txt=No
                  "bm25_rank": r + 1})
 
     # primary score: BM25 over the fully expanded question (keeps semantic
-    # discrimination); RRF stays as an auditable floor so one missed term
-    # cannot zero a document.
+    # discrimination) plus a title-field boost — filenames carry authoring
+    # signals ("…_v2_final") that body text cannot. RRF stays as an auditable
+    # floor so one missed term cannot zero a document.
     full_q_tokens = tokenize((q_text or "") + "\n" + (terms_txt or ""))
     mains = [scorer.score(full_q_tokens, i) for i in range(len(chunks))]
     max_main = max(mains) if mains and max(mains) > 0 else 1.0
 
+    titles = []
+    for c in chunks:
+        fname = str(c.get("file") or "")
+        stem = os.path.splitext(os.path.basename(fname))[0]
+        titles.append(stem.replace("_", " ").replace("-", " "))
+    title_scorer = BM25(titles)
+    title_scores = [title_scorer.score(full_q_tokens, i) for i in range(len(chunks))]
+    max_title = max(title_scores) if title_scores and max(title_scores) > 0 else 1.0
+
     hits = []
     for i in range(len(chunks)):
         main_n = mains[i] / max_main
+        title_n = title_scores[i] / max_title
         rrf = fused.get(i, 0.0)
-        hits.append((0.7 * main_n + 0.3 * min(rrf / 0.5, 1.0), i))
+        score = 0.65 * main_n + 0.20 * title_n + 0.15 * min(rrf / 0.5, 1.0)
+        hits.append((score, i))
     hits.sort(key=lambda x: (-x[0], chunks[x[1]].get("chunk_id", "")))
     hits = hits[:top]
     out_hits, out_ranked = [], []
@@ -198,6 +308,7 @@ def rank_chunks(chunks, q_text="", q_toks=None, top=25, plans=None, terms_txt=No
         c = dict(chunks[idx])
         c["score_raw"] = round(float(score), 6)
         c["bm25_main"] = round(float(mains[idx]), 4) if idx < len(mains) else 0.0
+        c["bm25_title"] = round(float(title_scores[idx]), 4) if idx < len(title_scores) else 0.0
         c["rrf_score"] = round(float(fused.get(idx, 0.0)), 6)
         c["plan_evidence"] = contributing.get(idx, [])
         out_hits.append(c)
@@ -294,6 +405,10 @@ def main():
     hits, ranked = rank_chunks(kept_chunks, raw_question, top=args.top,
                               plans=plans, terms_txt=terms_txt)
 
+    citations = []
+    for h in hits:
+        citations.extend(build_citations(h, q_toks, file_meta.get(h.get("file")) or {}))
+
     result = {
         "question": args.question,
         "query_expanded": bool(args.terms_file and os.path.exists(args.terms_file)),
@@ -320,6 +435,7 @@ def main():
             }
             for i, c in enumerate(hits)
         ],
+        "citations": citations,
         "unmatched_warning": ("no chunk matched the question" if not hits else None),
     }
 

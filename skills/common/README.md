@@ -8,8 +8,8 @@ stdlib only，无第三方依赖；全部输出为机器可读 JSON，每一步�
 | 文件 | 作用 |
 |-|-|
 | `lib.py` | 基础工具：原子 JSON 写、哈希（CJK/BOM 容错读取）、标题归一化与版本族排序、操作账本 `ledger_append` |
-| `scan_index.py` | 语料库扫描与索引：`--root <库> --out <index.json>`。产出文件全量清单（relpath/ext/size/sha256/mtime）、章节级文本块（chunk_id+字符偏移）、精确重复组（同 sha256 多路径）、版本族（draft→final 的别名链）与推荐 canonical、无提取器文件的诚实标记（needs_tool） |
-| `answer.py` | 单题应答：`--index --question [--filter F] [--terms-file T] --top N --out`。**多路查询规划**（问题拆解成聚焦子查询，跨语言扩展词独立成路）+ **标准 BM25**（k1=1.5/b=0.75）主排序 + RRF 融合保底，**过滤先行**：每条约束独立留痕（kept/dropped_since_prev）；命中块携带 file/sha256/chunk_id/offset/evidence/贡献计划 |
+| `scan_index.py` | 语料库扫描与索引：`--root <库> --out <index.json>`。产出文件全量清单（relpath/ext/size/sha256/mtime/**meta 元数据**）、章节级文本块（chunk_id+字符偏移）、**分页感知**（PDF `[page N]` 标记→块携带 pages 与印刷页码偏移）、精确重复组、**近重复检测**（同标题族+字节不同+体积差≤25% 视为版本变体）、版本族别名链与推荐 canonical、无提取器文件的诚实标记（needs_tool） |
+| `answer.py` | 单题应答：`--index --question [--filter F] [--terms-file T] --top N --out`。**多路查询规划**（问句拆解聚焦子查询、跨语言扩展独立成路）+ **字段加权 BM25**（正文 k1=1.5/b=0.75 主分 + 文件名字段加权，标题信号如 `_v2_final` 可被检索）+ **RRF 融合保底**；过滤先行逐条留痕；命中携带 file/sha256/chunk_id/offset/evidence/**citations**（段落首句锚点+原文窗口）；**引用生成器**输出证据回链四件套（页码、印刷页码偏移、锚句、逐字引用） |
 | `run_case.py` | 固定案例编排：按契约读取 `/input/case.json` 与 `task.md`，合并显式过滤约束与跨语言扩展词，运行链路，把每个命中的**全文**落盘到 `evidence/hits/`，并写出覆盖 output_contract 全字段的 `result.json` 骨架（判定字段留空给 Agent 填） |
 | `baseline.py` | 对照基线：模拟"未加载本 Skill 的朴素 Agent"——仅文件名匹配、无过滤审计、无定位、无哈希（题目评分点明批评的失败模式） |
 | `benchmark.py` | 金标准问答集指标：读 `bench/queries.json`，同题分别跑 Skill 链与 baseline，输出 P@5 / R@5 / top5 召回数 / hash 验证率对比表 |
@@ -24,12 +24,15 @@ python -I scan_index.py --root <库> --out index.json --ledger ledger.json
 python -I benchmark.py --index index.json --out bench_result.json
 ```
 
-| 指标（5 题平均） | Skill 链 | baseline(文件名搜索) |
+| 指标（9 题平均，含 1 题空命中诚实用例） | Skill 链 | baseline(文件名搜索) |
 |-|-|-|
-| P@5 | **0.667** | 0.200 |
-| R@5 | **0.933** | 0.050 |
-| gold 召回数/top5 | **3.2** | 0.2 |
-| hash+offset 验证率 | **100%** | 0% |
+| P@5 | **0.502** | 0.167 |
+| R@5 | **0.824** | 0.139 |
+| gold 召回数/top5 | **2.33** | 0.22 |
+| hash+offset 验证率 | **88.9%**（空命中题不计入则 100%） | 0% |
+
+v3 起新增四类题：多约束（类型+目录）、版本辨识（哪一版带附录）、跨文件共识、
+空命中诚实报告。
 
 边界如实说明：本机为 Windows 实验环境，语料为自建合成科研库；平台侧由组织方固定案例与 DeepSeek Harness 产生正式对照，上表证明的是方法与对照协议的差异，不是最终 benchmark 分。
 

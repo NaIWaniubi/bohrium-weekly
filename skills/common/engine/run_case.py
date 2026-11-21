@@ -31,7 +31,8 @@ from lib import now_iso, sha256_file, sha256_text, write_json
 
 # reuse engine internals (same directory package)
 from scan_index import main as scan_main  # noqa: F401  (cli form kept simple)
-from answer import apply_filters, rank_chunks, query_plans, tokenize
+from answer import (apply_filters, rank_chunks, query_plans, tokenize,
+                    build_citations, evidence_windows)
 
 
 def load_case(case_path):
@@ -171,12 +172,24 @@ def main():
             "snippet": (c.get("text", "") or "")[:320],
             "score_raw": round(float(c.get("score_raw", 0.0)), 4),
             "bm25_main": c.get("bm25_main"),
+            "bm25_title": c.get("bm25_title"),
             "rrf_score": c.get("rrf_score"),
             "plan_evidence": c.get("plan_evidence") or [],
         })
 
+    # ---- evidence-chain citations (file/sha256/pages/offset/anchor/quotes) ----
+    citations = []
+    for c in hits:
+        citations.extend(build_citations(c, tokenize(question + "\n" + (terms_txt or "")),
+                                          file_meta.get(c.get("file")) or {}))
+
+    version_resolution = {
+        "aliases": index.get("aliases", []),
+        "dedup_groups": index.get("dedup_groups", {}),
+        "near_duplicates": index.get("near_duplicates", []),
+    }
+
     # ---- compose evidence windows for the report renderer ----
-    from answer import evidence_windows, tokenize
     ev_windows = []
     for h in hit_rows:
         win = None
@@ -203,6 +216,8 @@ def main():
         "hit_count": len(hits),
         "hits": hit_rows,
         "evidence_windows": ev_windows,
+        "citations": citations,
+        "version_resolution": version_resolution,
         "needs_tool_list": index.get("needs_tool", []),
         "dedup_groups": index.get("dedup_groups", {}),
         "families": {
@@ -220,7 +235,7 @@ def main():
         "uncertainty": {"missing": [], "conflicts": [], "limits": []},
         "change_records": [],
         "provenance": {
-            "engine_revision": "bohrium-weekly-common@1.0",
+            "engine_revision": "bohrium-weekly-common@2.0",
             "generated_at": now_iso(),
             "input_case_digest": sha256_text(task_md[:200000]) if task_md else None,
             "ledger": args.ledger,

@@ -1,0 +1,65 @@
+{
+  "_meta": {
+    "purpose": "gold-labeled question set for the bohrium-weekly skill engine; reusable benchmark for the Skill and for fair base-vs-skill comparison",
+    "corpus_identity_note": "golds are anchored to THIS corpus snapshot; re-run scan_index first when the library changes",
+    "metrics": ["P@5", "R@5", "top-k-hit-recall", "hash_verified_rate"]
+  },
+  "queries": [
+    {
+      "id": "q1",
+      "question": "图神经网络在分子性质预测中的方法与局限",
+      "terms": ["graph neural networks", "molecular property prediction", "message passing", "limitations stereochemistry"],
+      "filter": {"type": [".pdf", ".docx", ".xlsx", ".pptx", ".txt"], "need_text": true},
+      "gold_files": [
+        "papers/gcn_mol_prop_survey_2023_v1_draft.pdf",
+        "papers/gcn_mol_prop_survey_2024_v2.pdf",
+        "papers/gcn_mol_prop_survey_2025_final.pdf",
+        "manuscripts/gcn_mol_prop_survey_2025_final.docx",
+        "slides/gcn_mol_prop_survey_2025_final.pptx",
+        "papers/gcn_mol_prop_survey_2023_v1_draft.txt"
+      ]
+    },
+    {
+      "id": "q2",
+      "question": "message passing 读出函数与分子指纹如何聚合",
+      "terms": ["graph neural networks", "message passing neural networks", "readout function", "molecular fingerprints"],
+      "filter": {"type": [".pdf", ".docx"], "need_text": true},
+      "gold_files": [
+        "papers/gcn_mol_prop_survey_2023_v1_draft.pdf",
+        "papers/gcn_mol_prop_survey_2024_v2.pdf",
+        "papers/gcn_mol_prop_survey_2025_final.pdf"
+      ]
+    },
+    {
+      "id": "q3",
+      "question": "QM9 上相对 MLP 基线的平均绝对误差改善",
+      "terms": ["QM9 benchmark", "mean absolute error", "MLP baseline", "property prediction"],
+      "filter": {"type": [".pdf", ".xlsx"], "need_text": true},
+      "gold_files": [
+        "papers/gcn_mol_prop_survey_2023_v1_draft.pdf",
+        "papers/gcn_mol_prop_survey_2024_v2.pdf",
+        "papers/gcn_mol_prop_survey_2025_final.pdf",
+        "data/gcn_benchmark_qm9_summary.xlsx"
+      ]
+    },
+    {
+      "id": "q4",
+      "question": "模型对三维以外立体化学的处理限制",
+      "terms": ["stereochemistry", "conformational ensembles", "two dimensions"],
+      "filter": {"type": [".pdf", ".docx"], "need_text": true},
+      "gold_files": [
+        "papers/gcn_mol_prop_survey_2023_v1_draft.pdf",
+        "papers/gcn_mol_prop_survey_2024_v2.pdf",
+        "papers/gcn_mol_prop_survey_2025_final.pdf",
+        "manuscripts/gcn_mol_prop_survey_2025_final.docx"
+      ]
+    },
+    {
+      "id": "q5",
+      "question": "会议记录里关于 GNN 归纳偏置的共识",
+      "terms": [],
+      "filter": {"type": [".txt"], "need_text": true},
+      "gold_files": ["notes/meeting_notes_2024_gcn_discussion.txt"]
+    }
+  ]
+}
