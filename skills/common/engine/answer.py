@@ -26,7 +26,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib import ledger_append, write_json
+from lib import ledger_append, write_json, TFIDFVectorizer
 
 TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z0-9_\-]*|[\u4e00-\u9fff]")
 
@@ -294,12 +294,28 @@ def rank_chunks(chunks, q_text="", q_toks=None, top=25, plans=None, terms_txt=No
     title_scores = [title_scorer.score(full_q_tokens, i) for i in range(len(chunks))]
     max_title = max(title_scores) if title_scores and max(title_scores) > 0 else 1.0
 
+    # --- dense channel: TF-IDF + cosine over chunk bodies ---
+    # complements lexical BM25: captures conceptual paraphrase and synonym
+    # drift that token overlap misses. Pure-stdlib (lib.TFIDFVectorizer).
+    doc_tok_lists = [sorted(tokenize(d)) for d in docs]
+    try:
+        tv = TFIDFVectorizer(binary_weights=False)
+        tv.fit(doc_tok_lists)
+        rows, norms = tv.transform_docs(doc_tok_lists)
+        qv, qn = tv.transform_query(sorted(full_q_tokens))
+        dense_scores = tv.cosine_scores(rows, norms, qv, qn)
+    except Exception:
+        dense_scores = [0.0] * len(chunks)
+
+    max_dense = max(dense_scores) if dense_scores and max(dense_scores) > 0 else 1.0
+
     hits = []
     for i in range(len(chunks)):
         main_n = mains[i] / max_main
         title_n = title_scores[i] / max_title
+        dense_n = dense_scores[i] / max_dense
         rrf = fused.get(i, 0.0)
-        score = 0.65 * main_n + 0.20 * title_n + 0.15 * min(rrf / 0.5, 1.0)
+        score = 0.45 * main_n + 0.15 * title_n + 0.20 * dense_n + 0.20 * min(rrf / 0.5, 1.0)
         hits.append((score, i))
     hits.sort(key=lambda x: (-x[0], chunks[x[1]].get("chunk_id", "")))
     hits = hits[:top]
@@ -309,6 +325,7 @@ def rank_chunks(chunks, q_text="", q_toks=None, top=25, plans=None, terms_txt=No
         c["score_raw"] = round(float(score), 6)
         c["bm25_main"] = round(float(mains[idx]), 4) if idx < len(mains) else 0.0
         c["bm25_title"] = round(float(title_scores[idx]), 4) if idx < len(title_scores) else 0.0
+        c["dense_cosine"] = round(float(dense_scores[idx]), 4) if idx < len(dense_scores) else 0.0
         c["rrf_score"] = round(float(fused.get(idx, 0.0)), 6)
         c["plan_evidence"] = contributing.get(idx, [])
         out_hits.append(c)
@@ -430,6 +447,8 @@ def main():
                 "has_more": c.get("has_more"),
                 "score_raw": round(float(c.get("score_raw", ranked[i][0])), 4) if i < len(ranked) else None,
                 "bm25_main": c.get("bm25_main"),
+                "bm25_title": c.get("bm25_title"),
+                "dense_cosine": c.get("dense_cosine"),
                 "rrf_score": c.get("rrf_score"),
                 "plan_evidence": c.get("plan_evidence") or [],
             }

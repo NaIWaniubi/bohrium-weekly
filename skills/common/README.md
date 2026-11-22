@@ -9,8 +9,8 @@ stdlib only，无第三方依赖；全部输出为机器可读 JSON，每一步�
 |-|-|
 | `lib.py` | 基础工具：原子 JSON 写、哈希（CJK/BOM 容错读取）、标题归一化与版本族排序、操作账本 `ledger_append` |
 | `scan_index.py` | 语料库扫描与索引：`--root <库> --out <index.json>`。产出文件全量清单（relpath/ext/size/sha256/mtime/**meta 元数据**）、章节级文本块（chunk_id+字符偏移）、**分页感知**（PDF `[page N]` 标记→块携带 pages 与印刷页码偏移）、精确重复组、**近重复检测**（同标题族+字节不同+体积差≤25% 视为版本变体）、版本族别名链与推荐 canonical、无提取器文件的诚实标记（needs_tool） |
-| `answer.py` | 单题应答：`--index --question [--filter F] [--terms-file T] --top N --out`。**多路查询规划**（问句拆解聚焦子查询、跨语言扩展独立成路）+ **字段加权 BM25**（正文 k1=1.5/b=0.75 主分 + 文件名字段加权，标题信号如 `_v2_final` 可被检索）+ **RRF 融合保底**；过滤先行逐条留痕；命中携带 file/sha256/chunk_id/offset/evidence/**citations**（段落首句锚点+原文窗口）；**引用生成器**输出证据回链四件套（页码、印刷页码偏移、锚句、逐字引用） |
-| `run_case.py` | 固定案例编排：按契约读取 `/input/case.json` 与 `task.md`，合并显式过滤约束与跨语言扩展词，运行链路，把每个命中的**全文**落盘到 `evidence/hits/`，并写出覆盖 output_contract 全字段的 `result.json` 骨架（判定字段留空给 Agent 填） |
+| `answer.py` | 单题应答：`--index --question [--filter F] [--terms-file T] --top N --out`。**双路检索融合**：多路查询规划+跨语言扩展 + **字段加权 BM25**（正文 k1=1.5/b=0.75 主分 + 文件名字段加权 `_v2_final` 信号） + **语义 dense**（纯 stdlib TF-IDF 向量化器+余弦相似度，捕捉概念改写与同义词漂移） + RRF 融合保底；过滤先行逐条留痕；命中携带 file/sha256/chunk_id/offset/pages/**citations**（段落首句锚点+逐字引用四件套）；引用生成器输出证据回链bundle |
+| `run_case.py` | 固定案例编排：按契约读取 `/input/case.json` 与 `task.md`，合并过滤约束与跨语言扩展词，运行链路，落盘命中全文，写出覆盖 output_contract 的 result.json（含 citations+version_resolution）；**断点续传**：result.json 已存在且 case_id 匹配时跳过（`--force` 强制重跑） |
 | `baseline.py` | 对照基线：模拟"未加载本 Skill 的朴素 Agent"——仅文件名匹配、无过滤审计、无定位、无哈希（题目评分点明批评的失败模式） |
 | `benchmark.py` | 金标准问答集指标：读 `bench/queries.json`，同题分别跑 Skill 链与 baseline，输出 P@5 / R@5 / top5 召回数 / hash 验证率对比表 |
 | `render_report.py` | 把 result.json 渲染成自包含单页 HTML（过滤审计表 + 命中定位表 + 证据原文窗口 + 不确定性分区），评审无需环境直接打开 |

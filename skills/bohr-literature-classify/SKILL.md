@@ -147,6 +147,7 @@ python -I /skills/weekly-skill/common/engine/answer.py \
 | R@5 | **0.824** | 0.139 |
 | gold 召回数/top5 | **2.33** | 0.22 |
 | hash+offset 验证率 | **88.9%**（非空命中题 100%） | 0% |
+| MRR@10 / NDCG@5 | **0.833 / 0.799** | 0.167 / 0.113 |
 
 v3 新增能力对照判分点：PDF 分页定位与印刷页码偏移检测、office/PDF 元数据、
 近重复（版本变体）判定、字段加权 BM25（含 `_v2_final` 类文件名信号）、

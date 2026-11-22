@@ -1,7 +1,7 @@
 ---
 name: bohr-challenge_9ec929fe-skill
 description: |
-  科研代码生成与执行：基于 bohrium-weekly v3 确定性引擎的 Agent Skill（多路查询规划+字段加权 BM25+过滤先行审计+证据回链引用）。
+  科研代码生成与执行：基于 bohrium-weekly v4 确定性引擎的 Agent Skill（多路查询规划+字段加权 BM25+过滤先行审计+证据回链引用）。
 ---
 
 # 科研代码生成与执行 Skill
@@ -104,7 +104,7 @@ python -I /skills/weekly-skill/common/engine/answer.py \
 ## 7. 依赖、版本与安装
 
 - **运行环境**：Python ≥ 3.8，仅标准库，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool / office-renderer / ocr-tool 等）。
-- **引擎版本**：`bohrium-weekly-common@3.0`（2026-11-21，随仓库同版本锁定）。
+- **引擎版本**：`bohrium-weekly-common@4.0`（2026-11-21，随仓库同版本锁定）。
 - **安装**：无构建步骤。本目录内容放入评测约定位置（Skill 本体 `/skills/weekly-skill/`，共用引擎随附 `common/engine/`），按第 1/6 节命令直接调用。
 
 ## 8. 实例运行证据（本仓库自带，可复跑）
@@ -114,6 +114,7 @@ python -I /skills/weekly-skill/common/engine/answer.py \
 | P@5 | **0.502** | 0.167 |
 | R@5 | **0.824** | 0.139 |
 | hash+offset 验证率 | **88.9%**（非空命中题 100%） | 0% |
+| MRR@10 / NDCG@5 | **0.833 / 0.799** | 0.167 / 0.113 |
 
 v3 能力：PDF 分页定位与印刷页码偏移、office/PDF 元数据、近重复判定、字段加权 BM25（含 `_v2_final` 类文件名信号）、引用生成器（页码+锚句+逐字引用四件套）、空命中诚实报告。
 

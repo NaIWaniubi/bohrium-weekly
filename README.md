@@ -44,6 +44,11 @@
 
 ## Changelog
 
+- **v4（2026-11-22）**：双路检索融合——增加**语义 dense 通道**（纯 stdlib TF-IDF 向量化器+余弦相似度，捕捉概念改写与同义词漂移），
+  与 BM25 双路加权融合（0.45·bm25_main + 0.15·bm25_title + 0.20·dense_cosine + 0.20·rrf）；
+  benchmark 新增 **MRR@10、NDCG@5、P@3** 三项标准指标；HTML 详报 hits 表新增 pages/scores/dense_cosine 列、
+  citations 表与版本解析段；run_case 增加**断点续传**（result.json 已存在时跳过，`--force` 强制重跑）。
+  新实测：MRR@10=0.833 vs baseline 0.167，NDCG@5=0.799 vs baseline 0.113。
 - **v3（2026-11-21）**：scan_index 支持 PDF 分页感知（`[page N]` 标记、
   印刷页码偏移检测）、office/PDF 元数据提取、近重复检测（版本变体判定）；
   answer 升级为字段加权 BM25（文件名字段信号）+ 引用生成器（段落首句锚点、

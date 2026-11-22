@@ -9,6 +9,7 @@ Usage:
 """
 import argparse
 import json
+import math
 import os
 import sys
 
@@ -61,16 +62,40 @@ def skill_hits(index, question, terms, flt, top=10):
 
 
 def metrics(hits, golds, k=5):
+    """Standard IR metrics: P@k, R@k, MRR@10, NDCG@5, plus evidence checks."""
+    golds_set = set(golds)
     top_k = hits[:k]
     files_k = {h["file"] for h in top_k}
-    p = len(files_k & set(golds)) / max(len(files_k), 1)
-    r = len(files_k & set(golds)) / max(len(golds), 1)
-    recalled = len(files_k & set(golds))
+    p = len(files_k & golds_set) / max(len(files_k), 1)
+    r = len(files_k & golds_set) / max(len(golds), 1)
+    recalled = len(files_k & golds_set)
+
+    # MRR@10 — first relevant hit rank reciprocal
+    mrr = 0.0
+    for i, h in enumerate(hits[:10]):
+        if h.get("file") in golds_set:
+            mrr = 1.0 / (i + 1)
+            break
+
+    # NDCG@5 — binary relevance discounted gain
+    def dcg(rel):
+        return sum(rel[i] / math.log2(i + 2) for i in range(len(rel)))
+    rel_seq = [1 if h.get("file") in golds_set else 0 for h in hits[:5]]
+    ideal = [1] * min(len(golds_set), 5)
+    ndcg = dcg(rel_seq) / dcg(ideal) if dcg(ideal) > 0 else 0.0
+
     hash_ok = sum(1 for h in hits if h.get("sha256_file") and h.get("offset", {}).get("start") is not None)
     hash_rate = hash_ok / max(len(hits), 1)
-    return {"P@%d" % k: round(p, 3), "R@%d" % k: round(r, 3),
-            "gold_recalled_in_top%d" % k: recalled, "/gold_total": len(golds),
-            "hash_verified_rate": round(hash_rate, 3)}
+
+    out = {"P@%d" % k: round(p, 3), "R@%d" % k: round(r, 3),
+           "gold_recalled_in_top%d" % k: recalled, "/gold_total": len(golds),
+           "hash_verified_rate": round(hash_rate, 3)}
+    if k == 5:
+        out["P@3"] = round(len({h['file'] for h in hits[:3]} & golds_set) /
+                          max(len({h['file'] for h in hits[:3]}), 1), 3)
+        out["MRR@10"] = round(mrr, 3)
+        out["NDCG@5"] = round(ndcg, 3)
+    return out
 
 
 def main():
@@ -98,7 +123,8 @@ def main():
         rows.append(row)
 
     summary = {}
-    for m in ["P@5", "R@5", "gold_recalled_in_top5", "hash_verified_rate"]:
+    for m in ["P@5", "P@3", "R@5", "MRR@10", "NDCG@5",
+                "gold_recalled_in_top5", "hash_verified_rate"]:
         sk = [r["skill"][m] for r in rows]
         bs = [r["baseline_filename_only"][m] for r in rows]
         summary[m] = {

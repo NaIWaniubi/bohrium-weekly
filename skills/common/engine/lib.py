@@ -1,11 +1,17 @@
-"""bohrium-weekly skill engine — shared stdlib helpers.
+"""bohrium-weekly skill engine — shared stdlib helpers (v4).
 
 stdlib only, no third-party dependencies. Every helper is deterministic and
 writes machine-readable JSON so the agent can run one command per phase and
 spend its model budget on judgment, not on parsing.
+
+v4 additions:
+- TFIDFVectorizer: sparse TF-IDF vectors over chunk documents with cosine
+  similarity — the dense retrieval channel that complements lexical BM25.
+  Pure-stdlib; supports boolean "binary" weights for short queries.
 """
 import hashlib
 import json
+import math
 import os
 import re
 import sys
@@ -124,3 +130,92 @@ def ledger_append(ledger_path, action, subject, detail, status=STATUS_OK, extra=
 def banner(msg, code=0):
     print(msg, file=sys.stderr)
     sys.exit(code)
+
+
+class TFIDFVectorizer:
+    """Pure-stdlib TF-IDF vectorizer with cosine similarity.
+
+    Used by answer.py as the dense retrieval channel alongside lexical BM25.
+    Documents are tokenised with the caller's tokenizer; term weights use
+    smoothed IDF (sklearn-style) so short query vectors still match common
+    chunks without losing rare-term signal.
+    """
+
+    def __init__(self, binary_weights=False, sublinear_tf=False):
+        self.binary = binary_weights
+        self.sublinear = sublinear_tf
+        self.vocab_ = {}      # term -> column index
+        self.idf_ = []        # idf per column
+        self.doc_norms_ = []  # L2 norm per document vector (for cosine)
+
+    def _token_weights(self, tokens):
+        if not tokens:
+            return {}
+        if self.binary:
+            return {t: 1 for t in set(tokens)}
+        f = {}
+        for t in tokens:
+            f[t] = f.get(t, 0) + 1
+        return f
+
+    def fit(self, docs_tokens):
+        vocab, df = {}, {}
+        for toks in docs_tokens:
+            f = self._token_weights(toks)
+            for t in f:
+                df[t] = df.get(t, 0) + 1
+                if t not in vocab:
+                    vocab[t] = len(vocab)
+        N = max(len(docs_tokens), 1)
+        # sklearn-style smoothed idf, kept aligned to vocab insertion order
+        idf_by_term = {t: math.log((N - d + 0.5) / (d + 0.5) + 1.0)
+                       for t, d in df.items()}
+        self.vocab_ = vocab
+        self.idf_ = [idf_by_term[t] for t in vocab]
+        return self
+
+    def transform_query(self, tokens):
+        f = self._token_weights(tokens)
+        vec = {}
+        for t in f:
+            idx = self.vocab_.get(t)
+            if idx is None:
+                continue
+            vec[idx] = f[t]
+        # apply idf to query vector as well (consistent weighting)
+        for idx in list(vec.keys()):
+            vec[idx] *= self.idf_[idx]
+        norm = math.sqrt(sum(v * v for v in vec.values())) or 1.0
+        return vec, norm
+
+    def transform_docs(self, docs_tokens):
+        """Lazily build sparse doc vectors; returns (list of dict, list of norms)."""
+        rows, norms = [], []
+        for toks in docs_tokens:
+            f = self._token_weights(toks)
+            row = {}
+            for t in f:
+                idx = self.vocab_.get(t)
+                if idx is None:
+                    continue
+                row[idx] = f[t] * self.idf_[idx]
+            s = math.sqrt(sum(v * v for v in row.values()))
+            rows.append(row)
+            norms.append(s or 1.0)
+        return rows, norms
+
+    def cosine_scores(self, rows, norms, query_vec, query_norm):
+        out = []
+        for i, row in enumerate(rows):
+            dot = 0.0
+            # iterate smaller vector
+            if len(query_vec) < len(row):
+                for c, w in query_vec.items():
+                    if c in row:
+                        dot += w * row[c]
+            else:
+                for c, w in row.items():
+                    if c in query_vec:
+                        dot += w * query_vec[c]
+            out.append(dot / (query_norm * norms[i]))
+        return out

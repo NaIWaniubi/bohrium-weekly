@@ -89,6 +89,8 @@ def main():
     ap.add_argument("--out", required=True, help="output dir, e.g. /app/output")
     ap.add_argument("--work", default=None, help="working dir, e.g. /app/work")
     ap.add_argument("--ledger", default=None, help="operation ledger json")
+    ap.add_argument("--force", action="store_true",
+                    help="re-run even if result.json with matching case_id exists (resume default)")
     args = ap.parse_args()
 
     case, task_md = load_case(args.case)
@@ -96,6 +98,23 @@ def main():
 
     out_dir = args.out
     work_dir = args.work or out_dir
+
+    # resume guard: skip if result.json already present for this case_id
+    existing_result = os.path.join(out_dir, "result.json")
+    if not args.force and os.path.exists(existing_result):
+        try:
+            prev = json.load(open(existing_result, encoding="utf-8"))
+            if prev.get("case_id") == case_id:
+                print(json.dumps({
+                    "case_id": case_id,
+                    "status": "resumed",
+                    "result_path": existing_result,
+                    "hit_count": prev.get("hit_count"),
+                }, ensure_ascii=False))
+                return
+        except Exception:
+            pass  # corrupt prior result — fall through to regenerate
+
     ev_dir = os.path.join(out_dir, "evidence", "hits")
     os.makedirs(ev_dir, exist_ok=True)
 

@@ -50,21 +50,49 @@ def main():
                                                           "dropped_since_prev")) + "</tr>")
         body.append("</table>")
 
-    # hits
+    # hits — score-detailed, evidence-chain columns
     hits = r.get("hits") or []
     if hits:
         body.append("<h2>命中（含可复核定位）</h2><table>"
                     "<tr><th>#</th><th>文件</th><th>sha256(前12)</th>"
-                    "<th>chunk</th><th>offset</th><th>贡献计划数</th></tr>")
+                    "<th>chunk</th><th>offset</th><th>pages</th>"
+                    "<th>raw分</th><th>bm25/dense/RRF</th></tr>")
         for h in hits:
             off = h.get("offset") or {}
-            plans = h.get("plan_evidence") or []
+            pages = h.get("pages")
+            pages_s = ",".join(str(p) for p in pages) if pages else "—"
             body.append(
                 f"<tr><td>{esc(h.get('rank'))}</td><td class=f>{esc(h.get('file'))}</td>"
                 f"<td><code>{esc((h.get('sha256_file') or '')[:12])}</code></td>"
                 f"<td>{esc(h.get('chunk_id'))}</td>"
                 f"<td>[{esc(off.get('start'))}, {esc(off.get('end'))}]</td>"
-                f"<td>{len(plans)}</td></tr>")
+                f"<td>{esc(pages_s)}</td>"
+                f"<td>{esc(h.get('score_raw'))}</td>"
+                f"<td>bm25={esc(h.get('bm25_main'))} · dense={esc(h.get('dense_cosine'))}"
+                f" · rrf={esc(h.get('rrf_score'))}</td></tr>")
+        body.append("</table>")
+
+    # citations (evidence-chain)
+    cits = r.get("citations") or []
+    if cits:
+        body.append("<h2>证据链引用（页码+锚句+逐字引用）</h2><table>"
+                    "<tr><th>#</th><th>文件</th><th>pages</th>"
+                    "<th>页码偏移</th><th>段落首句锚点</th>"
+                    "<th>逐字引用</th></tr>")
+        for i, cit in enumerate(cits, 1):
+            anchor = cit.get("anchor") or {}
+            first = anchor.get("first_sentence") or ""
+            quotes = cit.get("quotes") or []
+            q_text = quotes[0].get("text", "")[:120] if quotes else "—"
+            pages_s = ",".join(str(p) for p in cit.get("pages") or []) or "—"
+            offset_ = cit.get("printed_page_offset")
+            offset_s = str(offset_) if offset_ is not None else "—"
+            body.append(
+                f"<tr><td>{i}</td><td class=f>{esc(cit.get('file'))}</td>"
+                f"<td>{esc(pages_s)}</td>"
+                f"<td>{esc(offset_s)}</td>"
+                f"<td>{esc(first)}</td>"
+                f"<td><blockquote>{esc(q_text)}</blockquote></td></tr>")
         body.append("</table>")
 
     # evidence windows
@@ -84,6 +112,17 @@ def main():
             for it in unc.get(k) or []:
                 body.append(f"<li><b>{k}</b>: {esc(it if isinstance(it, str) else json.dumps(it, ensure_ascii=False))}</li>")
         body.append("</ul>")
+
+    # version resolution
+    vr = r.get("version_resolution") or {}
+    near = vr.get("near_duplicates") or []
+    if near:
+        body.append(f"<h2>版本解析（近重复组：{len(near)}）</h2><table>"
+                    "<tr><th>族</th><th>paths</th></tr>")
+        for nd in near[:12]:
+            paths = ", ".join(str(p) for p in (nd.get("paths") or []))
+            body.append(f"<tr><td>{esc(nd.get('family'))}</td><td class=f>{esc(paths)}</td></tr>")
+        body.append("</table>")
 
     css = """
     :root{--ink:#1c2733;--mut:#6b7a88;--acc:#2737d4;--bg:#f6f7f9;--line:#dfe4ea}
