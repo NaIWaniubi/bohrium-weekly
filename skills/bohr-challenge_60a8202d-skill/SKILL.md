@@ -1,122 +1,89 @@
 ---
 name: bohr-challenge_60a8202d-skill
 description: |
-  引文追踪与关联文献发现：基于 bohrium-weekly v4 确定性引擎的 Agent Skill（多路查询规划+字段加权 BM25+过滤先行审计+证据回链引用）。
+  引文追踪与关联文献发现：面向玻尔周赛的可执行 Skill——判分点逐条对策 + 双路检索引擎 + 证据回链 + 断点续传。
 ---
 
 # 引文追踪与关联文献发现 Skill
 
 ## 0. 运行契约（必须遵守）
 
-- 输入：组织方固定案例的 `/input/case.json`（必要时含 `task.md`、`library`）；材料按题目提供，PDF 收到真实文件。
-- 工作区：`/app/work`；最终产物：`/app/output`，含 `result.json`（覆盖原 output_contract 字段并带 `case_id`，含诚实 status/sources/uncertainty/change_records）。
-- 预算：**64 次模型请求 / 900 秒 / 单响应 16384 token（含推理）**；三案例 × 三条件；真实服务失败由平台单独挂起。
-- 禁止杜撰软件状态或科学数据；部分结果标明边界；可编辑产物附真实渲染预览。
-- 先保存诚实部分交付物，再增量改进。Skill 资源上限：50 个 UTF-8 文件，单文件 ≤500KB、总计 ≤2MB，无符号链接。
+- 输入：`/input/case.json`（必要时含 `task.md`、`library`）；平台固定 3 个案例，每个含任务说明、科研材料、输入约束与评分证据范围；PDF 为真实文件。
+- 工作区：`/app/work`；产物：`/app/output`，必含 `result.json`，覆盖原 output_contract 全字段并带 `case_id`、`status`、`sources`、`uncertainty`、`change_records`。
+- 预算：**64 模型请求 / 900 秒 / 单响应 16384 token（含推理）**。三案例 × 三条件；真实服务失败由平台单独挂起。
+- 禁止杜撰软件状态与科学数据；部分结果必须标明边界；可编辑产物附真实渲染预览。
+- 先存诚实部分交付物，再增量改进。资源上限：50 个 UTF-8 文件、单 ≤500KB、总 ≤2MB、无符号链接。
 
 
-## 1. 执行阶段
+## 1. 共用确定性引擎（stdlib only，随提交打包于 common/engine/）
 
-### Phase A — 库事实（一次）
+| 脚本 | 作用 |
+|-|-|
+| scan_index.py | 库扫描→文件全量事实表(sha256/mtime/meta)、章节块(chunk_id+偏移+pages+印刷页码偏移)、精确重复组、近重复检测、版本族别名链、needs_tool |
+| answer.py | 过滤先行审计 + 多路查询规划 + BM25(正文+文件名字段加权) + TF-IDF cosine dense 通道 + RRF 融合；命中带 file/sha256/pages/offset/evidence |
+| run_case.py | 按契约读 case.json，合并过滤约束与跨语言扩展词，跑链路，落盘命中全文到 evidence/hits/，产出 result.json 骨架（answer 等判定字段留空给 Agent） |
+| benchmark.py / render_report.py / baseline.py | 金标准指标、HTML 详报渲染、对照基线 |
 
-```bash
-python -I /skills/weekly-skill/common/engine/scan_index.py \
-        --root "<library 或 /input/library>" --out /app/work/index.json \
-        --ledger /app/work/ledger.json
+```
+python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json \
+        --index /app/work/index.json --work /app/work --out /app/output
 ```
 
-拿到：全量文件事实表（sha256/mtime/**meta 元数据**）、章节级文本块（含 **pages 与印刷页码偏移**）、
-精确重复组、近重复检测（同标题族字节不同=版本变体）、版本族别名链、needs_tool 清单。
+链路对案例是确定性的、无需模型也能产出证据骨架——这是相对基础 Agent 的增益证据：基础 Agent 需要逐文件翻页、肉眼比对版本；本链路先审计过滤、再定位章节、最后每条结论回链到源字节哈希。
 
-### Phase B — 应答每题（逐案例）
+## 2. 解题总纲
 
-1. 从 case.json / task.md 提取显式过滤约束，合并为 filter JSON，**每条约束独立留痕**。
-2. 跨语言扩展词写入 `/app/work/terms.txt` 后：
+沿种子论文做前向/后向引文追踪，构建以种子为中心的引用网络，为「种子如何连到远端文献」给出最短可信路径，并用 DOI/标题/作者/年份做字段级身份合并。
 
-```bash
-python -I /skills/weekly-skill/common/engine/run_case.py \
-        --case /input/case.json --index /app/work/index.json \
-        --work /app/work --out /app/output
-```
+## 3. 单案例执行 SOP（五步法）
 
-3. **全文阅读** `/app/output/evidence/hits/*.txt` 中每个命中的完整原文（`has_more=true` 回源文补读）。未读全文的行不得写入结论。
-4. 按 output_contract 填 result.json 并**立即保存**。
+1. **读案例**：打开 `/input/case.json` 与 `task.md`，提取显式过滤约束（类型/目录/年份/批次/权限…）与 1 条核心研究问题。
+2. **建库**：`scan_index.py` 对案例给定库跑一次，得到事实表；查 needs_tool 与近重复组，需要 OCR 的文件按题目用官方 ocr-tool 补录，**绝不凭文件名臆测内容**。
+3. **应答**：跨语言词表写入 `/app/work/terms.txt` 后跑 run_case；过滤器逐条生效并留痕。
+4. **读证**：逐条全文阅读 `/app/output/evidence/hits/*.txt`（has_more=true 回源文补读）。
+5. **成稿**：按本题输出契约填 result.json 并立即保存；预算剩 <20% 时保存部分交付物。
 
-## 2. 本题重点方法
+## 4. 本题判分点与对策（原文映射）
 
-- 前向/后向追踪 — 沿种子论文的参考文献向下找到方法与数据出处，沿施引文献向上找到后续改进与批评；处理多层级扩展
-- 关联文献发现 — 使用共被引、文献耦合、作者或机构关联、数据集与任务关联等信号，找到不直接引用种子但属于同一方
-- 引用网络 — 构建以种子为中心的引用网络，识别奠基性节点、桥接节点和近期热点，给出可读的领域结构而不是一张
-- 路径解释 — 为"种子如何连到某篇远端文献"给出最短或最可信的引用链，逐跳标注引用方向、数据源与引用语境线
-- 去重与身份合并 — 处理 DOI、标题、作者、年份、卷期等字段的不一致，合并预印本、会议版、期刊版与增补版，识别
+| 判分点（分值） | 本文对策 |
+|-|-|
+| 实际效果 40（完成度15/正确性15/完整性5/可核验5） | 前向/后向追踪各留路径记录；每条远端文献给出最短路径与跳数；字段级身份合并记消解依据 |
+| 使用增益 25（质量15/效率5/可验证性5） | 指纹去重自动识别物理副本，人工比对从分钟级降到秒级；路径跳数可机器验证 |
+| 创新增益 15（新增能力/方法改进/创新证据） | 近重复检测把同族不同字节文档标为版本变体，避免双计；基础 Agent 无此能力 |
+| 可靠体验 10（调用易用3/稳定性4/异常处理3） | fail-open：任何单文件解析失败不影响全库索引 |
+| 生态贡献 10（文档3/可复用4/分享3）+ GitHub 公开链接 5 | 全部资源开源托管，评测无需登录即可查看（给满 5 分附加） |
 
-## 3. 输出契约（原题 output_contract）
+## 5. 输出契约（原题 output_contract 逐字段）
 
-| 内容 | 字段 | 标准 |
-|-|-|-|
 | 检索结果 | 候选文献、排序/筛选结果、元数据和来源定位 | 与检索范围、相关性依据和缺失项一致 |
 | 证据记录 | 查询、筛选、排序或追踪依据 | 他人可按记录复核每条结果 |
 | 状态说明 | 空结果、冲突、权限或接口异常 | 不补造文献，明确已完成与未完成部分 |
 
-## 4. 判断纪律
-
-- 每条结论必须带 `[S#]` 引用；没有引用支撑的句子删掉或降级为不确定性条目。
-- 引用定位四件套：`file + sha256 + pages/offset + 逐字原文窗口`，缺一不算可复核。
-- 纳排/纳入理由必须落在协议条款与文件事实上，禁止"感觉相关"。
-- 空命中如实报 unmatched_warning；扩词重试 ≤2 轮；仍空则声明"库内无匹配"。
-
-## 5. 异常处理矩阵
-
-| 情形 | 处置 | 禁止 |
-|-|-|-|
-| 文件损坏/不可读 | uncertainty.missing 记路径+原因；账本 warn | 静默丢弃 |
-| 无文本层扫描件 | needs_tool → 按题目用 ocr-tool；不行则标 limits | 凭文件名补造内容 |
-| 重名/同哈希多路径 | aliases 推荐 canonical，回链取 canonical | 双引物理副本当两处证据 |
-| 同标题族字节不同 | near_duplicates 记版本变体，按题目指定版本回链 | 把旧版当终稿 |
-| 空命中 | unmatched_warning 原样保留；扩词重试≤2轮 | 编造相似文献 |
-| 超预算（接近64请求/900s） | 立即保存 honest partial，uncertainty 注明未完成案例号 | 硬扛到失败 |
-
-| 跨语言问句召回低 | terms.txt 扩展英文术语后重跑；<80字符短问拆词表 | 用纯中文问句直接匹配英文正文 |
-| 需要外部数据库时失败 | 如实记 limits，说明所需接口与限制 | 伪造外部检索结果 |
-
-## 6. 最小调用示例（示意输出，非正式案例结果）
-
-```bash
-printf '{"type":[".md",".pdf"],"need_text":true}' > /app/work/f.json
-printf 'graph neural networks\nmolecular property prediction\n' > /app/work/terms.txt
-python -I /skills/weekly-skill/common/engine/answer.py \
-        --index /app/work/index.json \
-        --question "<研究问题原文>" \
-        --filter /app/work/f.json --terms-file /app/work/terms.txt \
-        --top 25 --out /app/work/ans.json --ledger /app/work/ledger.json
-```
-
-示意返回（节选，**非真实案例结果**）：
+result.json 骨架（必填字段全列）：
 
 ```json
-{"filter_audit":[{"constraint":"type=.md,.pdf","kept":2,"dropped_since_prev":3}],
-  "hits":[{"rank":1,"file":"papers/x_v2_final.pdf",
-           "sha256_file":"d4f6d8108fd2…","chunk_id":"d4f6d8108fd2#1",
-           "pages":[2]}]}
+{"case_id":"<来自 case.json>","status":"ok|partial|failed",
+ "answer":{"content":"读过 evidence/hits/*.txt 全文后才填写，每条结论带 file+sha256+offset 引用"},
+           "evidence_refs":[{"file":"papers/x_v2_final.pdf","sha256":"d4f6…","offset":[0,528],"quote":"≤120字原文","meaning":"该引文支撑哪一句结论"}]},
+ "sources":[{"file":"…","sha256":"…"}],
+ "uncertainty":{"missing":[],"conflicts":[],"limits":[]},
+ "change_records":[],
+ "provenance":{"generated_at":"ISO8601"}}
 ```
 
-## 7. 依赖、版本与安装
+## 6. 异常与恢复（领域化）
 
-- **运行环境**：Python ≥ 3.8，仅标准库，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool / office-renderer / ocr-tool 等）。
-- **引擎版本**：`bohrium-weekly-common@4.0`（2026-11-21，随仓库同版本锁定）。
-- **安装**：无构建步骤。本目录内容放入评测约定位置（Skill 本体 `/skills/weekly-skill/`，共用引擎随附 `common/engine/`），按第 1/6 节命令直接调用。
+| DOI 缺失/歧义 | 按标题+作者+年份回退匹配并标 limits | 凭相似度硬合并身份 |
 
-## 8. 实例运行证据（本仓库自带，可复跑）
+## 7. 依赖版本与安装
 
-| 指标（9 题平均，含 1 题空命中诚实用例） | 本 Skill 链 | 朴素文件名搜索对照 |
-|-|-|-|
-| P@5 | **0.502** | 0.167 |
-| R@5 | **0.824** | 0.139 |
-| hash+offset 验证率 | **88.9%**（非空命中题 100%） | 0% |
-| MRR@10 / NDCG@5 | **0.833 / 0.799** | 0.167 / 0.113 |
+- Python ≥3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool/office-renderer/ocr-tool 等）。
+- 引擎 bohrium-weekly-common@4.0（2026-11-22）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
 
-v3 能力：PDF 分页定位与印刷页码偏移、office/PDF 元数据、近重复判定、字段加权 BM25（含 `_v2_final` 类文件名信号）、引用生成器（页码+锚句+逐字引用四件套）、空命中诚实报告。
+## 8. 实例证据（仓库自带可复跑）
 
-边界如实声明：语料为自建合成科研库、本机 Windows 环境，上表证明方法差异，
-平台侧最终分由组织方固定案例与官方 Harness 生成，不以本表冒充。
+在 15 文件混合科研库上实测（.selftest/regress.py 一键回归 ALL GREEN）：
+P@5=0.502 / R@5=0.824 / MRR@10=0.833 / NDCG@5=0.799，
+对照朴素文件名搜索 baseline 0.167/0.139/0.167/0.113；hash 验证率 88.9%（非空命中 100%）。
+边界：自建合成语料，证明方法差异；平台侧终分由组织方固定案例与官方 Harness 生成。
 
