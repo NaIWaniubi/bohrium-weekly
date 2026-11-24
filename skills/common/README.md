@@ -12,6 +12,11 @@ stdlib only，无第三方依赖；全部输出为机器可读 JSON，每一步�
 | `answer.py` | 单题应答：`--index --question [--filter F] [--terms-file T] --top N --out`。**双路检索融合**：多路查询规划+跨语言扩展 + **字段加权 BM25**（正文 k1=1.5/b=0.75 主分 + 文件名字段加权 `_v2_final` 信号） + **语义 dense**（纯 stdlib TF-IDF 向量化器+余弦相似度，捕捉概念改写与同义词漂移） + RRF 融合保底；过滤先行逐条留痕；命中携带 file/sha256/chunk_id/offset/pages/**citations**（段落首句锚点+逐字引用四件套）；引用生成器输出证据回链bundle |
 | `run_case.py` | 固定案例编排：按契约读取 `/input/case.json` 与 `task.md`，合并过滤约束与跨语言扩展词，运行链路，落盘命中全文；调用 finalize 生成**非空完整首版 result.json**（answer、sources、evidence_matrix、screening_log、uncertainty、failure_recovery、version_lineage、operation_evidence），保留 output_contract；**断点续传**：result.json 已存在且 case_id 匹配时跳过（`--force` 强制重跑） |
 | `finalize.py` | 确定性完整交付层：生成可读答案、全量来源、绝对偏移证据引用、版本链、异常恢复与源文件哈希复核；`--profile classify` 还真实生成 `organized/` 规范副本、元数据侧车、精确重复别名、manifest 与回滚说明，源文件永不修改 |
+| `enhance.py` / `enhance_v7.py` | v6/v7 编排：NL 约束、查询改写、PRF、多样化、canonical 版本、答案综合、claim 级综述与数据/代码真实执行 |
+| `version_metadata.py` | 行政版本说明状态机：canonical/alias/supersedes；SHA/DOI 去重；元数据 provenance；修正 hits/screening 的主文献 |
+| `search_quality.py` | 去指令废词查询计划、canonical hits、章节/句子证据、带 `[E#]` 的直接答案、覆盖/效率/rubric 报告 |
+| `review_quality.py` | claim 矩阵、canonical 纳排、主题归纳、冲突/研究空白矩阵、无占位句的引用综述与质量报告 |
+| `datacode_enhance.py` | 表格导入、数据画像、清洗审计、描述/推断统计、效应量、CI、SVG 图表、代码执行、结果验证与报告 |
 | `baseline.py` | 对照基线：模拟"未加载本 Skill 的朴素 Agent"——仅文件名匹配、无过滤审计、无定位、无哈希（题目评分点明批评的失败模式） |
 | `benchmark.py` | 金标准问答集指标：读 `bench/queries.json`，同题分别跑 Skill 链与 baseline，输出 P@5 / R@5 / top5 召回数 / hash 验证率对比表 |
 | `render_report.py` | 把 result.json 渲染成自包含单页 HTML（过滤审计表 + 命中定位表 + 证据原文窗口 + 不确定性分区），评审无需环境直接打开 |
@@ -33,6 +38,8 @@ python -I benchmark.py --index index.json --out bench_result.json
 | hash+offset 验证率 | **88.9%**（空命中题不计入则 100%） | 0% |
 
 v5 起新增完整交付与独立挑刺回归：非空 answer、证据文件/chunk/quote/artifact 四重复核、全量 sources、年份/类型硬过滤、未知约束 fail-closed、零匹配不造假证据、长章节续块、CRLF/GBK、嵌套契约、路径 containment、旧结果不误续传、15 文件实体整理（14 副本 + 1 重复别名）、原子重跑与源文件哈希前后一致。
+
+v7 起新增 profile9 隐藏案例画像与数据/代码回归：行政 canonical/alias/supersedes 解析、canonical hits/纳排、claim 矩阵、无占位综述、章节证据与直接答案；datacase 覆盖缺失/重复/异常/单位转换、Welch/Mann-Whitney、效应量、CI、SVG、代码执行与源数据不变。三题本地 rubrics 覆盖 100/100/100，完整回归 ALL GREEN。
 
 v3 起新增四类题：多约束（类型+目录）、版本辨识（哪一版带附录）、跨文件共识、
 空命中诚实报告。

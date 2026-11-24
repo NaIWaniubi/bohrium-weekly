@@ -46,6 +46,8 @@
 
 ## Changelog
 
+- **v7（2026-11-24）**：新增 `version_metadata.py`（行政版本说明状态机、canonical/alias/supersedes、元数据 provenance）、`search_quality.py`（去废词计划、canonical hits、章节/句子证据、带引用答案）、`review_quality.py`（claim 矩阵、canonical 纳排、主题/冲突/空白矩阵、无占位综述）、`datacode_enhance.py`（真实清洗、统计、效应量、CI、SVG、代码执行与验证）。`enhance_v7.py` 统一编排；profile9 三题本地 rubrics 覆盖 100/100/100，datacase 16 项断言全绿，完整回归 ALL GREEN。修复提交包漏增强模块问题，并增加隔离 import 与端到端 preflight。
+- **v6（2026-11-24）**：三赛道增强层——分类行政说明/标签/权限/前后树/幂等，检索 NL 约束/PRF/共识，综述筛选/主题/证据强度/PRISMA/草稿。
 - **v5（2026-11-24）**：新增 `finalize.py` 完整交付层——`answer.content` 永不为空，自动生成全量 sources、证据矩阵、筛选记录、版本链、异常恢复与哈希复核；分类 profile **真实生成 organized/ 规范副本、元数据侧车、精确重复别名、manifest 与回滚说明**，源文件零修改。扫描器新增 stdlib OOXML 兜底、DOI 身份、符号链接/权限/状态；过滤器覆盖年份/项目/批次/作者/DOI/版本/权限，未知约束 fail-closed。独立挑刺发现的 17 项问题已修复并纳入 `regress_hardening.py`：零匹配假证据、长章节续块、CRLF 偏移、GBK、深合并契约、文件/chunk/quote/artifact 四重复核、路径 containment、resume 完整性、原子替换、UTF-8 文件名长度等。回归新增实体整理与源哈希不变断言，15 文件生成 14 副本 + 1 重复别名。
 - **v4（2026-11-22）**：双路检索融合——增加**语义 dense 通道**（纯 stdlib TF-IDF 向量化器+余弦相似度，捕捉概念改写与同义词漂移），
   与 BM25 双路加权融合（0.45·bm25_main + 0.15·bm25_title + 0.20·dense_cosine + 0.20·rrf）；

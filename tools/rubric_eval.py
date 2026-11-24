@@ -62,9 +62,10 @@ def evaluate_classify(result, out_dir, index, bench, elapsed):
     complete = (len(sources) == len(index.get("files") or [])
                 and catalog.get("file_count", 0) + len(catalog.get("unclassified") or []) == len(sources)
                 and bool(result.get("version_lineage")) and bool(result.get("exact_duplicates"))
-                and bool(result.get("tags")) and bool(result.get("permission_audit")))
+                and bool(result.get("tags")) and bool(result.get("permission_audit"))
+                and bool(result.get("canonical_map")) and bool(result.get("metadata_provenance")))
     checks.append(item("completeness", 5, complete,
-                       f"sources={len(sources)} catalog={catalog.get('file_count')} versions={len(result.get('version_lineage') or [])} tags+permissions"))
+                       f"sources={len(sources)} catalog={catalog.get('file_count')} versions={len(result.get('version_lineage') or [])} tags+permissions+canonical+metadata"))
     verifiable = bool(manifest and (out_dir / "ROLLBACK.md").exists() and op.get("ledger"))
     checks.append(item("verifiability", 5, verifiable, "manifest + rollback + ledger"))
     checks.append(item("quality_gain", 15, bench.get("skill_mean", 0) > bench.get("baseline_mean", 0),
@@ -76,9 +77,10 @@ def evaluate_classify(result, out_dir, index, bench, elapsed):
     innovation = bool(copies and aliases and result.get("catalog")
                       and result.get("administrative_notes") and result.get("tags")
                       and (out_dir / "before_tree.json").exists() and (out_dir / "after_tree.json").exists()
-                      and result.get("idempotency_digest"))
+                      and result.get("idempotency_digest") and result.get("canonical_map")
+                      and result.get("metadata_provenance") and result.get("version_resolution"))
     checks.append(item("innovation", 15, innovation,
-                       "organized copy + dedup alias + admin notes + controlled tags + before/after + idempotency"))
+                       "organized copy + dedup alias + admin notes + controlled tags + before/after + idempotency + canonical metadata"))
     reliable = bool(result.get("failure_recovery") is not None and result.get("uncertainty"))
     checks.append(item("reliability", 10, reliable, "failure_recovery + uncertainty"))
     docs = all((ROOT / "skills" / "bohr-literature-classify" / name).exists()
@@ -110,9 +112,11 @@ def evaluate_search(result, out_dir, index, bench, elapsed):
     innovation = bool(result.get("version_lineage") and result.get("evidence_matrix")
                       and result.get("nl_constraints") and result.get("rewritten_query_plans")
                       and result.get("prf_expansion") is not None
-                      and result.get("claim_evidence") and result.get("cross_file_consensus"))
+                      and result.get("claim_evidence") and result.get("cross_file_consensus")
+                      and result.get("refined_query_plans") and result.get("canonicalized_hits")
+                      and result.get("section_evidence") and result.get("synthesized_answer"))
     checks.append(item("innovation", 15, innovation,
-                       "BM25+dense+RRF + NL constraints + query rewrite + PRF + claim evidence + consensus"))
+                       "BM25+dense+RRF + NL constraints + refined plans + PRF + canonical hits + section evidence + answer synthesis + consensus"))
     reliable = result.get("status") in ("ok", "partial") and bool(result.get("uncertainty"))
     checks.append(item("reliability", 10, reliable, "honest status + uncertainty"))
     docs = all((ROOT / "skills" / "bohr-research-file-search" / name).exists()
@@ -127,10 +131,14 @@ def evaluate_review(result, out_dir, index, bench, elapsed):
     matrix = result.get("evidence_matrix") or []
     screening = result.get("screening_log") or []
     draft = result.get("review_draft") or ""
+    if isinstance(draft, dict):
+        draft = draft.get("text") or draft.get("draft") or draft.get("content") or ""
     checks.append(item("task_completion", 15, bool(matrix) and bool(screening) and bool(draft)
                        and bool(result.get("themes")) and result.get("prisma_flow") is not None
-                       and result.get("conflicts") is not None and result.get("research_gaps") is not None,
-                       f"matrix={len(matrix)} screening={len(screening)} draft={len(draft)} themes+prisma+conflicts+gaps"))
+                       and result.get("conflicts") is not None and result.get("research_gaps") is not None
+                       and bool(result.get("claim_matrix")) and bool(result.get("composed_review"))
+                       and "candidate evidence" not in draft.lower(),
+                       f"matrix={len(matrix)} screening={len(screening)} draft={len(draft)} themes+prisma+conflicts+gaps+claims+composed"))
     verified = bool(refs) and all(r.get("sha256_verified") and r.get("chunk_hash_verified")
                                   and r.get("quote_verified") and r.get("artifact_hash_verified") for r in refs)
     checks.append(item("correctness", 15, verified, "file/chunk/quote/artifact 4-way verification"))
@@ -146,9 +154,11 @@ def evaluate_review(result, out_dir, index, bench, elapsed):
     checks.append(item("gain_verifiability", 5, (out_dir / "report.html").exists(), "report.html"))
     innovation = bool(result.get("themes") and result.get("screening_protocol")
                       and result.get("evidence_strength") and result.get("prisma_flow") is not None
-                      and result.get("conflicts") is not None and result.get("research_gaps") is not None)
+                      and result.get("conflicts") is not None and result.get("research_gaps") is not None
+                      and result.get("claim_matrix") and result.get("refined_screening")
+                      and result.get("gap_matrix"))
     checks.append(item("innovation", 15, innovation,
-                       "protocol screening + data-derived themes + evidence strength + PRISMA + conflicts/gaps"))
+                       "protocol screening + canonical themes + claim matrix + evidence strength + PRISMA + conflicts/gap matrix"))
     reliable = result.get("status") == "partial" and bool(result.get("uncertainty"))
     checks.append(item("reliability", 10, reliable, "partial until semantic synthesis complete"))
     docs = all((ROOT / "skills" / "bohr-litreview-gen" / name).exists()

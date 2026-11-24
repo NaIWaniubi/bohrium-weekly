@@ -38,6 +38,7 @@ from answer import (apply_filters, rank_chunks, query_plans, tokenize,
 from finalize import (finalize_result, fill_output_contract, infer_profile,
                       resolve_library_root, validate_index_paths)
 from enhance import apply_enhancements
+from enhance_v7 import apply_v7
 
 
 def load_case(case_path):
@@ -138,7 +139,7 @@ def main():
     ap.add_argument("--ledger", default=None, help="operation ledger json")
     ap.add_argument("--force", action="store_true",
                     help="re-run even if result.json with matching case_id exists (resume default)")
-    ap.add_argument("--profile", choices=("auto", "classify", "search", "review"),
+    ap.add_argument("--profile", choices=("auto", "classify", "search", "review", "data", "code"),
                     default="auto", help="delivery profile; auto infers from case/task text")
     args = ap.parse_args()
 
@@ -382,6 +383,12 @@ def main():
         hits=hits, kept_chunks=kept_chunks, plans=plans, search_meta=search_meta,
     )
     result.update(enhanced)
+    enhanced_v7 = apply_v7(
+        result=result, index=index, case=case, task_md=task_md,
+        profile=profile, out_dir=out_dir, work_dir=work_dir,
+        hits=hits, kept_chunks=kept_chunks, plans=plans,
+    )
+    result.update(enhanced_v7)
     fill_output_contract(result, case)
 
     write_json(os.path.join(out_dir, "result.json"), result)

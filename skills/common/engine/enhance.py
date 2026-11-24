@@ -6,6 +6,7 @@ screening/themes/conflicts/gaps) without weakening the base verification.
 """
 import json
 import os
+import re
 
 
 def _load(path):
@@ -18,19 +19,34 @@ def _load(path):
 
 def prepare_search(index, case, task_md, question, terms_txt, structured_filter, top=25):
     """Two-pass search: NL constraints -> rewritten plans -> PRF -> diversify."""
-    from answer import apply_filters, rank_chunks
+    from answer import apply_filters, query_plans, rank_chunks
     from search_enhance import (diversify_results, extract_nl_constraints,
                                 pseudo_relevance_feedback, rewrite_queries)
-    nl = extract_nl_constraints(question, task_md, case)
+    terms_txt = terms_txt or ""
+    nl = extract_nl_constraints(question, "", case)
+    # Natural-language "version" is ambiguous; only trust explicit syntax.
+    if "version" in (nl.get("filters") or {}):
+        explicit_version = any(row.get("field") == "version" and row.get("structured")
+                               for row in (nl.get("constraints") or []))
+        raw_version = " ".join(str(row.get("raw") or "") for row in (nl.get("constraints") or [])
+                               if row.get("field") == "version")
+        if not explicit_version and not re.search(r"(?i)\bversion\s*[:=]|版本\s*[:：=]", raw_version):
+            nl["filters"].pop("version", None)
     merged_filter = dict(nl.get("filters") or {})
     merged_filter.update(structured_filter or {})  # explicit case constraints win
     keep, audit = apply_filters(index, merged_filter)
     kept_chunks = [c for c in index.get("chunks", []) if c.get("file") in keep]
     rewritten = rewrite_queries(question, terms_txt)
-    plans = [p.get("text") for p in rewritten if isinstance(p, dict) and p.get("text")]
-    if not plans:
-        plans = [question]
+    plans = [question] + [line.strip() for line in terms_txt.splitlines() if line.strip()]
+    plans += [p.get("text") for p in rewritten if isinstance(p, dict) and p.get("text")]
+    # preserve order while removing duplicates
+    plans = list(dict.fromkeys(p for p in plans if p))
     hits, _ = rank_chunks(kept_chunks, question, top=max(top * 2, top), plans=plans, terms_txt=terms_txt)
+    if not hits:
+        fallback_plans = query_plans(question, terms_txt)
+        hits, _ = rank_chunks(kept_chunks, question, top=max(top * 2, top),
+                              plans=fallback_plans, terms_txt=terms_txt)
+        plans = fallback_plans
     prf = pseudo_relevance_feedback(kept_chunks, hits, question, terms_txt)
     expansion_terms = [t for t in (prf.get("expansion_terms") or []) if t]
     if expansion_terms and len({h.get("file") for h in hits}) >= 2:
@@ -56,10 +72,12 @@ def prepare_search(index, case, task_md, question, terms_txt, structured_filter,
         -float(h.get("score_raw") or 0), str(h.get("file") or "")))
     deduped, duplicate_rows, seen_content = [], [], {}
     for hit in final_hits:
-        content_hash = hit.get("sha256_file") or sha256_text(hit.get("text", "") or "")
+        file_sha = hit.get("sha256_file") or (file_meta.get(hit.get("file")) or {}).get("sha256")
+        content_hash = file_sha or sha256_text(hit.get("text", "") or "")
         if content_hash in seen_content:
             duplicate_rows.append({"file": hit.get("file"), "chunk_id": hit.get("chunk_id"),
-                                   "sha256": content_hash, "canonical_file": seen_content[content_hash],
+                                   "sha256": file_sha, "content_hash": content_hash,
+                                   "canonical_file": seen_content[content_hash],
                                    "reason": "exact_duplicate_content"})
             continue
         seen_content[content_hash] = hit.get("file")
@@ -104,7 +122,7 @@ def _search(result, index, case, task_md, out_dir, hits, kept_chunks, plans, sea
     question = result.get("question") or ""
     terms_txt = "\n".join(str(x) for x in case.get("expanded_terms", [])) if isinstance(case.get("expanded_terms"), list) else str(case.get("expanded_terms") or "")
     search_meta = search_meta or {}
-    nl = search_meta.get("nl_constraints") or enhancer.extract_nl_constraints(question, task_md, case)
+    nl = search_meta.get("nl_constraints") or enhancer.extract_nl_constraints(question, "", case)
     rewritten = search_meta.get("rewritten_query_plans") or enhancer.rewrite_queries(question, terms_txt)
     prf = search_meta.get("prf_expansion")
     if prf is None:
@@ -175,6 +193,24 @@ def _review(result, index, case, task_md, out_dir):
 def apply_enhancements(result, index, case, task_md, profile, out_dir, work_dir=None,
                        hits=None, kept_chunks=None, plans=None, search_meta=None):
     """Merge profile-specific fields into result; never hide base failures."""
+    if profile in ("data", "code"):
+        try:
+            from datacode_enhance import apply_datacode
+            extra = apply_datacode(result, index, case, task_md, out_dir, work_dir or out_dir)
+            if extra.get("report"):
+                result["answer"]["content"] = extra["report"]
+            state = (extra.get("datacode_status") or {}).get("state")
+            if state == "ok":
+                result["status"] = "ok"
+            elif state == "partial":
+                result["status"] = "partial"
+            result["enhancement_status"] = {"state": "ok" if state in ("ok", "partial") else "failed",
+                                            "profile": profile,
+                                            "error": (extra.get("datacode_status") or {}).get("error")}
+            return extra
+        except Exception as exc:
+            result["enhancement_status"] = {"state": "failed", "profile": profile, "error": str(exc)}
+            return {}
     if profile not in ("classify", "search", "review"):
         return {}
     try:

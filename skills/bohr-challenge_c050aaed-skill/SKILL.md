@@ -23,6 +23,12 @@ description: |
 | answer.py | 过滤先行审计 + 多路查询规划 + BM25(正文+文件名字段加权) + TF-IDF cosine dense + RRF 融合；命中带 file/sha256/pages/offset/evidence |
 | run_case.py | 按契约读 case.json，跑扫描/过滤/双路检索/引用链，落盘 evidence/hits；**自动产出非空完整首版 result.json**（answer、sources、evidence_matrix、screening_log、uncertainty、failure_recovery、version_lineage、operation_evidence），保留 output_contract；断点续传 |
 | finalize.py | 确定性完整交付层：生成可读答案、全量来源、候选证据矩阵、版本链、异常恢复与哈希复核；分类 profile 还生成 organized/ 实体副本、元数据侧车、重复别名、manifest 与回滚说明，源文件只读 |
+| enhance.py | v6 编排：NL 约束→查询改写→PRF→多样化→精确内容去重；分类/综述深度增强；data/code 真实执行编排 |
+| enhance_v7.py | v7 编排：canonical 版本/元数据、检索答案综合、综述 claim 矩阵与 composed review |
+| version_metadata.py | 行政版本说明状态机（canonical/alias/supersedes）+ SHA/DOI 去重 + 元数据 provenance + canonical 修正 |
+| search_quality.py | 去废词查询计划、canonical hits、章节/句子证据、带 [E#] 的直接答案、覆盖与效率报告 |
+| review_quality.py | claim 级证据矩阵、canonical 纳排、主题/冲突/空白矩阵、无占位句的引用综述草稿 |
+| datacode_enhance.py | 真实表格导入/清洗审计/描述与推断统计/效应量/CI/SVG 图表/代码执行/质量验证/报告 |
 | benchmark.py / render_report.py / baseline.py | 金标准指标（P@3/P@5/MRR@10/NDCG@5）、HTML 详报渲染、对照基线 |
 
 ```
@@ -35,6 +41,14 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 ### v5 完整首版（执行时必须保留）
 
 `run_case.py` 已自动生成非空 `answer.content`、`answer.evidence_refs`、`sources`、`evidence_matrix`、`screening_log`、`uncertainty`、`failure_recovery` 与 `operation_evidence`。Agent 首先读这份完整首版，再按本题契约增补语义判断；**不得把 answer 置空或推倒重写**。`--profile classify` 会真实生成 `organized/` 规范副本与可回滚 manifest；`--profile review` 的确定性稿保持 partial，直到筛选、主题、证据、综述四步完成。
+
+### v7 专业增强（必须保留）
+
+- **版本事实**：`version_metadata.py` 用行政说明状态机解析 canonical/alias/supersedes，避免把 alias 或旧版本当主文献；元数据只来自文件/原文并保留 provenance。
+- **检索**：`search_quality.py` 生成去指令废词的计划，只用 canonical 证据，按章节/句子定位，并直接生成带 `[E#]` 引用的答案；无证据保持空结果。
+- **综述**：`review_quality.py` 先修正确 canonical 纳排，再建 claim 矩阵、主题、冲突与研究空白矩阵，输出无占位句且逐句引用的综述草稿。
+- **数据/代码**：`datacode_enhance.py` 真实执行清洗、统计、效应量、CI、SVG 图表与代码运行，保留审计、日志和质量检查；源数据只读。
+- 验证：`.selftest/regress.py` 全绿；profile9 三题 rubrics 覆盖 100/100/100；datacase 16 项断言全绿。
 
 ## 2. 解题总纲
 
@@ -91,7 +105,7 @@ result.json 完整首版：
 ## 7. 依赖版本与安装
 
 - Python ≥3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool/office-renderer/ocr-tool 等）。
-- 引擎 bohrium-weekly-common@5.0（2026-11-24）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
+- 引擎 bohrium-weekly-common@7.0（2026-11-24）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
 
 ## 8. 实例证据（仓库自带可复跑）
 

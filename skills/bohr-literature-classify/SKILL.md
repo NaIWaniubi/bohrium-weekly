@@ -23,6 +23,12 @@ description: |
 | answer.py | **过滤先行**：每条约束独立留痕；多路查询规划 + **字段加权 BM25**（正文主分 + 文件名字段加权 `_v2_final` 信号）+ **dense TF-IDF cosine** + RRF 保底；命中带 file/sha256/pages/offset/evidence/贡献计划 |
 | run_case.py | 按契约读 case.json，合并过滤约束与跨语言扩展词，跑链路，落盘命中全文；**自动产出完整首版 result.json**（answer 非空、sources 全量、catalog、version_lineage、operation_evidence、failure_recovery），并在 `organized/` 生成真实规范副本、元数据侧车、重复别名、manifest 与回滚说明；断点续传 |
 | finalize.py | 确定性交付层：规则分桶、元数据只从原文/文件事实抽取、规范命名、复制整理、精确重复别名、版本链、证据哈希复核；源文件永不修改 |
+| enhance.py | v6 编排：NL 约束→查询改写→PRF→多样化→精确内容去重；分类/综述深度增强；data/code 真实执行编排 |
+| enhance_v7.py | v7 编排：canonical 版本/元数据、检索答案综合、综述 claim 矩阵与 composed review |
+| version_metadata.py | 行政版本说明状态机（canonical/alias/supersedes）+ SHA/DOI 去重 + 元数据 provenance + canonical 修正 |
+| search_quality.py | 去废词查询计划、canonical hits、章节/句子证据、带 [E#] 的直接答案、覆盖与效率报告 |
+| review_quality.py | claim 级证据矩阵、canonical 纳排、主题/冲突/空白矩阵、无占位句的引用综述草稿 |
+| datacode_enhance.py | 真实表格导入/清洗审计/描述与推断统计/效应量/CI/SVG 图表/代码执行/质量验证/报告 |
 | benchmark.py / render_report.py / baseline.py | 金标准指标（P@3/P@5/MRR@10/NDCG@5）、HTML 详报渲染、对照基线 |
 
 ```
@@ -37,6 +43,14 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 3. Agent 的职责是在完整首版上核对题目规则、修正桶归属、补充原文标签/作者/年份/DOI，并同步更新 catalog、sidecar 与 change_records。
 4. 只改 `/app/output/organized/` 的生成副本；源库保持只读。任何后续移动/改名都必须追加 change_records，保证可按 manifest 回滚。
 5. needs_tool/OCR 未完成时保持 `status=partial`；补录并 `--force` 重跑后再改 `ok`。
+
+### v7 专业增强（必须保留）
+
+- **版本事实**：`version_metadata.py` 用行政说明状态机解析 canonical/alias/supersedes，避免把 alias 或旧版本当主文献；元数据只来自文件/原文并保留 provenance。
+- **检索**：`search_quality.py` 生成去指令废词的计划，只用 canonical 证据，按章节/句子定位，并直接生成带 `[E#]` 引用的答案；无证据保持空结果。
+- **综述**：`review_quality.py` 先修正确 canonical 纳排，再建 claim 矩阵、主题、冲突与研究空白矩阵，输出无占位句且逐句引用的综述草稿。
+- **数据/代码**：`datacode_enhance.py` 真实执行清洗、统计、效应量、CI、SVG 图表与代码运行，保留审计、日志和质量检查；源数据只读。
+- 验证：`.selftest/regress.py` 全绿；profile9 三题 rubrics 覆盖 100/100/100；datacase 16 项断言全绿。
 
 ## 2. 判分点逐条对策（原文映射）
 
@@ -102,7 +116,7 @@ result.json 完整首版字段（Agent 在其上增补，不从空骨架开始�
 ## 7. 依赖、版本与安装
 
 - Python ≥ 3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool / office-renderer / ocr-tool 等）。
-- 引擎 `bohrium-weekly-common@5.0`（2026-11-24，随仓库同版本锁定）。无构建步骤：将本目录放入评测约定位置后直接调用；新增 `finalize.py` 必须随包提交。
+- 引擎 `bohrium-weekly-common@7.0`（2026-11-24，随仓库同版本锁定）。无构建步骤：将本目录放入评测约定位置后直接调用；新增 `finalize.py` 必须随包提交。
 
 ## 8. 实例运行证据（本仓库自带，可复跑）
 
