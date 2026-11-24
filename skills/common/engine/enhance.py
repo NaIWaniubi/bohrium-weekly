@@ -193,6 +193,28 @@ def _review(result, index, case, task_md, out_dir):
 def apply_enhancements(result, index, case, task_md, profile, out_dir, work_dir=None,
                        hits=None, kept_chunks=None, plans=None, search_meta=None):
     """Merge profile-specific fields into result; never hide base failures."""
+    profile_modules = {
+        "reading": ("reading_enhance", "apply_reading", "reading_status"),
+        "writing": ("writing_enhance", "apply_writing", "writing_status"),
+        "graphics": ("graphics_enhance", "apply_graphics", "graphics_status"),
+        "slides": ("slides_enhance", "apply_slides", "slides_status"),
+    }
+    if profile in profile_modules:
+        try:
+            module_name, function_name, status_key = profile_modules[profile]
+            module = __import__(module_name)
+            extra = getattr(module, function_name)(result, index, case, task_md, out_dir, work_dir or out_dir)
+            if extra.get("report"):
+                result["answer"]["content"] = extra["report"]
+            state = (extra.get(status_key) or {}).get("state")
+            result["status"] = "ok" if state == "ok" else "partial"
+            result["enhancement_status"] = {"state": "ok" if state in ("ok", "partial") else "failed",
+                                            "profile": profile,
+                                            "error": (extra.get(status_key) or {}).get("error")}
+            return extra
+        except Exception as exc:
+            result["enhancement_status"] = {"state": "failed", "profile": profile, "error": str(exc)}
+            return {}
     if profile == "audit":
         try:
             from audit_enhance import apply_audit

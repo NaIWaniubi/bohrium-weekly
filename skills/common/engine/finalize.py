@@ -170,13 +170,24 @@ def infer_profile(case, task_md=""):
             return "data"
         if any(word in value for word in ("experiment", "实验方案", "参数优化", "可行性")):
             return "experiment"
+        if value in ("reading", "writing", "graphics", "slides"):
+            return value
+        if any(word in value for word in ("阅读", "文献解析", "图表解析")):
+            return "reading"
+        if any(word in value for word in ("写作", "润色", "论文结构", "参考文献")):
+            return "writing"
+        if any(word in value for word in ("图形", "示意图", "通路图", "graphical")):
+            return "graphics"
+        if any(word in value for word in ("ppt", "幻灯片", "slides")):
+            return "slides"
     title = str(case.get("title") or "")
     if not title:
         match = re.search(r"(?m)^#{1,4}\s*(.+)$", task_md)
         title = match.group(1) if match else ""
     text = "\n".join([str(case.get("question") or ""), str(case.get("task") or ""),
                       title, task_md[:12000]]).lower()
-    scores = {"classify": 0, "search": 0, "review": 0, "data": 0, "code": 0, "experiment": 0, "audit": 0}
+    scores = {"classify": 0, "search": 0, "review": 0, "data": 0, "code": 0, "experiment": 0, "audit": 0,
+              "reading": 0, "writing": 0, "graphics": 0, "slides": 0}
     for word in ("分类", "整理", "重命名", "去重", "目录", "版本关系", "元数据", "批量"):
         scores["classify"] += text.count(word)
     for word in ("综述", "筛选", "主题归纳", "证据矩阵", "研究空白", "纳排"):
@@ -191,6 +202,14 @@ def infer_profile(case, task_md=""):
         scores["experiment"] += text.count(word)
     for word in ("审查", "合规", "引用", "事实核验", "质量评价", "批注", "论证", "学术规范", "抄袭", "重复率"):
         scores["audit"] += text.count(word)
+    for word in ("阅读", "文献解析", "图表解析", "公式解析", "知识图谱", "结构化笔记", "多文档比较"):
+        scores["reading"] += text.count(word)
+    for word in ("写作", "润色", "论文结构", "参考文献", "引言", "相关工作", "方法章节", "结果章节", "审稿回复", "翻译", "latex", "基金申请", "开题报告", "学位论文", "思维导图"):
+        scores["writing"] += text.count(word)
+    for word in ("示意图", "机制图", "通路图", "装置图", "技术路线", "图形摘要", "graphical"):
+        scores["graphics"] += text.count(word)
+    for word in ("ppt", "幻灯片", "学术汇报", "模板与格式"):
+        scores["slides"] += text.count(word)
     if "科研文件智能检索" in title or title.startswith("科研文件检索"):
         scores["search"] += 100
     elif "文献与资料自动分类" in title or title.startswith("文献分类"):
@@ -199,6 +218,14 @@ def infer_profile(case, task_md=""):
         scores["audit"] += 100
     elif "文献综述生成" in title or title.startswith("文献综述"):
         scores["review"] += 100
+    elif any(word in title for word in ("阅读", "文献解析", "图表解析", "公式解析", "知识图谱", "结构化笔记", "多文档比较")):
+        scores["reading"] += 100
+    elif any(word in title for word in ("PPT", "幻灯片", "学术汇报")):
+        scores["slides"] += 100
+    elif any(word in title for word in ("示意图", "机制图", "通路图", "装置", "技术路线", "图形摘要", "Graphical")):
+        scores["graphics"] += 100
+    elif any(word in title for word in ("写作", "润色", "学术格式", "参考文献", "论文结构", "引言", "相关工作", "方法章节", "结果章节", "审稿", "翻译", "LaTeX", "基金", "开题", "学位论文", "思维导图")):
+        scores["writing"] += 100
     elif any(word in title for word in ("代码生成", "代码执行", "科研代码")):
         scores["code"] += 100
     elif any(word in title for word in ("实验方案", "实验参数", "可行性评估", "方案比较与选择")):
@@ -1112,7 +1139,7 @@ def main(argv=None):
     ap.add_argument("--case", required=True)
     ap.add_argument("--out", required=True, help="same output directory as result.json")
     ap.add_argument("--work", default=None)
-    ap.add_argument("--profile", choices=("auto", "classify", "search", "review", "data", "code", "experiment", "audit"), default="auto")
+    ap.add_argument("--profile", choices=("auto", "classify", "search", "review", "data", "code", "experiment", "audit", "reading", "writing", "graphics", "slides"), default="auto")
     args = ap.parse_args(argv)
     # Lazy import avoids a run_case<->finalize import cycle.
     from run_case import load_case

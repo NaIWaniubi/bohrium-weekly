@@ -19,6 +19,10 @@ stdlib only，无第三方依赖；全部输出为机器可读 JSON，每一步�
 | `datacode_enhance.py` | 表格导入、数据画像、清洗审计、描述/推断统计、效应量、CI、SVG 图表、代码执行、结果验证与报告；生成脚本复用同一引擎，结果同源 |
 | `experiment_enhance.py` | 实验目标/假设/变量操作化、对照、满足重复次数与 run 上限的计划、资源公式、参数范围、风险登记、方案比较与有界参数优化 |
 | `audit_enhance.py` | 学术审查：claim-证据矩阵、数字/DOI 引用核验、方法学/统计/合规检查、文本重复检测、按严重度排序的 findings与报告 |
+| `reading_enhance.py` | 文档/图表/公式解析、比较多文档、结论/数据提取、事实核验、结构化笔记、知识图谱/nanopublication |
+| `writing_enhance.py` | 大纲、证据驱动逐节草稿、保守润色、引用格式化、结构检查、LaTeX、思维导图 |
+| `graphics_enhance.py` | 可编辑 SVG 柱状/折线图、流程图、通路图、装置图、图形摘要与 PNG 预览 |
+| `slides_enhance.py` | 论文转 slide plan、可编辑 PPTX、讲者备注、PDF/PNG 预览 |
 | `baseline.py` | 对照基线：模拟"未加载本 Skill 的朴素 Agent"——仅文件名匹配、无过滤审计、无定位、无哈希（题目评分点明批评的失败模式） |
 | `benchmark.py` | 金标准问答集指标：读 `bench/queries.json`，同题分别跑 Skill 链与 baseline，输出 P@5 / R@5 / top5 召回数 / hash 验证率对比表 |
 | `render_report.py` | 把 result.json 渲染成自包含单页 HTML（过滤审计表 + 命中定位表 + 证据原文窗口 + 不确定性分区），评审无需环境直接打开 |
@@ -46,6 +50,8 @@ v7 起新增 profile9 隐藏案例画像与数据/代码回归：行政 canonica
 v7.1 起新增实验设计回归：变量矩阵、空白/阳性对照、3 次重复与 12 run 上限、资源未知不伪造、参数范围、风险登记与小样本候选优化；数据生成代码与交付统计完全一致。
 
 v7.2 起新增学术审查回归：claim-证据矩阵、无支持 claim 标记、数字引用解析、DOI 不匹配检测、方法学/合规缺项与文本重复证据；auditcase 14 项断言全绿。
+
+v7.3 起新增阅读/写作/图形/幻灯片四个 profile：文档图表公式解析、结构化笔记、证据驱动写作、可编辑 SVG、PPTX 与真实预览；剩余 45 题全部生成定制 Skill，覆盖第四期 77/77 题。剩余 profile 17 项回归全绿。
 
 v3 起新增四类题：多约束（类型+目录）、版本辨识（哪一版带附录）、跨文件共识、
 空命中诚实报告。
