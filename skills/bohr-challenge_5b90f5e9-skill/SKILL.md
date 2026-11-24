@@ -21,7 +21,8 @@ description: |
 |-|-|
 | scan_index.py | 库扫描→文件全量事实表(sha256/mtime/meta)、章节块(chunk_id+偏移+pages+印刷页码偏移)、精确重复组、近重复检测、版本族别名链、needs_tool |
 | answer.py | 过滤先行审计 + 多路查询规划 + BM25(正文+文件名字段加权) + TF-IDF cosine dense 通道 + RRF 融合；命中带 file/sha256/pages/offset/evidence |
-| run_case.py | 按契约读 case.json，合并过滤约束与跨语言扩展词，跑链路，落盘命中全文到 evidence/hits/，产出 result.json 骨架（answer 等判定字段留空给 Agent） |
+| run_case.py | 按契约读 case.json，跑扫描/过滤/双路检索/引用链，落盘 evidence/hits；**自动产出非空完整首版 result.json**（answer、sources、evidence_matrix、screening_log、uncertainty、failure_recovery、version_lineage、operation_evidence），保留 output_contract；断点续传 |
+| finalize.py | 确定性完整交付层：生成可读答案、全量来源、候选证据矩阵、版本链、异常恢复与哈希复核；分类 profile 还生成 organized/ 实体副本、元数据侧车、重复别名、manifest 与回滚说明，源文件只读 |
 | benchmark.py / render_report.py / baseline.py | 金标准指标、HTML 详报渲染、对照基线 |
 
 ```
@@ -29,7 +30,11 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
         --index /app/work/index.json --work /app/work --out /app/output
 ```
 
-链路对案例是确定性的、无需模型也能产出证据骨架——这是相对基础 Agent 的增益证据：基础 Agent 需要逐文件翻页、肉眼比对版本；本链路先审计过滤、再定位章节、最后每条结论回链到源字节哈希。
+链路对案例是确定性的、无需模型也能产出完整首版结果——这是相对基础 Agent 的增益证据：基础 Agent 需要逐文件翻页、肉眼比对版本；本链路先审计过滤、再定位章节、最后每条结论回链到源字节哈希。
+
+### v5 完整首版（执行时必须保留）
+
+`run_case.py` 已自动生成非空 `answer.content`、`answer.evidence_refs`、`sources`、`evidence_matrix`、`screening_log`、`uncertainty`、`failure_recovery` 与 `operation_evidence`。Agent 首先读这份完整首版，再按本题契约增补语义判断；**不得把 answer 置空或推倒重写**。`--profile classify` 会真实生成 `organized/` 规范副本与可回滚 manifest；`--profile review` 的确定性稿保持 partial，直到筛选、主题、证据、综述四步完成。
 
 ## 2. 解题总纲
 
@@ -59,7 +64,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 | 证据记录 | 查询、筛选、排序或追踪依据 | 他人可按记录复核每条结果 |
 | 状态说明 | 空结果、冲突、权限或接口异常 | 不补造文献，明确已完成与未完成部分 |
 
-result.json 骨架（必填字段全列）：
+result.json 完整首版（必填字段全列）：
 
 ```json
 {"case_id":"<来自 case.json>","status":"ok|partial|failed",
@@ -79,7 +84,7 @@ result.json 骨架（必填字段全列）：
 ## 7. 依赖版本与安装
 
 - Python ≥3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool/office-renderer/ocr-tool 等）。
-- 引擎 bohrium-weekly-common@4.0（2026-11-22）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
+- 引擎 bohrium-weekly-common@5.0（2026-11-24）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
 
 ## 8. 实例证据（仓库自带可复跑）
 

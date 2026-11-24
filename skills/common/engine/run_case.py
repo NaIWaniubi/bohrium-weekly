@@ -11,18 +11,20 @@ topic. This script performs the deterministic portion of the case:
   4. rank chunks against the case question, expanding cross-lingual terms
      from the same case file (expanded_terms field) or --terms-file
   5. dump full chunk texts of every hit to evidence/hits/<rank>.txt so the
-     agent can READ source bytes before making any claim (the rubric scores
-     定位准确性 and 证据回链; the script never writes claims itself)
-  6. emit result.json skeleton covering every output_contract field with
-     honest empty/default values + provenance, ledger, and SHA-256 digests
+     agent can READ source bytes before making any scientific claim
+  6. call finalize.py to emit a complete deterministic first delivery:
+     non-empty answer, full source inventory, evidence references/matrix,
+     version lineage, failure recovery, hash verification and output-contract
+     preservation; classify profile also creates a real organized copy
 
 The model-facing steps (reading evidence, deciding inclusion/exclusion, writing
-the final prose/matrix) are deliberately left to the agent so claims stay
-grounded in what was actually read. Save partial results early per budget rule.
+the final semantic prose/matrix) enrich that complete first delivery.  The
+engine never invents scientific claims and source files are never modified.
 """
 import argparse
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -33,6 +35,8 @@ from lib import now_iso, sha256_file, sha256_text, write_json
 from scan_index import main as scan_main  # noqa: F401  (cli form kept simple)
 from answer import (apply_filters, rank_chunks, query_plans, tokenize,
                     build_citations, evidence_windows)
+from finalize import (finalize_result, fill_output_contract, infer_profile,
+                      resolve_library_root, validate_index_paths)
 
 
 def load_case(case_path):
@@ -59,21 +63,63 @@ def extract_filter(index, case):
     """Compose a filter dict from explicit case constraints, else lenient."""
     flt = {}
     raw = []
-    for k in ("type", "ext", "extensions", "dir", "directories",
-              "min_size", "max_size", "exclude", "need_text"):
+    for k in ("type", "ext", "extensions", "dir", "directories", "include",
+              "min_size", "max_size", "exclude", "need_text", "year", "min_year",
+              "max_year", "project", "batch", "path_contains", "name_contains",
+              "author", "doi", "sha256", "version", "readable", "permission"):
         if k in case:
             v = case[k]
             if isinstance(v, list):
                 raw.append((k, v))
             elif v not in (None, "", [], False):
                 raw.append((k, v))
+    for container_key in ("filter", "filters", "constraints"):
+        spec = case.get(container_key)
+        if isinstance(spec, dict):
+            if isinstance(spec.get("properties"), dict):
+                spec = spec["properties"]
+            for key, value in spec.items():
+                if key not in ("id", "name", "description", "reason") and value not in (None, "", [], False):
+                    raw.append((key, value))
+        elif isinstance(spec, list):
+            for item in spec:
+                if isinstance(item, dict):
+                    field = item.get("field") or item.get("key") or item.get("constraint")
+                    value = item.get("value") if "value" in item else item.get("equals")
+                    op = str(item.get("op") or item.get("operator") or "eq").lower()
+                    if field and value is not None:
+                        field = str(field)
+                        if field in ("year", "size") and op in ("gte", ">=", "min"):
+                            raw.append(("min_year" if field == "year" else "min_size", value))
+                        elif field in ("year", "size") and op in ("lte", "<=", "max"):
+                            raw.append(("max_year" if field == "year" else "max_size", value))
+                        elif op in ("contains", "in"):
+                            raw.append((field if field in ("project", "batch", "name_contains", "path_contains")
+                                        else field + "_contains", value))
+                        else:
+                            raw.append((field, value))
+                        continue
+                    for key, value in item.items():
+                        if key not in ("id", "name", "description", "reason") and value not in (None, "", [], False):
+                            raw.append((key, value))
+                elif isinstance(item, str):
+                    m = re.match(r"\s*([A-Za-z_]+)\s*[:=]\s*(.+?)\s*$", item)
+                    if m:
+                        raw.append((m.group(1), m.group(2)))
     # normalise keys to apply_filters vocabulary
-    norm = {"extensions": "type", "directories": "dir"}
+    norm = {"ext": "type", "extensions": "type", "directories": "dir"}
     for k, v in raw:
         nk = norm.get(k, k)
         if nk == "need_text" and v is True:
             flt["need_text"] = True
-        elif nk in ("type", "dir", "min_size", "max_size", "exclude"):
+        elif nk in ("type", "dir", "include", "min_size", "max_size", "exclude", "year",
+                    "min_year", "max_year", "project", "batch", "path_contains",
+                    "name_contains", "author", "doi", "sha256", "version", "readable",
+                    "permission"):
+            flt[nk] = v
+        else:
+            # Keep unknown explicit constraints so apply_filters can fail closed
+            # and leave an audit row instead of silently relaxing the task.
             flt[nk] = v
     return flt
 
@@ -91,20 +137,54 @@ def main():
     ap.add_argument("--ledger", default=None, help="operation ledger json")
     ap.add_argument("--force", action="store_true",
                     help="re-run even if result.json with matching case_id exists (resume default)")
+    ap.add_argument("--profile", choices=("auto", "classify", "search", "review"),
+                    default="auto", help="delivery profile; auto infers from case/task text")
     args = ap.parse_args()
 
     case, task_md = load_case(args.case)
     case_id = case.get("case_id") or os.path.basename(os.path.abspath(args.case)).split(".")[0]
+    case_base = args.case if os.path.isdir(args.case) else os.path.dirname(os.path.abspath(args.case))
 
     out_dir = args.out
     work_dir = args.work or out_dir
 
-    # resume guard: skip if result.json already present for this case_id
+    # resume only a complete, current-schema delivery for the same inputs
     existing_result = os.path.join(out_dir, "result.json")
     if not args.force and os.path.exists(existing_result):
         try:
             prev = json.load(open(existing_result, encoding="utf-8"))
-            if prev.get("case_id") == case_id:
+            provenance = prev.get("provenance") or {}
+            expected_case_digest = sha256_text(json.dumps(case, ensure_ascii=False, sort_keys=True))
+            expected_index_path = args.index or os.path.join(work_dir, f"index_{case_id}.json")
+            expected_index_digest = sha256_file(expected_index_path) if os.path.exists(expected_index_path) else None
+            prev_refs = (prev.get("answer") or {}).get("evidence_refs") or []
+            contract_ok = (
+                not any(case.get(k) is not None for k in ("output_contract", "result_schema", "output_schema", "required_output_fields"))
+                or (prev.get("output_contract_preserved") is True
+                    and not (prev.get("output_contract_validation") or {}).get("missing"))
+            )
+            refs_ok = all(
+                r.get("sha256_verified") and r.get("chunk_hash_verified")
+                and r.get("quote_verified") and r.get("artifact_hash_verified")
+                and r.get("extracted_text")
+                and os.path.isfile(os.path.join(out_dir, r["extracted_text"]))
+                for r in prev_refs
+            )
+            complete = (
+                prev.get("case_id") == case_id
+                and prev.get("status") == "ok"
+                and provenance.get("delivery_contract_version") == 2
+                and bool((prev.get("answer") or {}).get("content"))
+                and bool(prev.get("sources"))
+                and bool(prev.get("operation_evidence"))
+                and provenance.get("input_case_digest") == expected_case_digest
+                and bool(provenance.get("index_digest"))
+                and provenance.get("index_digest") == expected_index_digest
+                and contract_ok and refs_ok
+                and (not prev.get("hit_count") or (bool(prev_refs)
+                     and os.path.isdir(os.path.join(out_dir, "evidence", "hits"))))
+            )
+            if complete:
                 print(json.dumps({
                     "case_id": case_id,
                     "status": "resumed",
@@ -113,12 +193,19 @@ def main():
                 }, ensure_ascii=False))
                 return
         except Exception:
-            pass  # corrupt prior result — fall through to regenerate
+            pass  # corrupt/old prior result — fall through to regenerate
 
     ev_dir = os.path.join(out_dir, "evidence", "hits")
     os.makedirs(ev_dir, exist_ok=True)
 
-    library_root = args.library or case.get("library") or case.get("corpus_root")
+    try:
+        library_root = resolve_library_root(case, task_md, args.library, case_base)
+    except FileNotFoundError as exc:
+        print("ERROR: " + str(exc), file=sys.stderr)
+        sys.exit(2)
+    work_dir = args.work or out_dir
+    os.makedirs(work_dir, exist_ok=True)
+    ledger_path = args.ledger or os.path.join(work_dir, "ledger.json")
 
     summary_meta = {}
 
@@ -127,13 +214,19 @@ def main():
             print("ERROR: no corpus library resolved (pass --library)", file=sys.stderr)
             sys.exit(2)
         idx_path = os.path.join(work_dir, f"index_{case_id}.json")
-        os.makedirs(work_dir, exist_ok=True)
-        scan_main(["--root", library_root, "--out", idx_path])
+        scan_main(["--root", library_root, "--out", idx_path, "--ledger", ledger_path])
         index_path = idx_path
     else:
         index_path = args.index
 
     index = json.load(open(index_path, encoding="utf-8"))
+    try:
+        validate_index_paths(index)
+    except ValueError as exc:
+        print("ERROR: unsafe corpus index: " + str(exc), file=sys.stderr)
+        sys.exit(2)
+    if not library_root:
+        library_root = index.get("root")
     flt = extract_filter(index, case)
     if not flt and args.terms_file is None and not case.get("question"):
         print("WARN: no explicit filters in case; applying need_text=false lenient pass")
@@ -158,8 +251,9 @@ def main():
     expanded_q = (question + "\n" + terms_txt) if terms_txt else question
 
     kept_chunks = [c for c in index.get("chunks", []) if c.get("file") in keep]
+    plans = query_plans(question or expanded_q[:512], terms_txt)
     hits, ranked = rank_chunks(kept_chunks, question or expanded_q[:512],
-                              top=args.top, plans=query_plans(question or expanded_q[:512], terms_txt),
+                              top=args.top, plans=plans,
                               terms_txt=terms_txt)
 
     file_meta = {f["relpath"]: f for f in index.get("files", [])}
@@ -176,7 +270,7 @@ def main():
             f.write(f"# chunk_id={c.get('chunk_id')}\n\n")
             f.write(body)
             if c.get("has_more"):
-                f.write("\n...[truncated at 1800 chars in index; full text readable in source]")
+                f.write("\n...[continued in adjacent chunk; read all chunks for this section]")
 
     hit_rows = []
     for i, c in enumerate(hits):
@@ -185,13 +279,19 @@ def main():
         hit_rows.append({
             "rank": i + 1, "file": rel,
             "sha256_file": fh.get("sha256"),
-            "sha256_chunk": None,
+            "sha256_chunk": sha256_text(c.get("text", "") or ""),
             "chunk_id": c.get("chunk_id"), "kind": c.get("kind"),
             "offset": {"start": c.get("start"), "end": c.get("end")},
+            "pages": c.get("pages"),
+            "printed_page_offset": c.get("printed_page_offset"),
             "snippet": (c.get("text", "") or "")[:320],
+            "has_more": bool(c.get("has_more")),
+            "part_index": c.get("part_index"),
+            "n_chars": c.get("n_chars"),
             "score_raw": round(float(c.get("score_raw", 0.0)), 4),
             "bm25_main": c.get("bm25_main"),
             "bm25_title": c.get("bm25_title"),
+            "dense_cosine": c.get("dense_cosine"),
             "rrf_score": c.get("rrf_score"),
             "plan_evidence": c.get("plan_evidence") or [],
         })
@@ -228,6 +328,7 @@ def main():
         "status": "partial_deterministic_done",
         "question": question,
         "query_expanded": bool(terms_txt),
+        "query_plans": plans,
         "scanned_files": index.get("summary", {}).get("files_total"),
         "index_chunks": len(index.get("chunks", [])),
         "filter_audit": audit,
@@ -244,9 +345,9 @@ def main():
                 "members": [m["relpath"] for m in v["members"][:8]]}
             for k, v in index.get("families", {}).items()
         },
-        # ---- fields the rubric expects, intentionally left for the agent ----
+        # ---- base fields; finalize_result replaces these with complete values ----
         "answer": {
-            "_note": "agent fills after reading evidence/hits/*.txt in full",
+            "_note": "replaced by finalize_result before writing",
             "content": None,
         },
         "evidence": {"dir": "evidence/hits/", "digest_note": "one file per hit, full text"},
@@ -260,6 +361,17 @@ def main():
             "ledger": args.ledger,
         },
     }
+
+    # ---- complete deterministic first delivery (never leaves answer null) ----
+    profile = None if args.profile == "auto" else args.profile
+    complete = finalize_result(
+        index=index, case=case, task_md=task_md, question=question,
+        hit_chunks=hits, hit_rows=hit_rows, citations=citations,
+        filter_audit=audit, keep=keep, out_dir=out_dir, work_dir=work_dir,
+        ledger_path=ledger_path, profile=profile, index_path=index_path, plans=plans,
+    )
+    result.update(complete)
+    fill_output_contract(result, case)
 
     write_json(os.path.join(out_dir, "result.json"), result)
     print(json.dumps({

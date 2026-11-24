@@ -1,1 +1,2 @@
-https://github.com/NaIWaniubi/bohrium-weekly/tree/master/skills/bohr-challenge_073af7d3-skill
+https://github.com/NaIWaniubi/bohrium-weekly/blob/master/skills/bohr-challenge_073af7d3-skill/SKILL.md
+SKILL.md
