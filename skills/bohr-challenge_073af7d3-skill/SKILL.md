@@ -30,6 +30,7 @@ description: |
 | review_quality.py | claim 级证据矩阵、canonical 纳排、主题/冲突/空白矩阵、无占位句的引用综述草稿 |
 | datacode_enhance.py | 真实表格导入/清洗审计/描述与推断统计/效应量/CI/SVG 图表/代码执行/质量验证/报告 |
 | experiment_enhance.py | 实验设计：目标/假设/变量操作化、对照、可行 run plan、资源公式、参数范围、风险登记、方案比较与参数优化计划 |
+| audit_enhance.py | 学术审查：claim-证据矩阵、数字/DOI 引用核验、方法学与合规检查、文本重复检测、按严重度排序的 findings 与报告 |
 | benchmark.py / render_report.py / baseline.py | 金标准指标（P@3/P@5/MRR@10/NDCG@5）、HTML 详报渲染、对照基线 |
 
 ```
@@ -56,6 +57,13 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 - `datacode_enhance.py` 的生成脚本直接复用同一引擎，已断言代码运行结果与交付统计完全一致；源数据只读。
 - `experiment_enhance.py` 输出变量矩阵、对照、满足重复次数与 run 上限的实验计划、资源可行性公式、参数范围、风险登记与有界优化计划；未知成本/时间不伪造。
 - `--profile experiment` 用于实验方案/参数优化/可行性/方案比较类题目。
+
+### v7.2 学术审查专项
+
+- `audit_enhance.py` 从目标稿件抽取实质 claim，逐条寻找库内支持证据；无支持不写成已验证。
+- 数字引用与 DOI 引用分别核验，能识别“引文存在但 DOI/年份不匹配”；方法学、统计、局限性、数据/代码可用性、伦理与合规缺项逐条列出。
+- 文本重复/近重复只报告证据与位置，不直接做抄袭定性；findings 按 high/medium/low 排序并回链原文。
+- `--profile audit` 用于论文质量、逻辑论证、引用事实、阅读批注与学术合规类题目。
 
 ## 2. 解题总纲
 
@@ -113,7 +121,7 @@ result.json 完整首版：
 ## 7. 依赖版本与安装
 
 - Python ≥3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool/office-renderer/ocr-tool 等）。
-- 引擎 bohrium-weekly-common@7.1（2026-11-24）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
+- 引擎 bohrium-weekly-common@7.2（2026-11-24）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
 
 ## 8. 实例证据（仓库自带可复跑）
 

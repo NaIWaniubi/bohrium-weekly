@@ -158,6 +158,8 @@ def infer_profile(case, task_md=""):
         value = str(case.get(key) or "").lower()
         if any(word in value for word in ("classify", "classification", "分类", "整理")):
             return "classify"
+        if any(word in value for word in ("audit", "审查", "合规", "引用", "事实核验", "质量评价", "批注", "论证")):
+            return "audit"
         if any(word in value for word in ("review", "literature", "综述", "筛选")):
             return "review"
         if any(word in value for word in ("search", "retrieval", "检索")):
@@ -174,7 +176,7 @@ def infer_profile(case, task_md=""):
         title = match.group(1) if match else ""
     text = "\n".join([str(case.get("question") or ""), str(case.get("task") or ""),
                       title, task_md[:12000]]).lower()
-    scores = {"classify": 0, "search": 0, "review": 0, "data": 0, "code": 0, "experiment": 0}
+    scores = {"classify": 0, "search": 0, "review": 0, "data": 0, "code": 0, "experiment": 0, "audit": 0}
     for word in ("分类", "整理", "重命名", "去重", "目录", "版本关系", "元数据", "批量"):
         scores["classify"] += text.count(word)
     for word in ("综述", "筛选", "主题归纳", "证据矩阵", "研究空白", "纳排"):
@@ -187,10 +189,14 @@ def infer_profile(case, task_md=""):
         scores["code"] += text.count(word)
     for word in ("实验方案", "参数优化", "可行性", "对照组", "设备材料", "时间成本", "风险与异常"):
         scores["experiment"] += text.count(word)
+    for word in ("审查", "合规", "引用", "事实核验", "质量评价", "批注", "论证", "学术规范", "抄袭", "重复率"):
+        scores["audit"] += text.count(word)
     if "科研文件智能检索" in title or title.startswith("科研文件检索"):
         scores["search"] += 100
     elif "文献与资料自动分类" in title or title.startswith("文献分类"):
         scores["classify"] += 100
+    elif any(word in title for word in ("审查", "合规", "引用", "事实核验", "质量评价", "批注", "论证")):
+        scores["audit"] += 100
     elif "文献综述生成" in title or title.startswith("文献综述"):
         scores["review"] += 100
     elif any(word in title for word in ("代码生成", "代码执行", "科研代码")):
@@ -1106,7 +1112,7 @@ def main(argv=None):
     ap.add_argument("--case", required=True)
     ap.add_argument("--out", required=True, help="same output directory as result.json")
     ap.add_argument("--work", default=None)
-    ap.add_argument("--profile", choices=("auto", "classify", "search", "review", "data", "code", "experiment"), default="auto")
+    ap.add_argument("--profile", choices=("auto", "classify", "search", "review", "data", "code", "experiment", "audit"), default="auto")
     args = ap.parse_args(argv)
     # Lazy import avoids a run_case<->finalize import cycle.
     from run_case import load_case

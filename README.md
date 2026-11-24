@@ -46,6 +46,7 @@
 
 ## Changelog
 
+- **v7.2（2026-11-25）**：新增 `audit_enhance.py` 学术审查专项——claim-证据矩阵、数字/DOI 引用核验（含 DOI 不匹配）、方法学/统计/合规检查、文本重复检测与按严重度排序的 findings；auditcase 14 项回归全绿。
 - **v7.1（2026-11-25）**：数据/代码生成脚本改为复用同一分析引擎，并新增“代码运行结果 == 交付统计”断言；新增 `experiment_enhance.py`，覆盖变量操作化、对照、重复次数/run 上限、资源可行性公式、参数范围、风险登记与有界优化计划。实验设计 15 项回归全绿。
 - **v7（2026-11-24）**：新增 `version_metadata.py`（行政版本说明状态机、canonical/alias/supersedes、元数据 provenance）、`search_quality.py`（去废词计划、canonical hits、章节/句子证据、带引用答案）、`review_quality.py`（claim 矩阵、canonical 纳排、主题/冲突/空白矩阵、无占位综述）、`datacode_enhance.py`（真实清洗、统计、效应量、CI、SVG、代码执行与验证）。`enhance_v7.py` 统一编排；profile9 三题本地 rubrics 覆盖 100/100/100，datacase 16 项断言全绿，完整回归 ALL GREEN。修复提交包漏增强模块问题，并增加隔离 import 与端到端 preflight。
 - **v6（2026-11-24）**：三赛道增强层——分类行政说明/标签/权限/前后树/幂等，检索 NL 约束/PRF/共识，综述筛选/主题/证据强度/PRISMA/草稿。
