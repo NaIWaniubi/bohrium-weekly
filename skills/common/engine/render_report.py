@@ -36,8 +36,11 @@ def main():
                 f"status <b>{esc(r.get('status'))}</b> · "
                 f"{esc(meta.get('generated_at') or datetime.now().isoformat(timespec='seconds'))}</p>")
 
-    # question
+    # question + deterministic answer
     body.append(f"<h2>研究问题</h2><p class=q>{esc(r.get('question'))}</p>")
+    answer = r.get("answer") or {}
+    if answer.get("content"):
+        body.append(f"<h2>完整首版结果</h2><div class=answer>{esc(answer.get('content'))}</div>")
 
     # filter audit
     fa = r.get("filter_audit") or []
@@ -48,6 +51,19 @@ def main():
             body.append("<tr>" + "".join(
                 f"<td>{esc(row.get(k))}</td>" for k in ("constraint", "kept",
                                                           "dropped_since_prev")) + "</tr>")
+        body.append("</table>")
+
+    # actual organized catalog (classification track)
+    catalog = r.get("catalog") or {}
+    if catalog.get("buckets"):
+        body.append(f"<h2>资料目录（{esc(catalog.get('bucket_count'))} 桶 / "
+                    f"{esc(catalog.get('file_count'))} 文件）</h2><table>"
+                    "<tr><th>桶</th><th>规则</th><th>数量</th><th>成员（前 8）</th></tr>")
+        for bucket in catalog["buckets"]:
+            members = ", ".join(str(m.get("relpath")) for m in (bucket.get("members") or [])[:8])
+            body.append("<tr>" + "".join(
+                f"<td>{esc(v)}</td>" for v in
+                (bucket.get("bucket_id"), bucket.get("criteria"), bucket.get("member_count"), members)) + "</tr>")
         body.append("</table>")
 
     # hits — score-detailed, evidence-chain columns
@@ -95,6 +111,19 @@ def main():
                 f"<td><blockquote>{esc(q_text)}</blockquote></td></tr>")
         body.append("</table>")
 
+    # independently verified evidence references
+    answer_refs = (r.get("answer") or {}).get("evidence_refs") or []
+    if answer_refs:
+        body.append("<h2>证据引用独立复核</h2><table>"
+                    "<tr><th>ID</th><th>文件</th><th>offset 空间</th><th>offset</th>"
+                    "<th>文件/chunk/quote</th><th>提取文本工件</th></tr>")
+        for ref in answer_refs:
+            flags = f"file={ref.get('sha256_verified')} · chunk={ref.get('chunk_hash_verified')} · quote={ref.get('quote_verified')} · artifact={ref.get('artifact_hash_verified')}"
+            body.append("<tr>" + "".join(f"<td>{esc(v)}</td>" for v in
+                        (ref.get("evidence_id"), ref.get("file"), ref.get("offset_space"),
+                         ref.get("offset"), flags, ref.get("extracted_text"))) + "</tr>")
+        body.append("</table>")
+
     # evidence windows
     evs = r.get("evidence_windows") or []
     if evs:
@@ -112,6 +141,33 @@ def main():
             for it in unc.get(k) or []:
                 body.append(f"<li><b>{k}</b>: {esc(it if isinstance(it, str) else json.dumps(it, ensure_ascii=False))}</li>")
         body.append("</ul>")
+
+    # operation evidence + rollback
+    op = r.get("operation_evidence") or {}
+    if op:
+        body.append("<h2>操作证据与回滚</h2><table>"
+                    "<tr><th>源文件</th><th>过滤后</th><th>实体副本</th><th>重复别名</th></tr>"
+                    "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (
+                        esc(op.get("source_files_total")), esc(op.get("filtered_files")),
+                        esc(op.get("organized_files", "—")), esc(len(op.get("alias_rows") or []))))
+        hv = op.get("hash_verification") or {}
+        body.append(f"<tr><th>证据哈希复核</th><td colspan=3>{esc(hv.get('verified'))}/"
+                    f"{esc(hv.get('evidence_refs'))} · rate={esc(hv.get('rate'))}</td></tr>")
+        body.append(f"<tr><th>清单</th><td colspan=3>{esc(op.get('manifest') or op.get('index_path'))}</td></tr>")
+        body.append(f"<tr><th>回滚</th><td colspan=3>{esc(op.get('rollback'))} · "
+                    f"源文件修改={esc(op.get('originals_modified'))}</td></tr></table>")
+
+    # version lineage
+    lineages = r.get("version_lineage") or []
+    if lineages:
+        body.append("<h2>版本族与 canonical</h2><table>"
+                    "<tr><th>族</th><th>canonical</th><th>成员</th><th>依据</th></tr>")
+        for item in lineages:
+            members = ", ".join(str(m.get("relpath")) for m in (item.get("members") or []))
+            body.append("<tr>" + "".join(f"<td>{esc(v)}</td>" for v in
+                        (item.get("family_key"), item.get("canonical"), members,
+                         item.get("evidence"))) + "</tr>")
+        body.append("</table>")
 
     # version resolution
     vr = r.get("version_resolution") or {}
@@ -135,6 +191,8 @@ def main():
     h2{font-size:16px;margin:1.6em 0 .6em;color:var(--acc)}
     p.q{font-size:15px;background:#f0f3ff;border-left:3px solid var(--acc);
         padding:10px 14px;border-radius:4px}
+    .answer{white-space:pre-wrap;font-size:14px;line-height:1.7;padding:14px 16px;
+        border:1px solid var(--line);border-radius:6px;background:#fbfcfe}
     table{border-collapse:collapse;width:100%;font-size:13px;margin:.4em 0}
     th{background:#eef1f6;text-align:left;padding:7px 10px;border:1px solid var(--line)}
     td{padding:7px 10px;border:1px solid var(--line);vertical-align:top}

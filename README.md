@@ -30,7 +30,8 @@
 - `scan_index.py` — 库扫描 → 文件全量事实 + 章节块 + 重复组 + 版本族 + needs_tool
 - `answer.py` — 多路查询规划 + 标准 BM25 主排序 + RRF 融合保底 + 过滤先行审计 + 证据窗口（file/sha256/chunk_id/offset）
 - `run_case.py` — 固定案例编排：按契约读 `/input/case.json`，落盘命中全文，
-  写出覆盖 output_contract 的 `result.json` 骨架（含 evidence_windows 供渲染）
+  调用 finalize 写出**非空完整首版 result.json**（answer/sources/evidence_matrix/version_lineage/operation_evidence）
+- `finalize.py` — 完整交付层：可读答案、全量来源、证据哈希复核、版本链、异常恢复；分类 profile 真实生成 `organized/` 规范副本、元数据侧车、重复别名、manifest 与回滚说明，源文件只读
 - `baseline.py` / `benchmark.py` / `render_report.py` — 对照基线、金标准指标（P@5/R@5/hash 验证率）、HTML 报告渲染；金标准问答集见 `skills/common/bench/queries.json`
 
 详细文档：[`skills/common/README.md`](skills/common/README.md)。
@@ -38,12 +39,14 @@
 ## 设计要点（对照评审维度）
 
 1. **可核验性**：所有结论锚定到源字节哈希与字符偏移；账本 ledger.json 留痕。
-2. **过滤约束执行**：每条约束独立 audit 行，先执行后匹配，排序只用通过过滤的语料。
-3. **诚实边界**：无提取器/损坏/空命中显式标记；未读全文不写结论；不越界主张。
-4. **预算纪律**：64 请求 / 900s / 16k token 内多节增量保存。
+2. **过滤约束执行**：每条约束独立 audit 行，先执行后匹配；年份/项目/版本/权限等硬约束不支持时 fail-closed。
+3. **真实整理**：分类题生成 organized/ 实体副本、规范命名、元数据侧车、重复别名与 manifest；源文件永不修改。
+4. **诚实边界**：无提取器/损坏/空命中显式标记；未读全文不写实质结论；不越界主张。
+5. **预算纪律**：64 请求 / 900s / 16k token 内先落完整首版，再多节增量保存。
 
 ## Changelog
 
+- **v5（2026-11-24）**：新增 `finalize.py` 完整交付层——`answer.content` 永不为空，自动生成全量 sources、证据矩阵、筛选记录、版本链、异常恢复与哈希复核；分类 profile **真实生成 organized/ 规范副本、元数据侧车、精确重复别名、manifest 与回滚说明**，源文件零修改。扫描器新增 stdlib OOXML 兜底、DOI 身份、符号链接/权限/状态；过滤器覆盖年份/项目/批次/作者/DOI/版本/权限，未知约束 fail-closed。独立挑刺发现的 17 项问题已修复并纳入 `regress_hardening.py`：零匹配假证据、长章节续块、CRLF 偏移、GBK、深合并契约、文件/chunk/quote/artifact 四重复核、路径 containment、resume 完整性、原子替换、UTF-8 文件名长度等。回归新增实体整理与源哈希不变断言，15 文件生成 14 副本 + 1 重复别名。
 - **v4（2026-11-22）**：双路检索融合——增加**语义 dense 通道**（纯 stdlib TF-IDF 向量化器+余弦相似度，捕捉概念改写与同义词漂移），
   与 BM25 双路加权融合（0.45·bm25_main + 0.15·bm25_title + 0.20·dense_cosine + 0.20·rrf）；
   benchmark 新增 **MRR@10、NDCG@5、P@3** 三项标准指标；HTML 详报 hits 表新增 pages/scores/dense_cosine 列、
@@ -75,3 +78,12 @@ python -I run_case.py --case <case.json> --index ../.selftest/index.json \
 ```
 
 仓库仅含文本资源（≤50 文件、≤2MB 上限合规）；运行产物与账本在本地生成，不入库。
+
+## 重建本地提交包
+
+```bash
+python -I tools/build_submissions.py
+```
+
+脚本按每个 `_submit/<slug>/GITHUB_URL.txt` 指向的 Skill 目录重建 32 个自包含包，
+并校验 UTF-8、50 文件、单文件 500KB、总 2MB 与必需资源；不会调用平台或修改源文件。

@@ -21,13 +21,22 @@ description: |
 |-|-|
 | scan_index.py | 库扫描 → 文件全量事实表(relpath/ext/size/sha256/mtime/**meta 元数据**)、章节块(chunk_id+偏移+**pages+印刷页码偏移**)、精确重复组、**近重复检测**（同标题族字节不同=版本变体）、版本族别名链与推荐 canonical、needs_tool |
 | answer.py | **过滤先行**：每条约束独立留痕；多路查询规划 + **字段加权 BM25**（正文主分 + 文件名字段加权 `_v2_final` 信号）+ **dense TF-IDF cosine** + RRF 保底；命中带 file/sha256/pages/offset/evidence/贡献计划 |
-| run_case.py | 按契约读 case.json，合并过滤约束与跨语言扩展词，跑链路，落盘命中全文到 evidence/hits/，产出覆盖 output_contract 的 result.json 骨架（含 citations+version_resolution）；断点续传 |
+| run_case.py | 按契约读 case.json，合并过滤约束与跨语言扩展词，跑链路，落盘命中全文；**自动产出完整首版 result.json**（answer 非空、sources 全量、catalog、version_lineage、operation_evidence、failure_recovery），并在 `organized/` 生成真实规范副本、元数据侧车、重复别名、manifest 与回滚说明；断点续传 |
+| finalize.py | 确定性交付层：规则分桶、元数据只从原文/文件事实抽取、规范命名、复制整理、精确重复别名、版本链、证据哈希复核；源文件永不修改 |
 | benchmark.py / render_report.py / baseline.py | 金标准指标（P@3/P@5/MRR@10/NDCG@5）、HTML 详报渲染、对照基线 |
 
 ```
 python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json \
-        --index /app/work/index.json --work /app/work --out /app/output
+        --index /app/work/index.json --work /app/work --out /app/output --profile classify
 ```
+
+### v5 完整交付纪律（必须）
+
+1. `run_case.py --profile classify` 已直接完成“分类 + 命名 + 元数据侧车 + 实体复制 + 去重别名 + 版本清单”，不再是建议型骨架。
+2. 首先读取 `/app/output/result.json` 的 `answer.content`、`catalog`、`operation_evidence` 与 `organized/manifest.json`；**不得把 answer.content 重新置空**。
+3. Agent 的职责是在完整首版上核对题目规则、修正桶归属、补充原文标签/作者/年份/DOI，并同步更新 catalog、sidecar 与 change_records。
+4. 只改 `/app/output/organized/` 的生成副本；源库保持只读。任何后续移动/改名都必须追加 change_records，保证可按 manifest 回滚。
+5. needs_tool/OCR 未完成时保持 `status=partial`；补录并 `--force` 重跑后再改 `ok`。
 
 ## 2. 判分点逐条对策（原文映射）
 
@@ -45,7 +54,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 2. **建库**：scan_index 对案例给定库跑一次；查 needs_tool 与近重复组。
 3. **应答**：对 families 成员逐一判定归属，把家族挂到规则桶，给出成员清单与 canonical；同哈希多路径走 aliases 推荐 canonical，避免把物理副本当两个条目。
 4. **读证**：逐条全文阅读 evidence/hits/*.txt（has_more=true 回源文补读）。
-5. **成稿**：写 result.json 并立即保存；预算剩 <20% 时保存 partial。
+5. **成稿**：先保留引擎生成的完整首版；逐桶核对成员与 canonical，按 output_contract 增补研究标签/元数据并立即保存。预算剩 <20% 时保持 partial，不推倒重来。
 
 ## 4. 输出契约（原题 output_contract 三块）
 
@@ -55,7 +64,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 | 操作证据 | 哈希、来源、权限、变更、日志 | 他人可复跑并核对 |
 | 失败与恢复 | 跳过、冲突、无权限、重复、恢复记录 | 不把未完成写成完成 |
 
-result.json 骨架：
+result.json 完整首版字段（Agent 在其上增补，不从空骨架开始）：
 
 ```json
 {"case_id":"…","status":"ok|partial|failed",
@@ -93,7 +102,7 @@ result.json 骨架：
 ## 7. 依赖、版本与安装
 
 - Python ≥ 3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool / office-renderer / ocr-tool 等）。
-- 引擎 `bohrium-weekly-common@4.0`（2026-11-22，随仓库同版本锁定）。无构建：本目录放入评测约定位置后直接调用。
+- 引擎 `bohrium-weekly-common@5.0`（2026-11-24，随仓库同版本锁定）。无构建步骤：将本目录放入评测约定位置后直接调用；新增 `finalize.py` 必须随包提交。
 
 ## 8. 实例运行证据（本仓库自带，可复跑）
 
@@ -106,6 +115,6 @@ result.json 骨架：
 | MRR@10 / NDCG@5 | **0.833 / 0.799** | 0.167 / 0.113 |
 | hash+offset 验证率 | **88.9%**（非空命中 100%） | 0% |
 
-回归：`.selftest/regress.py` 一键全绿。
+回归：`.selftest/regress.py` 一键全绿；v5 新增实体整理断言：15 文件 → 14 个规范副本 + 1 个精确重复别名，manifest/回滚齐全，源文件哈希前后一致。
 
 边界如实声明：语料为自建合成科研库、本机 Windows 环境，上表证明方法差异；平台侧最终分由组织方固定案例与官方 Harness 生成，不以本表冒充。

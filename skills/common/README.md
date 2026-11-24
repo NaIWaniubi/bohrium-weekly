@@ -10,7 +10,8 @@ stdlib only，无第三方依赖；全部输出为机器可读 JSON，每一步�
 | `lib.py` | 基础工具：原子 JSON 写、哈希（CJK/BOM 容错读取）、标题归一化与版本族排序、操作账本 `ledger_append` |
 | `scan_index.py` | 语料库扫描与索引：`--root <库> --out <index.json>`。产出文件全量清单（relpath/ext/size/sha256/mtime/**meta 元数据**）、章节级文本块（chunk_id+字符偏移）、**分页感知**（PDF `[page N]` 标记→块携带 pages 与印刷页码偏移）、精确重复组、**近重复检测**（同标题族+字节不同+体积差≤25% 视为版本变体）、版本族别名链与推荐 canonical、无提取器文件的诚实标记（needs_tool） |
 | `answer.py` | 单题应答：`--index --question [--filter F] [--terms-file T] --top N --out`。**双路检索融合**：多路查询规划+跨语言扩展 + **字段加权 BM25**（正文 k1=1.5/b=0.75 主分 + 文件名字段加权 `_v2_final` 信号） + **语义 dense**（纯 stdlib TF-IDF 向量化器+余弦相似度，捕捉概念改写与同义词漂移） + RRF 融合保底；过滤先行逐条留痕；命中携带 file/sha256/chunk_id/offset/pages/**citations**（段落首句锚点+逐字引用四件套）；引用生成器输出证据回链bundle |
-| `run_case.py` | 固定案例编排：按契约读取 `/input/case.json` 与 `task.md`，合并过滤约束与跨语言扩展词，运行链路，落盘命中全文，写出覆盖 output_contract 的 result.json（含 citations+version_resolution）；**断点续传**：result.json 已存在且 case_id 匹配时跳过（`--force` 强制重跑） |
+| `run_case.py` | 固定案例编排：按契约读取 `/input/case.json` 与 `task.md`，合并过滤约束与跨语言扩展词，运行链路，落盘命中全文；调用 finalize 生成**非空完整首版 result.json**（answer、sources、evidence_matrix、screening_log、uncertainty、failure_recovery、version_lineage、operation_evidence），保留 output_contract；**断点续传**：result.json 已存在且 case_id 匹配时跳过（`--force` 强制重跑） |
+| `finalize.py` | 确定性完整交付层：生成可读答案、全量来源、绝对偏移证据引用、版本链、异常恢复与源文件哈希复核；`--profile classify` 还真实生成 `organized/` 规范副本、元数据侧车、精确重复别名、manifest 与回滚说明，源文件永不修改 |
 | `baseline.py` | 对照基线：模拟"未加载本 Skill 的朴素 Agent"——仅文件名匹配、无过滤审计、无定位、无哈希（题目评分点明批评的失败模式） |
 | `benchmark.py` | 金标准问答集指标：读 `bench/queries.json`，同题分别跑 Skill 链与 baseline，输出 P@5 / R@5 / top5 召回数 / hash 验证率对比表 |
 | `render_report.py` | 把 result.json 渲染成自包含单页 HTML（过滤审计表 + 命中定位表 + 证据原文窗口 + 不确定性分区），评审无需环境直接打开 |
@@ -31,6 +32,8 @@ python -I benchmark.py --index index.json --out bench_result.json
 | gold 召回数/top5 | **2.33** | 0.22 |
 | hash+offset 验证率 | **88.9%**（空命中题不计入则 100%） | 0% |
 
+v5 起新增完整交付与独立挑刺回归：非空 answer、证据文件/chunk/quote/artifact 四重复核、全量 sources、年份/类型硬过滤、未知约束 fail-closed、零匹配不造假证据、长章节续块、CRLF/GBK、嵌套契约、路径 containment、旧结果不误续传、15 文件实体整理（14 副本 + 1 重复别名）、原子重跑与源文件哈希前后一致。
+
 v3 起新增四类题：多约束（类型+目录）、版本辨识（哪一版带附录）、跨文件共识、
 空命中诚实报告。
 
@@ -38,11 +41,11 @@ v3 起新增四类题：多约束（类型+目录）、版本辨识（哪一版�
 
 ## 设计原则（对照评分维度）
 
-1. **实际效果 40 分**：只输出真实读过源字节的结论——脚本永不杜撰未读过的段落；命中给出文件哈希+字符偏移，定位可直接复核。
-2. **使用增益 25 分**：过滤先执行且逐条留痕；问句拆解为多路子查询（跨语言扩展独立成路）标准 BM25 主排序 + RRF 融合保底，任一路词漏掉不会杀死召回；命中可解释到"哪几个计划贡献了它"。
-3. **创新增益 15 分**：版本族识别（norm_title+variant_rank）在索引期完成，重复内容与草稿/终稿关系不再靠 Agent 肉眼比对；精确重复组给推荐 canonical，避免重复引用。
-4. **可靠体验 10 分**：无提取器/损坏/无文本层/权限不足的文件标记 `needs_tool` 或进账本 warn，绝不静默跳过或伪读；空命中显式 `unmatched_warning`。
-5. **生态贡献 10 分**：账本（ledger.json）记录每次扫描与应答的输入标识与状态，供他人复跑。
+1. **实际效果 40 分**：脚本只输出真实读过源字节的候选事实；命中给出文件哈希+字符偏移。分类 profile 进一步**真实生成整理目录**，不是聊天建议；每条 copy/alias 都可回滚。
+2. **使用增益 25 分**：过滤先执行且逐条留痕；类型/目录/年份/项目/批次/作者/DOI/版本/权限均为硬约束，未知显式条件 fail-closed；问句拆解为多路子查询标准 BM25 主排序 + dense + RRF 融合，任一路词漏掉不会杀死召回。
+3. **创新增益 15 分**：DOI/标题版本族识别在索引期完成；精确重复只保留一个规范副本并记录 alias；近重复区分物理副本与版本变体，避免重复引用。
+4. **可靠体验 10 分**：stdlib OOXML 解析兜底、PDF 分页、符号链接/权限/损坏事实入索引；无提取器/空命中显式标记；完整首版先落盘，Agent 增量增补。
+5. **生态贡献 10 分**：账本、manifest、哈希复核、HTML 报告与一键回归共同构成可复跑证据链。
 
 ## 运行前提
 
@@ -62,6 +65,8 @@ python -I run_case.py --case /input/case.json --index /app/work/index.json \
 
 ## 已知边界（诚实声明）
 
-- 纯启发式章节切分：大文件中首次标题前 >1500 字符才切节，短文档整篇一块——定位以 chunk 内 offset 为准。
-- 命中窗口截断 700 字符，`has_more=true` 表示索引内已截断，需回源文补读。
+- 纯启发式章节切分：大文件中首次标题前 >1500 字符才切节；长章节生成带 80 字符重叠的续块，`has_more=true` 表示还有相邻块，不再丢尾部内容。
+- 证据 quote 最多 240 字符；纯文本 offset 指向源文本，PDF/Office offset 指向提取文本，并同时提供 `evidence/extracted_text/` 工件与页码，不能把提取文本偏移冒充二进制字节偏移。
+- 文件 SHA-256、chunk SHA-256、quote 切片三者分别复核；任一失败会在 evidence_refs 标记并使状态降为 partial。
+- 显式过滤条件无法验证时 fail-closed；未知年份结构、权限事实或分类 matcher 不会静默放行。
 - 语义召回非神经检索：依赖关键词扩展词表（SKILL.md 中给出扩展规程），纯同义改写的问题召回会下降，已在 SKILL.md 写明对策（多路查询+人工兜底）。

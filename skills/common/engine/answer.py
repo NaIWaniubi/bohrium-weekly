@@ -19,6 +19,7 @@ because the rubric scores filter-constraint execution. The agent's contract:
 read the full chunk behind every hit before claiming anything.
 """
 import argparse
+import fnmatch
 import json
 import math
 import os
@@ -57,9 +58,11 @@ def split_paragraphs(text):
     for blk in re.split(r"\n\s*\n", text):
         if not blk.strip():
             continue
-        start = text.find(blk, offset)
-        if start < 0:
-            start = offset
+        raw_start = text.find(blk, offset)
+        if raw_start < 0:
+            raw_start = offset
+        leading = len(blk) - len(blk.lstrip())
+        start = raw_start + leading
         para = blk.strip()
         flat = (len(para) > 400 and "\n" in para) or para.startswith("[")
         if flat:
@@ -72,7 +75,7 @@ def split_paragraphs(text):
                 if t and not t.startswith("["):
                     paras.append({"start": s_ln, "end": s_ln + len(t), "text": t})
                 sub_offset = max(sub_offset, s_ln + max(len(t), len(ln)) + 1)
-            offset = max(offset, start + len(blk))
+            offset = max(offset, raw_start + len(blk))
             continue
         if para and not para.startswith("["):
             paras.append({"start": start, "end": start + len(para), "text": para})
@@ -264,8 +267,10 @@ def rank_chunks(chunks, q_text="", q_toks=None, top=25, plans=None, terms_txt=No
         if not p_toks:
             continue
         sc = [(scorer.score(p_toks, i), i) for i in range(len(chunks))]
+        sc = [item for item in sc if item[0] > 0.0]
         sc.sort(key=lambda x: (-x[0], x[1]))
-        per_plan.append(sc[:max(top * 4, 40)])
+        if sc:
+            per_plan.append(sc[:max(top * 4, 40)])
 
     fused = {}  # idx -> rrf score
     contributing = {}  # idx -> list of plan labels
@@ -315,6 +320,8 @@ def rank_chunks(chunks, q_text="", q_toks=None, top=25, plans=None, terms_txt=No
         title_n = title_scores[i] / max_title
         dense_n = dense_scores[i] / max_dense
         rrf = fused.get(i, 0.0)
+        if mains[i] <= 0.0 and dense_scores[i] <= 0.0 and rrf <= 0.0:
+            continue
         score = 0.45 * main_n + 0.15 * title_n + 0.20 * dense_n + 0.20 * min(rrf / 0.5, 1.0)
         hits.append((score, i))
     hits.sort(key=lambda x: (-x[0], chunks[x[1]].get("chunk_id", "")))
@@ -334,58 +341,211 @@ def rank_chunks(chunks, q_text="", q_toks=None, top=25, plans=None, terms_txt=No
 
 
 def apply_filters(index, flt):
-    """Strict, evidenced filter chain. Returns kept file relpaths + audit."""
+    """Strict, evidenced filter chain. Returns kept file relpaths + audit.
+
+    Unsupported explicit constraints fail closed (empty result + audit row)
+    instead of being silently relaxed.  Text-derived fields use only bytes in
+    the verified index; missing values do not satisfy a positive constraint.
+    """
     flt = flt or {}
-    keep = None
+    files = {f["relpath"]: f for f in index.get("files", [])}
+    chunks_by_file = {}
+    for chunk in index.get("chunks", []):
+        chunks_by_file.setdefault(chunk.get("file"), []).append(chunk.get("text", "") or "")
+    file_text = {rel: "\n".join(parts)[:30000] for rel, parts in chunks_by_file.items()}
+    keep = set(files)
     audit = []
 
-    files = {f["relpath"]: f for f in index.get("files", [])}
+    def vals(value):
+        if value is None:
+            return []
+        return list(value) if isinstance(value, (list, tuple, set)) else [value]
 
-    def audit_row(constraint, prev_count):
-        return {"constraint": constraint, "kept": len(keep),
-                "dropped_since_prev": prev_count - len(keep)}
+    def norm_ext(value):
+        text = str(value or "").strip().lower()
+        if text == "*":
+            return text
+        return text if text.startswith(".") else "." + text
 
-    if flt.get("type"):
-        prev = len(files)
-        keep = {p for p in files if os.path.splitext(p)[1].lower()
-                in {e.lower() for e in flt["type"]}}
-        audit.append(audit_row("type=" + ",".join(flt["type"]), prev))
-    else:
-        keep = set(files)
+    def row(constraint, prev, **extra):
+        item = {"constraint": constraint, "kept": len(keep),
+                "dropped_since_prev": prev - len(keep)}
+        item.update(extra)
+        audit.append(item)
 
-    if flt.get("dir"):
-        dirs = {d.rstrip("/") for d in flt["dir"]}
+    def text_blob(rel):
+        f = files[rel]
+        return (rel + "\n" + f.get("name", "") + "\n" + file_text.get(rel, "")).lower()
+
+    def file_year(rel):
+        value = (files[rel].get("meta") or {}).get("year")
+        if value:
+            try:
+                return int(value)
+            except (TypeError, ValueError):
+                pass
+        m = re.search(r"(?<!\d)((?:19|20)\d{2})(?!\d)",
+                      files[rel].get("name", "") + "\n" + file_text.get(rel, "")[:12000])
+        return int(m.group(1)) if m else None
+
+    if flt.get("type") or flt.get("ext") or flt.get("extensions"):
         prev = len(keep)
+        exts = {norm_ext(x) for x in vals(flt.get("type") or flt.get("ext") or flt.get("extensions"))}
+        keep = {p for p in keep if "*" in exts or os.path.splitext(p)[1].lower() in exts}
+        row("type=" + ",".join(sorted(exts)), prev)
+
+    if flt.get("dir") or flt.get("directories"):
+        prev = len(keep)
+        dirs = {str(d).rstrip("/") for d in vals(flt.get("dir") or flt.get("directories"))}
         keep = {p for p in keep
-                if any(p == d or p.startswith(d + "/") or p.startswith(d) for d in dirs)}
-        audit.append(audit_row("dir=" + ",".join(sorted(dirs)), prev))
+                if any(p == d or p.startswith(d + "/") or fnmatch.fnmatch(p, d) for d in dirs)}
+        row("dir=" + ",".join(sorted(dirs)), prev)
 
-    if flt.get("min_size"):
+    if flt.get("include"):
         prev = len(keep)
-        keep = {p for p in keep if files[p]["size"] >= flt["min_size"]}
-        audit.append(audit_row(f"min_size={flt['min_size']}", prev))
+        patterns = [str(x) for x in vals(flt["include"])]
+        keep = {p for p in keep if any(fnmatch.fnmatch(p, pat) or fnmatch.fnmatch(files[p]["name"], pat)
+                                       for pat in patterns)}
+        row("include=" + ",".join(patterns), prev)
 
-    if flt.get("max_size"):
+    if flt.get("min_size") is not None:
         prev = len(keep)
-        keep = {p for p in keep if files[p]["size"] <= flt["max_size"]}
-        audit.append(audit_row(f"max_size={flt['max_size']}", prev))
+        minimum = int(flt["min_size"])
+        keep = {p for p in keep if files[p].get("size", 0) >= minimum}
+        row(f"min_size={minimum}", prev)
+
+    if flt.get("max_size") is not None:
+        prev = len(keep)
+        maximum = int(flt["max_size"])
+        keep = {p for p in keep if files[p].get("size", 0) <= maximum}
+        row(f"max_size={maximum}", prev)
 
     if flt.get("exclude"):
-        exs = [e.rstrip("/") for e in flt["exclude"]]
         prev = len(keep)
+        exs = [str(e).rstrip("/") for e in vals(flt["exclude"])]
         keep = {p for p in keep
-                if not any(p == e or p.startswith(e + "/") or p.startswith(e) for e in exs)}
-        audit.append(audit_row("exclude=" + ",".join(flt["exclude"]), prev))
+                if not any(p == e or p.startswith(e + "/") or fnmatch.fnmatch(p, e)
+                           or fnmatch.fnmatch(files[p]["name"], e) for e in exs)}
+        row("exclude=" + ",".join(exs), prev)
 
     if flt.get("need_text") is True:
-        toolless = {n["file"] for n in index.get("needs_tool", [])}
         prev = len(keep)
+        toolless = {n["file"] for n in index.get("needs_tool", [])}
         keep = {p for p in keep if p not in toolless}
-        row = audit_row("need_text=true", prev)
-        row["dropped_needs_tool"] = sorted(set(files) & toolless - keep)[:20]
-        audit.append(row)
+        row("need_text=true", prev, dropped_needs_tool=sorted(toolless & (set(files) - keep))[:20])
 
-    audit.append({"constraint": "final_keep", "count": len(keep)})
+    if flt.get("year") is not None or flt.get("min_year") is not None or flt.get("max_year") is not None:
+        prev = len(keep)
+        spec = flt.get("year")
+        lo = hi = exact = None
+        invalid = None
+        if isinstance(spec, dict):
+            allowed = {"min", "from", "year_min", "max", "to", "year_max", "equals", "exact"}
+            unknown_year_keys = sorted(set(spec) - allowed)
+            if unknown_year_keys:
+                invalid = "unsupported year keys: " + ",".join(unknown_year_keys)
+            lo = spec.get("min", spec.get("from", spec.get("year_min")))
+            hi = spec.get("max", spec.get("to", spec.get("year_max")))
+            exact = spec.get("equals", spec.get("exact"))
+        elif isinstance(spec, (list, tuple)):
+            if len(spec) == 2 and all(isinstance(x, (int, float)) for x in spec):
+                lo, hi = spec
+            else:
+                invalid = "year range must contain two numbers"
+        elif isinstance(spec, str) and spec.strip().isdigit():
+            exact = spec.strip()
+        elif isinstance(spec, str) and re.fullmatch(r"\s*(?:19|20)\d{2}\s*[-–/]\s*(?:19|20)\d{2}\s*", spec):
+            lo, hi = [int(x) for x in re.split(r"[-–/]", spec.strip())]
+        elif spec not in (None, ""):
+            invalid = "year must be a year, range, or min/max object"
+        lo = lo if lo is not None else flt.get("min_year")
+        hi = hi if hi is not None else flt.get("max_year")
+        try:
+            if exact is not None:
+                if not str(exact).isdigit():
+                    raise ValueError("exact year is not numeric")
+                lo = hi = int(exact)
+            if lo is not None:
+                lo = int(lo)
+            if hi is not None:
+                hi = int(hi)
+            if lo is not None and hi is not None and lo > hi:
+                raise ValueError("year min exceeds max")
+        except (TypeError, ValueError) as exc:
+            invalid = str(exc)
+        if invalid:
+            keep = set()
+            row("year=INVALID", prev, unsupported=invalid + "; fail closed")
+        else:
+            keep = {p for p in keep if (y := file_year(p)) is not None
+                    and (lo is None or y >= lo) and (hi is None or y <= hi)}
+            row(f"year={lo}..{hi}" + (f" exact={exact}" if exact is not None else ""), prev)
+
+    for key in ("project", "batch", "path_contains", "name_contains", "author", "doi", "sha256"):
+        if key not in flt or flt[key] in (None, "", []):
+            continue
+        prev = len(keep)
+        wanted = [str(x).lower() for x in vals(flt[key])]
+        if key == "author":
+            keep = {p for p in keep if any(w in str((files[p].get("meta") or {}).get("author") or
+                                                   (files[p].get("meta") or {}).get("creator") or "").lower()
+                                         for w in wanted)}
+        elif key == "doi":
+            keep = {p for p in keep if str((files[p].get("meta") or {}).get("doi") or "").lower() in wanted}
+        elif key == "sha256":
+            keep = {p for p in keep if str(files[p].get("sha256") or "").lower() in wanted}
+        elif key == "name_contains":
+            keep = {p for p in keep if any(w in files[p].get("name", "").lower() for w in wanted)}
+        elif key == "path_contains":
+            keep = {p for p in keep if any(w in p.lower() for w in wanted)}
+        else:
+            keep = {p for p in keep if any(w in text_blob(p) for w in wanted)}
+        row(key + "=" + ",".join(wanted), prev)
+
+    if flt.get("version") is not None:
+        prev = len(keep)
+        spec = str(flt["version"]).lower()
+        if spec in ("latest", "canonical", "final", "终稿"):
+            canonical = set()
+            for family in (index.get("families") or {}).values():
+                members = family.get("members") or []
+                if members:
+                    canonical.add(max(members, key=lambda m: (int(m.get("rank") or 0),
+                                                              files.get(m.get("relpath"), {}).get("mtime", 0)))["relpath"])
+            family_members = {m.get("relpath") for fam in (index.get("families") or {}).values()
+                              for m in fam.get("members", [])}
+            keep = {p for p in keep if p in canonical or p not in family_members}
+            row("version=latest/canonical", prev, canonical=sorted(canonical & keep)[:30])
+        else:
+            keep = {p for p in keep if spec in text_blob(p)}
+            row("version=" + spec, prev)
+
+    if flt.get("readable") is True or str(flt.get("permission", "")).lower() in ("readable", "read"):
+        prev = len(keep)
+        keep = {p for p in keep if files[p].get("readable") is True}
+        row("permission=readable", prev)
+    elif str(flt.get("permission", "")).lower() in ("writable", "write"):
+        prev = len(keep)
+        keep = {p for p in keep if files[p].get("writable") is True}
+        row("permission=writable", prev)
+    elif flt.get("permission") not in (None, "", False):
+        prev = len(keep)
+        keep = set()
+        row("permission=" + str(flt["permission"]), prev,
+            unsupported="permission value cannot be verified from available file facts; fail closed")
+
+    supported = {"type", "ext", "extensions", "dir", "directories", "include", "min_size",
+                 "max_size", "exclude", "need_text", "year", "min_year", "max_year", "project",
+                 "batch", "path_contains", "name_contains", "author", "doi", "sha256", "version",
+                 "readable", "permission"}
+    unknown = sorted(set(flt) - supported)
+    if unknown:
+        prev = len(keep)
+        keep = set()
+        row("unsupported=" + ",".join(unknown), prev,
+            unsupported="explicit constraint has no verified evaluator; fail closed")
+
+    audit.append({"constraint": "final_keep", "count": len(keep), "kept": len(keep)})
     return keep, audit
 
 
@@ -442,6 +602,9 @@ def main():
                 "chunk_id": c.get("chunk_id"),
                 "kind": c.get("kind"),
                 "offset": {"start": c.get("start"), "end": c.get("end")},
+                "pages": c.get("pages"),
+                "printed_page_offset": c.get("printed_page_offset"),
+                "part_index": c.get("part_index"),
                 "snippet": c.get("text", "")[:320],
                 "evidence": evidence_windows(c.get("text", ""), q_toks),
                 "has_more": c.get("has_more"),

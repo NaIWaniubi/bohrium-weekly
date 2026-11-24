@@ -24,13 +24,21 @@ description: |
 |-|-|
 | scan_index.py | 库扫描 → 文件全量事实表(relpath/ext/size/sha256/mtime/**meta 元数据**)、章节级文本块(chunk_id+字符偏移+**pages+印刷页码偏移**)、精确重复组、近重复检测（同标题族字节不同=版本变体）、版本族别名链与推荐 canonical、needs_tool 清单 |
 | answer.py | **过滤先行**：每条约束独立留痕（kept/dropped_since_prev）；多路查询规划（问句拆解聚焦子查询、跨语言扩展词独立成路）；**字段加权 BM25**（正文 k1=1.5/b=0.75 主分 + 文件名字段加权，`_v2_final` 类版本信号可被检索）+ **dense 通道**（纯 stdlib TF-IDF 向量化器+余弦相似度，捕捉概念改写与同义词漂移）+ RRF 融合保底；命中带 file/sha256/chunk_id/pages/offset/**evidence**（匹配处窗口）/贡献计划 |
-| run_case.py | 按契约读 case.json，合并过滤约束与跨语言扩展词，跑链路，把每个命中的**全文**落盘到 `evidence/hits/`，产出覆盖 output_contract 的 result.json 骨架（含 citations+version_resolution）；**断点续传**（result.json 已存在且 case_id 匹配即跳过，`--force` 强制重跑） |
+| run_case.py | 按契约读 case.json，合并过滤约束与跨语言扩展词，跑链路，把每个命中的**全文**落盘到 `evidence/hits/`；**自动产出完整首版 result.json**（answer.content 非空、search_results、evidence_matrix、sources 全量、uncertainty/failure_recovery、citations/version_resolution），并逐条回读源文件复核 sha256；**断点续传**（`--force` 强制重跑） |
+| finalize.py | 完整交付层：生成可读答案、绝对偏移证据引用、全量来源清单、筛选记录、版本链、运行/哈希/回滚证据；保留原 output_contract 全部字段 |
 | benchmark.py / render_report.py / baseline.py | 金标准指标（P@3/P@5/MRR@10/NDCG@5）、HTML 详报渲染、对照基线 |
 
 ```
 python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json \
-        --index /app/work/index.json --work /app/work --out /app/output
+        --index /app/work/index.json --work /app/work --out /app/output --profile search
 ```
+
+### v5 完整交付纪律（必须）
+
+1. 引擎已直接生成完整首版答案与 `answer.evidence_refs`；**不得把 answer.content 置空或只保留骨架**。
+2. `filter_audit` 支持类型、目录、年份、项目、批次、作者、DOI、版本、可读权限与路径约束；未知显式条件 fail-closed 留审计行，不静默放宽。
+3. Agent 阅读 `evidence/hits/*.txt` 后，把 answer.content 改成真正回答问题的段落；每条实质结论引用 `[E#]`，并保证 quote 在 offset 原文中逐字存在。
+4. `has_more=true` 必须回源补读；OCR/提取失败保留在 uncertainty.missing，未完成时保持 partial。
 
 ## 2. 判分点逐条对策（原文映射）
 
@@ -51,7 +59,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 2. **建库**：对案例给定库跑 `scan_index.py` 一次，得到事实表；查 needs_tool 与近重复组；需要 OCR 的按题目用官方 ocr-tool 补录，**绝不凭文件名臆测内容**。
 3. **应答**：跨语言词表写入 `/app/work/terms.txt` 后跑 run_case；过滤器逐条生效并留痕。
 4. **读证**：逐条全文阅读 `evidence/hits/*.txt`（has_more=true 回源文补读）。
-5. **成稿**：按 output_contract 填 result.json 并立即保存；预算剩 <20% 时保存 partial。
+5. **成稿**：在引擎完整首版上改写 answer.content，按 output_contract 补齐字段并立即保存；预算剩 <20% 时保存 partial。
 
 ## 4. 输出契约（原题 output_contract 三块）
 
@@ -61,7 +69,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 | 操作证据 | 哈希、来源、权限、变更、日志 | 他人可复跑并核对 |
 | 失败与恢复 | 跳过、冲突、无权限、重复、恢复记录 | 不把未完成写成完成 |
 
-result.json 骨架：
+result.json 完整首版字段（Agent 在其上增补，不从空骨架开始）：
 
 ```json
 {"case_id":"…","status":"ok|partial|failed",
@@ -95,7 +103,7 @@ result.json 骨架：
 ## 7. 依赖、版本与安装
 
 - Python ≥ 3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool / office-renderer / ocr-tool 等）。
-- 引擎 `bohrium-weekly-common@4.0`（2026-11-22，随仓库同版本锁定）。无构建步骤：将本目录放入评测约定位置（Skill 本体 `/skills/weekly-skill/`，共用引擎随附同一相对路径 `common/engine/`）。
+- 引擎 `bohrium-weekly-common@5.0`（2026-11-24，随仓库同版本锁定）。无构建步骤：将本目录放入评测约定位置（Skill 本体 `/skills/weekly-skill/`，共用引擎随附同一相对路径 `common/engine/`）；新增 `finalize.py` 必须随包提交。
 
 ## 8. 实例运行证据（本仓库自带，可复跑）
 
@@ -108,6 +116,6 @@ result.json 骨架：
 | MRR@10 / NDCG@5 | **0.833 / 0.799** | 0.167 / 0.113 |
 | hash+offset 验证率 | **88.9%**（非空命中 100%） | 0% |
 
-回归：`.selftest/regress.py` 一键全绿（字节编译→造库→扫描→全链路→基准分离）。
+回归：`.selftest/regress.py` 一键全绿（字节编译→造库→扫描→全链路→硬过滤 fail-closed→基准分离）；v5 非空证据引用实测 9/9 文件哈希、chunk 哈希、quote 切片与提取文本工件复核通过，零匹配查询返回 0 hits。
 
 边界如实声明：语料为自建合成科研库、本机 Windows 环境，上表证明方法与对照协议差异；平台侧最终分由组织方固定案例与官方 Harness 生成，不以本表冒充。
