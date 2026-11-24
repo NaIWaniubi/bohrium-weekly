@@ -1,0 +1,2255 @@
+{
+ "case_id": "profile9-review",
+ "status": "partial",
+ "question": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+ "query_expanded": true,
+ "query_plans": [
+  "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+  "graph neural networks",
+  "molecular property prediction",
+  "limitations",
+  "research gap",
+  "stereochemistry",
+  "与研",
+  "中的",
+  "于本",
+  "估图",
+  "分子"
+ ],
+ "scanned_files": 9,
+ "index_chunks": 7,
+ "filter_audit": [
+  {
+   "constraint": "type=.docx,.md,.pdf,.pptx,.txt,.xlsx",
+   "kept": 7,
+   "dropped_since_prev": 2
+  },
+  {
+   "constraint": "final_keep",
+   "count": 7,
+   "kept": 7
+  }
+ ],
+ "candidates_after_filter": 7,
+ "hit_count": 5,
+ "hits": [
+  {
+   "rank": 1,
+   "file": "slides/overview.pptx",
+   "sha256_file": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "sha256_chunk": "e3c1937a53de24002dad0d7ee88db68072aed1486464577ccb6f5506ebcbfb1f",
+   "chunk_id": "8f41206bbdf1#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 137
+   },
+   "pages": null,
+   "printed_page_offset": null,
+   "snippet": "[slide 1]\nGraph Neural Networks for Molecular Property Prediction\nProject Alpha overview: GNN, QM9, message passing, stereochemistry gap.",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 137,
+   "score_raw": 0.6762,
+   "bm25_main": 6.5843,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.4975,
+   "rrf_score": 0.065574,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 4,
+     "plan_text": "limitations",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 1
+    }
+   ]
+  },
+  {
+   "rank": 2,
+   "file": "papers/gcn_2024_v1_draft.pdf",
+   "sha256_file": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "sha256_chunk": "f5f20422187f1dec97352add736b0fec62d15bcc8bb33ba83c01214ab7d386fa",
+   "chunk_id": "6f788fefe601#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 517
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 517,
+   "score_raw": 0.3218,
+   "bm25_main": 3.4071,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.1572,
+   "rrf_score": 0.064269,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 3
+    },
+    {
+     "plan": 3,
+     "plan_text": "molecular property prediction",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 3
+    }
+   ]
+  },
+  {
+   "rank": 3,
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+   "chunk_id": "5f08c5529931#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with a",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 563,
+   "score_raw": 0.3151,
+   "bm25_main": 3.2511,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.1682,
+   "rrf_score": 0.063252,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+     "bm25_rank": 3
+    },
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 4
+    },
+    {
+     "plan": 3,
+     "plan_text": "molecular property prediction",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 4
+    }
+   ]
+  },
+  {
+   "rank": 4,
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+   "chunk_id": "5f08c5529931#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with a",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 563,
+   "score_raw": 0.3147,
+   "bm25_main": 3.2511,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.1682,
+   "rrf_score": 0.062267,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+     "bm25_rank": 4
+    },
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 5
+    },
+    {
+     "plan": 3,
+     "plan_text": "molecular property prediction",
+     "bm25_rank": 3
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 5
+    }
+   ]
+  },
+  {
+   "rank": 5,
+   "file": "notes/meeting_2024.md",
+   "sha256_file": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "sha256_chunk": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "chunk_id": "42876943129d#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 277
+   },
+   "pages": null,
+   "printed_page_offset": null,
+   "snippet": "# Project Alpha meeting, 2024-03\r\n\r\nBatch B-2024-03. We discussed message passing for molecular property prediction.\r\nConsensus: QM9 improvements look real but stereochemistry remains a limitation.\r\nAction: compare the final 2025 version against the 2024 draft before citing.\r\n",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 277,
+   "score_raw": 0.1381,
+   "bm25_main": 1.6376,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.0331,
+   "rrf_score": 0.032258,
+   "plan_evidence": [
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 2
+    }
+   ]
+  }
+ ],
+ "evidence_windows": [
+  {
+   "file": "slides/overview.pptx",
+   "offset": [
+    0,
+    137
+   ],
+   "text": "[slide 1] Graph Neural Networks for Molecular Property Prediction Project Alpha overview: GNN, QM9, message passing, stereochemistry gap."
+  },
+  {
+   "file": "papers/gcn_2024_v1_draft.pdf",
+   "offset": [
+    0,
+    517
+   ],
+   "text": "[page 1] Graph Neural Networks for Molecular Property Prediction ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M ## Results On QM9, the GNN reduces mean absolute error by 12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. Draft-only paragraph: preliminary stereochemistry probe. "
+  },
+  {
+   "file": "aliases/gcn_2025_copy.pdf",
+   "offset": [
+    0,
+    563
+   ],
+   "text": "[page 1] Graph Neural Networks for Molecular Property Prediction DOI: 10.1234/example.gcn.2025 ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M ## Results On QM9, the GNN reduces mean absolute error by 12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. ## Reproducibility Canonical version with final administrative approval. "
+  },
+  {
+   "file": "papers/gcn_2025_final.pdf",
+   "offset": [
+    0,
+    563
+   ],
+   "text": "[page 1] Graph Neural Networks for Molecular Property Prediction DOI: 10.1234/example.gcn.2025 ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M ## Results On QM9, the GNN reduces mean absolute error by 12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. ## Reproducibility Canonical version with final administrative approval. "
+  },
+  {
+   "file": "notes/meeting_2024.md",
+   "offset": [
+    0,
+    277
+   ],
+   "text": "# Project Alpha meeting, 2024-03\r \r Batch B-2024-03. We discussed message passing for molecular property prediction.\r Consensus: QM9 improvements look real but stereochemistry remains a limitation.\r Action: compare the final 2025 version against the 2024 draft before citing.\r "
+  }
+ ],
+ "citations": [
+  {
+   "file": "slides/overview.pptx",
+   "sha256_file": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "pages": null,
+   "printed_page_offset": null,
+   "offset": {
+    "start": 0,
+    "end": 137
+   },
+   "section_kind": "tail",
+   "anchor": {
+    "first_sentence": "Graph Neural Networks for Molecular Property Prediction",
+    "paragraph_offset": [
+     10,
+     65
+    ]
+   },
+   "quotes": [
+    {
+     "offset": [
+      0,
+      137
+     ],
+     "text": "[slide 1] Graph Neural Networks for Molecular Property Prediction Project Alpha overview: GNN, QM9, message passing, stereochemistry gap."
+    }
+   ]
+  },
+  {
+   "file": "papers/gcn_2024_v1_draft.pdf",
+   "sha256_file": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "offset": {
+    "start": 0,
+    "end": 517
+   },
+   "section_kind": "tail",
+   "anchor": {
+    "first_sentence": "We survey graph neural network architectures for molecular property prediction from SMILES and molecular",
+    "paragraph_offset": [
+     77,
+     181
+    ]
+   },
+   "quotes": [
+    {
+     "offset": [
+      0,
+      517
+     ],
+     "text": "...solute error by 12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. Draft-only paragraph: preliminary stereochemistry probe."
+    }
+   ]
+  },
+  {
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "section_kind": "tail",
+   "anchor": {
+    "first_sentence": "We survey graph neural network architectures for molecular property prediction from SMILES and molecular",
+    "paragraph_offset": [
+     107,
+     211
+    ]
+   },
+   "quotes": [
+    {
+     "offset": [
+      0,
+      563
+     ],
+     "text": "...12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. ## Reproducibility Canonical version with final administrative approval."
+    }
+   ]
+  },
+  {
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "section_kind": "tail",
+   "anchor": {
+    "first_sentence": "We survey graph neural network architectures for molecular property prediction from SMILES and molecular",
+    "paragraph_offset": [
+     107,
+     211
+    ]
+   },
+   "quotes": [
+    {
+     "offset": [
+      0,
+      563
+     ],
+     "text": "...12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. ## Reproducibility Canonical version with final administrative approval."
+    }
+   ]
+  },
+  {
+   "file": "notes/meeting_2024.md",
+   "sha256_file": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "pages": null,
+   "printed_page_offset": null,
+   "offset": {
+    "start": 0,
+    "end": 277
+   },
+   "section_kind": "tail",
+   "anchor": {
+    "first_sentence": "Batch B-2024-03.",
+    "paragraph_offset": [
+     36,
+     275
+    ]
+   },
+   "quotes": [
+    {
+     "offset": [
+      0,
+      277
+     ],
+     "text": "... property prediction.\r Consensus: QM9 improvements look real but stereochemistry remains a limitation.\r Action: compare the final 2025 version against the 2024 draft before citing."
+    }
+   ]
+  }
+ ],
+ "version_resolution": {
+  "aliases": [
+   {
+    "family": "doi:10.1234/example.gcn.2025",
+    "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+    "chains": [
+     {
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "paths": [
+       "aliases/gcn_2025_copy.pdf",
+       "papers/gcn_2025_final.pdf"
+      ],
+      "resolution": "identical content: prefer canonical relpath aliases/gcn_2025_copy.pdf"
+     }
+    ],
+    "recommended_canonical": "papers/gcn_2025_final.pdf"
+   }
+  ],
+  "dedup_groups": {
+   "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46": [
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ]
+  },
+  "near_duplicates": [
+   {
+    "family": "graph neural networks for molecular property prediction",
+    "paths": [
+     "papers/gcn_2024_v1_draft.pdf",
+     "slides/overview.pptx"
+    ],
+    "shas": [
+     "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876"
+    ],
+    "sizes": [
+     34254,
+     28316
+    ],
+    "resolution": "same title family, distinct content, sizes within 25%% — treat as version variants, cite the one the question targets (rank by variant_rank)"
+   }
+  ]
+ },
+ "needs_tool_list": [
+  {
+   "file": "broken/corrupt.bin",
+   "status": "needs_tool",
+   "why": ".bin: no extractor (native lib absent, no CLI)"
+  },
+  {
+   "file": "scans/old_paper.png",
+   "status": "needs_tool",
+   "why": "image raster — OCR text layer only via ocr-tool"
+  }
+ ],
+ "dedup_groups": {
+  "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46": [
+   "aliases/gcn_2025_copy.pdf",
+   "papers/gcn_2025_final.pdf"
+  ]
+ },
+ "families": {
+  "doi:10.1234/example.gcn.2025": {
+   "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+   "members": [
+    "admin/version_notes.md",
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ]
+  },
+  "graph neural networks for molecular property prediction": {
+   "title_guess": "Graph Neural Networks for Molecular Property Prediction",
+   "members": [
+    "papers/gcn_2024_v1_draft.pdf",
+    "slides/overview.pptx"
+   ]
+  }
+ },
+ "answer": {
+  "content": "# 综述草稿\n\n研究问题：基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白\n\n## 筛选协议与范围\n\n- 输入未明确声明前瞻性协议；本稿不推断其注册状态。\n- 纳入标准：graph neural network；molecular property。\n- 排除标准：unrelated。\n- 已声明约束：full_text_required=False。\n\n## 材料事实\n\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E01][S1]。\n  > 原文：[slide 1] Graph Neural Networks for Molecular Property Prediction Project Alpha overview: GNN, QM9, message passing, stereochemistry gap. [E01]\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E02][S2]。\n  > 原文：[page 1] Graph Neural Networks for Molecular Property Prediction ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned convolution encodes atoms as n [E02]\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E03][S3]。\n  > 原文：[page 1] Graph Neural Networks for Molecular Property Prediction DOI: 10.1234/example.gcn.2025 ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned [E03]\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E04][S4]。\n  > 原文：[page 1] Graph Neural Networks for Molecular Property Prediction DOI: 10.1234/example.gcn.2025 ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned [E04]\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E05][S5]。\n  > 原文：# Project Alpha meeting, 2024-03 Batch B-2024-03. We discussed message passing for molecular property prediction. Consensus: QM9 improvements look real but stereochemistry remains a limitation. Action: compare the final 2025 version ag [E05]\n\n## 主题归纳\n\n- 材料事实：在本批纳入文献中，主题「molecular / graph / neural」覆盖 3 个来源， recurrent terms 为 molecular, graph, neural, prediction, property。[E-d376fa4d13-5f08c5529931#1-0][E-731c345f34-6f788fefe601#1-0][E-b373fdaf92-8f41206bbdf1#1-0][S3][S2][S1]\n\n## 合理推断\n\n- 合理推断：主题「molecular / graph / neural」可能涉及 molecular, graph, neural, prediction 的重复关注；这是对本批材料的归纳，不是领域共识。[E-d376fa4d13-5f08c5529931#1-0][E-731c345f34-6f788fefe601#1-0][E-b373fdaf92-8f41206bbdf1#1-0][S3][S2][S1]\n\n## 无法确定：冲突、空白与边界\n\n- 无法确定：没有传入冲突或覆盖矩阵空白记录；这不代表不存在冲突或全球空白。\n\n## 引用索引\n\n- [E01] slides/overview.pptx | sha256=8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876 | chunk= | offset=\n- [E02] papers/gcn_2024_v1_draft.pdf | sha256=6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf | chunk= | offset=\n- [E03] aliases/gcn_2025_copy.pdf | sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46 | chunk= | offset=\n- [E04] papers/gcn_2025_final.pdf | sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46 | chunk= | offset=\n- [E05] notes/meeting_2024.md | sha256=42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4 | chunk= | offset=\n- [E-731c345f34-6f788fefe601#1-0] papers/gcn_2024_v1_draft.pdf | sha256= | chunk=6f788fefe601#1 | offset=\n- [E-b373fdaf92-8f41206bbdf1#1-0] slides/overview.pptx | sha256= | chunk=8f41206bbdf1#1 | offset=\n- [E-d376fa4d13-5f08c5529931#1-0] aliases/gcn_2025_copy.pdf | sha256= | chunk=5f08c5529931#1 | offset=\n- [S1] slides/overview.pptx | sha256=8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876\n- [S2] papers/gcn_2024_v1_draft.pdf | sha256=6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf\n- [S3] aliases/gcn_2025_copy.pdf | sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46\n- [S4] papers/gcn_2025_final.pdf | sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46\n- [S5] notes/meeting_2024.md | sha256=42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4\n",
+  "evidence_refs": [
+   {
+    "evidence_id": "E01",
+    "file": "slides/overview.pptx",
+    "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+    "sha256_verified": true,
+    "chunk_id": "8f41206bbdf1#1",
+    "sha256_chunk": "e3c1937a53de24002dad0d7ee88db68072aed1486464577ccb6f5506ebcbfb1f",
+    "chunk_hash_verified": true,
+    "quote_verified": true,
+    "source_slice_verified": true,
+    "extracted_text": "evidence/extracted_text/8f41206bbdf1_slides__overview.pptx.txt",
+    "extracted_text_sha256": "e3c1937a53de24002dad0d7ee88db68072aed1486464577ccb6f5506ebcbfb1f",
+    "artifact_hash_verified": true,
+    "source_path_error": null,
+    "offset_space": "extracted_text_chars",
+    "pages": null,
+    "printed_page_offset": null,
+    "chunk_offset": {
+     "start": 0,
+     "end": 137
+    },
+    "offset": [
+     0,
+     137
+    ],
+    "anchor": "Graph Neural Networks for Molecular Property Prediction",
+    "quote": "[slide 1]\nGraph Neural Networks for Molecular Property Prediction\nProject Alpha overview: GNN, QM9, message passing, stereochemistry gap.",
+    "meaning": "查询词命中的原文候选；用于定位与复核，实质结论须由 Agent 阅读上下文后确认"
+   },
+   {
+    "evidence_id": "E02",
+    "file": "papers/gcn_2024_v1_draft.pdf",
+    "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+    "sha256_verified": true,
+    "chunk_id": "6f788fefe601#1",
+    "sha256_chunk": "f5f20422187f1dec97352add736b0fec62d15bcc8bb33ba83c01214ab7d386fa",
+    "chunk_hash_verified": true,
+    "quote_verified": true,
+    "source_slice_verified": true,
+    "extracted_text": "evidence/extracted_text/6f788fefe601_papers__gcn_2024_v1_draft.pdf.txt",
+    "extracted_text_sha256": "f5f20422187f1dec97352add736b0fec62d15bcc8bb33ba83c01214ab7d386fa",
+    "artifact_hash_verified": true,
+    "source_path_error": null,
+    "offset_space": "extracted_text_chars",
+    "pages": [
+     1
+    ],
+    "printed_page_offset": null,
+    "chunk_offset": {
+     "start": 0,
+     "end": 517
+    },
+    "offset": [
+     0,
+     240
+    ],
+    "anchor": "We survey graph neural network architectures for molecular property prediction from SMILES and molecular",
+    "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as n",
+    "meaning": "查询词命中的原文候选；用于定位与复核，实质结论须由 Agent 阅读上下文后确认"
+   },
+   {
+    "evidence_id": "E03",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+    "sha256_verified": true,
+    "chunk_id": "5f08c5529931#1",
+    "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chunk_hash_verified": true,
+    "quote_verified": true,
+    "source_slice_verified": true,
+    "extracted_text": "evidence/extracted_text/5f08c5529931_aliases__gcn_2025_copy.pdf.txt",
+    "extracted_text_sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "artifact_hash_verified": true,
+    "source_path_error": null,
+    "offset_space": "extracted_text_chars",
+    "pages": [
+     1
+    ],
+    "printed_page_offset": null,
+    "chunk_offset": {
+     "start": 0,
+     "end": 563
+    },
+    "offset": [
+     0,
+     240
+    ],
+    "anchor": "We survey graph neural network architectures for molecular property prediction from SMILES and molecular",
+    "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned ",
+    "meaning": "查询词命中的原文候选；用于定位与复核，实质结论须由 Agent 阅读上下文后确认"
+   },
+   {
+    "evidence_id": "E04",
+    "file": "papers/gcn_2025_final.pdf",
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+    "sha256_verified": true,
+    "chunk_id": "5f08c5529931#1",
+    "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chunk_hash_verified": true,
+    "quote_verified": true,
+    "source_slice_verified": true,
+    "extracted_text": "evidence/extracted_text/5f08c5529931_papers__gcn_2025_final.pdf.txt",
+    "extracted_text_sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "artifact_hash_verified": true,
+    "source_path_error": null,
+    "offset_space": "extracted_text_chars",
+    "pages": [
+     1
+    ],
+    "printed_page_offset": null,
+    "chunk_offset": {
+     "start": 0,
+     "end": 563
+    },
+    "offset": [
+     0,
+     240
+    ],
+    "anchor": "We survey graph neural network architectures for molecular property prediction from SMILES and molecular",
+    "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned ",
+    "meaning": "查询词命中的原文候选；用于定位与复核，实质结论须由 Agent 阅读上下文后确认"
+   },
+   {
+    "evidence_id": "E05",
+    "file": "notes/meeting_2024.md",
+    "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+    "sha256_verified": true,
+    "chunk_id": "42876943129d#1",
+    "sha256_chunk": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+    "chunk_hash_verified": true,
+    "quote_verified": true,
+    "source_slice_verified": true,
+    "extracted_text": "evidence/extracted_text/42876943129d_notes__meeting_2024.md.txt",
+    "extracted_text_sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+    "artifact_hash_verified": true,
+    "source_path_error": null,
+    "offset_space": "source_text_chars",
+    "pages": null,
+    "printed_page_offset": null,
+    "chunk_offset": {
+     "start": 0,
+     "end": 277
+    },
+    "offset": [
+     0,
+     240
+    ],
+    "anchor": "Batch B-2024-03.",
+    "quote": "# Project Alpha meeting, 2024-03\r\n\r\nBatch B-2024-03. We discussed message passing for molecular property prediction.\r\nConsensus: QM9 improvements look real but stereochemistry remains a limitation.\r\nAction: compare the final 2025 version ag",
+    "meaning": "查询词命中的原文候选；用于定位与复核，实质结论须由 Agent 阅读上下文后确认"
+   }
+  ],
+  "profile": "review"
+ },
+ "evidence": {
+  "dir": "evidence/hits/",
+  "digest_note": "one file per hit, full text"
+ },
+ "sources": [
+  {
+   "relpath": "admin/version_notes.md",
+   "name": "version_notes.md",
+   "ext": ".md",
+   "size": 370,
+   "mtime": 1795526992,
+   "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+    "chars": 370,
+    "extractor": "text:read_text_safe"
+   },
+   "meta": {
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "admin",
+   "target": null
+  },
+  {
+   "relpath": "aliases/gcn_2025_copy.pdf",
+   "name": "gcn_2025_copy.pdf",
+   "ext": ".pdf",
+   "size": 34356,
+   "mtime": 1795526992,
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chars": 563,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen",
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "aliases",
+   "target": null
+  },
+  {
+   "relpath": "broken/corrupt.bin",
+   "name": "corrupt.bin",
+   "ext": ".bin",
+   "size": 2048,
+   "mtime": 1795526995,
+   "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "needs_tool",
+   "extraction": null,
+   "meta": null,
+   "bucket": "broken",
+   "target": null
+  },
+  {
+   "relpath": "data/qm9_results.xlsx",
+   "name": "qm9_results.xlsx",
+   "ext": ".xlsx",
+   "size": 4962,
+   "mtime": 1795526994,
+   "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "4405200cf8bcd278b3a593d169781a2a2379ff09231509a8228b04fce5904841",
+    "chars": 127,
+    "extractor": "native"
+   },
+   "meta": {
+    "sheets": [
+     "QM9"
+    ],
+    "creator": "openpyxl",
+    "created": "2026-11-24T13:29:54Z",
+    "modified": "2026-11-24T13:29:54Z"
+   },
+   "bucket": "data",
+   "target": null
+  },
+  {
+   "relpath": "notes/meeting_2024.md",
+   "name": "meeting_2024.md",
+   "ext": ".md",
+   "size": 277,
+   "mtime": 1795526994,
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+    "chars": 277,
+    "extractor": "text:read_text_safe"
+   },
+   "meta": null,
+   "bucket": "notes",
+   "target": null
+  },
+  {
+   "relpath": "papers/gcn_2024_v1_draft.pdf",
+   "name": "gcn_2024_v1_draft.pdf",
+   "ext": ".pdf",
+   "size": 34254,
+   "mtime": 1795526991,
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "f5f20422187f1dec97352add736b0fec62d15bcc8bb33ba83c01214ab7d386fa",
+    "chars": 517,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen"
+   },
+   "bucket": "papers",
+   "target": null
+  },
+  {
+   "relpath": "papers/gcn_2025_final.pdf",
+   "name": "gcn_2025_final.pdf",
+   "ext": ".pdf",
+   "size": 34356,
+   "mtime": 1795526992,
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chars": 563,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen",
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "papers",
+   "target": null
+  },
+  {
+   "relpath": "scans/old_paper.png",
+   "name": "old_paper.png",
+   "ext": ".png",
+   "size": 5038,
+   "mtime": 1795526995,
+   "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "needs_tool",
+   "extraction": null,
+   "meta": null,
+   "bucket": "scans",
+   "target": null
+  },
+  {
+   "relpath": "slides/overview.pptx",
+   "name": "overview.pptx",
+   "ext": ".pptx",
+   "size": 28316,
+   "mtime": 1795526995,
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "e3c1937a53de24002dad0d7ee88db68072aed1486464577ccb6f5506ebcbfb1f",
+    "chars": 137,
+    "extractor": "native"
+   },
+   "meta": {
+    "slides": 1,
+    "created": "2013-01-27T09:14:16Z",
+    "modified": "2013-01-27T09:15:58Z"
+   },
+   "bucket": "slides",
+   "target": null
+  }
+ ],
+ "uncertainty": {
+  "missing": [],
+  "conflicts": [],
+  "limits": [
+   "1 组近重复/版本变体仅按标题族与体积启发式识别，需结合行政版本说明确认",
+   "确定性首版提供候选证据矩阵；跨文献主题归纳与综述正文需 Agent 读证后增补"
+  ]
+ },
+ "change_records": [],
+ "provenance": {
+  "engine_revision": "bohrium-weekly-common@5.0",
+  "generated_at": "2026-11-24T21:38:12+08:00",
+  "input_case_digest": "ba1a5fd639614911b15dd3902978f8cf3b6da769c811be61cd2958b263f950b9",
+  "task_md_digest": null,
+  "index_digest": "0b16cb5e4ac8440961d7bf2b994f0cf7f4cfdde6b66af671a688d231ff05c3af",
+  "profile": "review",
+  "deterministic_first_delivery": true,
+  "delivery_contract_version": 2,
+  "source_files_modified": false
+ },
+ "failure_recovery": [],
+ "catalog": {
+  "bucket_count": 8,
+  "file_count": 9,
+  "buckets": [
+   {
+    "bucket_id": "admin",
+    "title": "admin",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "admin/version_notes.md",
+      "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+      "ext": ".md",
+      "size": 370,
+      "metadata": {
+       "title": "Administrative version notes",
+       "author": null,
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "journal"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 1,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "aliases",
+    "title": "aliases",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "aliases/gcn_2025_copy.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "ext": ".pdf",
+      "size": 34356,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "journal"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 2,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "broken",
+    "title": "broken",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "broken/corrupt.bin",
+      "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+      "ext": ".bin",
+      "size": 2048,
+      "metadata": {
+       "title": "corrupt",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 3,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "data",
+    "title": "data",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "data/qm9_results.xlsx",
+      "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+      "ext": ".xlsx",
+      "size": 4962,
+      "metadata": {
+       "title": "target | mae_mlp | mae_gcn | units",
+       "author": "openpyxl",
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 4,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "notes",
+    "title": "notes",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "notes/meeting_2024.md",
+      "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+      "ext": ".md",
+      "size": 277,
+      "metadata": {
+       "title": "Project Alpha meeting, 2024-03",
+       "author": null,
+       "year": 2024,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 5,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "papers",
+    "title": "papers",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "papers/gcn_2024_v1_draft.pdf",
+      "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+      "ext": ".pdf",
+      "size": 34254,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     },
+     {
+      "relpath": "papers/gcn_2025_final.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "ext": ".pdf",
+      "size": 34356,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "journal"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 6,
+    "member_count": 2
+   },
+   {
+    "bucket_id": "scans",
+    "title": "scans",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "scans/old_paper.png",
+      "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+      "ext": ".png",
+      "size": 5038,
+      "metadata": {
+       "title": "old_paper",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 7,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "slides",
+    "title": "slides",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "slides/overview.pptx",
+      "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+      "ext": ".pptx",
+      "size": 28316,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 8,
+    "member_count": 1
+   }
+  ],
+  "unclassified": [],
+  "rules_source": "case organization rules + explicit assignments + declared fallbacks"
+ },
+ "version_lineage": [
+  {
+   "family_key": "doi:10.1234/example.gcn.2025",
+   "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+   "identity_basis": "doi",
+   "canonical": "papers/gcn_2025_final.pdf",
+   "members": [
+    {
+     "relpath": "admin/version_notes.md",
+     "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "aliases/gcn_2025_copy.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "papers/gcn_2025_final.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "variant_rank": 100
+    }
+   ],
+   "evidence": "same DOI when present, otherwise same normalized title; ordered by variant_rank+mtime"
+  },
+  {
+   "family_key": "graph neural networks for molecular property prediction",
+   "title_guess": "Graph Neural Networks for Molecular Property Prediction",
+   "identity_basis": "title",
+   "canonical": "papers/gcn_2024_v1_draft.pdf",
+   "members": [
+    {
+     "relpath": "slides/overview.pptx",
+     "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "papers/gcn_2024_v1_draft.pdf",
+     "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "variant_rank": 5
+    }
+   ],
+   "evidence": "same DOI when present, otherwise same normalized title; ordered by variant_rank+mtime"
+  }
+ ],
+ "exact_duplicates": [
+  {
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "paths": [
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ],
+   "resolution": "retain one canonical copy; record remaining paths as aliases"
+  }
+ ],
+ "near_duplicates": [
+  {
+   "family": "graph neural networks for molecular property prediction",
+   "paths": [
+    "papers/gcn_2024_v1_draft.pdf",
+    "slides/overview.pptx"
+   ],
+   "shas": [
+    "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+    "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876"
+   ],
+   "sizes": [
+    34254,
+    28316
+   ],
+   "resolution": "same title family, distinct content, sizes within 25%% — treat as version variants, cite the one the question targets (rank by variant_rank)"
+  }
+ ],
+ "unclassified": [],
+ "operation_evidence": {
+  "source_root": "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9",
+  "source_files_total": 9,
+  "filtered_files": 7,
+  "index_chunks": 7,
+  "index_path": "E:/myzcode/bohrium-weekly/.selftest/profile9_index.json",
+  "ledger": "E:/myzcode/bohrium-weekly/_test_enhance_work\\ledger.json",
+  "scan_summary": {
+   "files_total": 9,
+   "chunks_total": 7,
+   "chunks_with_text": 7,
+   "chunks_page_aware": 3,
+   "families": 4,
+   "version_families_multi": 2,
+   "exact_dup_groups": 1,
+   "near_dup_groups": 1,
+   "needs_tool": 2,
+   "errors": 0,
+   "text_files": 7,
+   "needs_tool_files": 2,
+   "error_files": 0,
+   "symlink_files": 0
+  },
+  "run_recipe": [
+   "python -I scan_index.py --root <library> --out <work>/index.json --ledger <work>/ledger.json",
+   "python -I run_case.py --case <case.json> --index <work>/index.json --work <work> --out <out>"
+  ],
+  "hash_verification": {
+   "evidence_refs": 5,
+   "verified": 5,
+   "rate": 1.0,
+   "method": "source sha256 + chunk sha256 + extracted-text quote/offset slice"
+  },
+  "originals_modified": false
+ },
+ "search_results": [
+  {
+   "rank": 1,
+   "file": "slides/overview.pptx",
+   "sha256_file": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "sha256_chunk": "e3c1937a53de24002dad0d7ee88db68072aed1486464577ccb6f5506ebcbfb1f",
+   "chunk_id": "8f41206bbdf1#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 137
+   },
+   "pages": null,
+   "printed_page_offset": null,
+   "snippet": "[slide 1]\nGraph Neural Networks for Molecular Property Prediction\nProject Alpha overview: GNN, QM9, message passing, stereochemistry gap.",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 137,
+   "score_raw": 0.6762,
+   "bm25_main": 6.5843,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.4975,
+   "rrf_score": 0.065574,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 4,
+     "plan_text": "limitations",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 1
+    }
+   ]
+  },
+  {
+   "rank": 2,
+   "file": "papers/gcn_2024_v1_draft.pdf",
+   "sha256_file": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "sha256_chunk": "f5f20422187f1dec97352add736b0fec62d15bcc8bb33ba83c01214ab7d386fa",
+   "chunk_id": "6f788fefe601#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 517
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 517,
+   "score_raw": 0.3218,
+   "bm25_main": 3.4071,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.1572,
+   "rrf_score": 0.064269,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 3
+    },
+    {
+     "plan": 3,
+     "plan_text": "molecular property prediction",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 3
+    }
+   ]
+  },
+  {
+   "rank": 3,
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+   "chunk_id": "5f08c5529931#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with a",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 563,
+   "score_raw": 0.3151,
+   "bm25_main": 3.2511,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.1682,
+   "rrf_score": 0.063252,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+     "bm25_rank": 3
+    },
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 4
+    },
+    {
+     "plan": 3,
+     "plan_text": "molecular property prediction",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 4
+    }
+   ]
+  },
+  {
+   "rank": 4,
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+   "chunk_id": "5f08c5529931#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with a",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 563,
+   "score_raw": 0.3147,
+   "bm25_main": 3.2511,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.1682,
+   "rrf_score": 0.062267,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+     "bm25_rank": 4
+    },
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 5
+    },
+    {
+     "plan": 3,
+     "plan_text": "molecular property prediction",
+     "bm25_rank": 3
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 5
+    }
+   ]
+  },
+  {
+   "rank": 5,
+   "file": "notes/meeting_2024.md",
+   "sha256_file": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "sha256_chunk": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "chunk_id": "42876943129d#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 277
+   },
+   "pages": null,
+   "printed_page_offset": null,
+   "snippet": "# Project Alpha meeting, 2024-03\r\n\r\nBatch B-2024-03. We discussed message passing for molecular property prediction.\r\nConsensus: QM9 improvements look real but stereochemistry remains a limitation.\r\nAction: compare the final 2025 version against the 2024 draft before citing.\r\n",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 277,
+   "score_raw": 0.1381,
+   "bm25_main": 1.6376,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.0331,
+   "rrf_score": 0.032258,
+   "plan_evidence": [
+    {
+     "plan": 2,
+     "plan_text": "graph neural networks",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 5,
+     "plan_text": "research gap",
+     "bm25_rank": 2
+    }
+   ]
+  }
+ ],
+ "evidence_matrix": [
+  {
+   "evidence_id": "E01",
+   "file": "slides/overview.pptx",
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "pages": null,
+   "offset": [
+    0,
+    137
+   ],
+   "offset_space": "extracted_text_chars",
+   "extracted_text": "evidence/extracted_text/8f41206bbdf1_slides__overview.pptx.txt",
+   "quote": "[slide 1]\nGraph Neural Networks for Molecular Property Prediction\nProject Alpha overview: GNN, QM9, message passing, stereochemistry gap.",
+   "quote_verified": true,
+   "artifact_hash_verified": true,
+   "supports": "candidate evidence; agent must assess claim support",
+   "strength": "unassessed"
+  },
+  {
+   "evidence_id": "E02",
+   "file": "papers/gcn_2024_v1_draft.pdf",
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "pages": [
+    1
+   ],
+   "offset": [
+    0,
+    240
+   ],
+   "offset_space": "extracted_text_chars",
+   "extracted_text": "evidence/extracted_text/6f788fefe601_papers__gcn_2024_v1_draft.pdf.txt",
+   "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as n",
+   "quote_verified": true,
+   "artifact_hash_verified": true,
+   "supports": "candidate evidence; agent must assess claim support",
+   "strength": "unassessed"
+  },
+  {
+   "evidence_id": "E03",
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "pages": [
+    1
+   ],
+   "offset": [
+    0,
+    240
+   ],
+   "offset_space": "extracted_text_chars",
+   "extracted_text": "evidence/extracted_text/5f08c5529931_aliases__gcn_2025_copy.pdf.txt",
+   "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned ",
+   "quote_verified": true,
+   "artifact_hash_verified": true,
+   "supports": "candidate evidence; agent must assess claim support",
+   "strength": "unassessed"
+  },
+  {
+   "evidence_id": "E04",
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "pages": [
+    1
+   ],
+   "offset": [
+    0,
+    240
+   ],
+   "offset_space": "extracted_text_chars",
+   "extracted_text": "evidence/extracted_text/5f08c5529931_papers__gcn_2025_final.pdf.txt",
+   "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned ",
+   "quote_verified": true,
+   "artifact_hash_verified": true,
+   "supports": "candidate evidence; agent must assess claim support",
+   "strength": "unassessed"
+  },
+  {
+   "evidence_id": "E05",
+   "file": "notes/meeting_2024.md",
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "pages": null,
+   "offset": [
+    0,
+    240
+   ],
+   "offset_space": "source_text_chars",
+   "extracted_text": "evidence/extracted_text/42876943129d_notes__meeting_2024.md.txt",
+   "quote": "# Project Alpha meeting, 2024-03\r\n\r\nBatch B-2024-03. We discussed message passing for molecular property prediction.\r\nConsensus: QM9 improvements look real but stereochemistry remains a limitation.\r\nAction: compare the final 2025 version ag",
+   "quote_verified": true,
+   "artifact_hash_verified": true,
+   "supports": "candidate evidence; agent must assess claim support",
+   "strength": "unassessed"
+  }
+ ],
+ "screening_log": [
+  {
+   "file": "admin/version_notes.md",
+   "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "decision": "exclude",
+   "reason_code": "duplicate",
+   "reason": "重复记录按 DOI 归并到 aliases/gcn_2025_copy.pdf",
+   "evidence_refs": [
+    {
+     "evidence_id": "E-d376fa4d13-5f08c5529931#1-0",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "sha256": "",
+     "chunk_id": "5f08c5529931#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      335
+     ],
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\n",
+     "pages": [
+      1
+     ]
+    }
+   ],
+   "metadata": {
+    "title": null,
+    "year": 2025,
+    "doi": "10.1234/example.gcn.2025",
+    "source_type": null,
+    "language": "en",
+    "keywords": [],
+    "full_text_available": true,
+    "permission": "granted",
+    "flags": [
+     "title_missing",
+     "source_type_missing"
+    ],
+    "duplicate_of": "aliases/gcn_2025_copy.pdf",
+    "duplicate_basis": "DOI"
+   }
+  },
+  {
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "decision": "include",
+   "reason_code": "included",
+   "reason": "满足已声明的纳入标准，且未触发排除或待复核条件",
+   "evidence_refs": [
+    {
+     "evidence_id": "E-d376fa4d13-5f08c5529931#1-0",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "sha256": "",
+     "chunk_id": "5f08c5529931#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      335
+     ],
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\n",
+     "pages": [
+      1
+     ]
+    }
+   ],
+   "metadata": {
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "year": 2025,
+    "doi": "10.1234/example.gcn.2025",
+    "source_type": null,
+    "language": "en",
+    "keywords": [],
+    "full_text_available": true,
+    "permission": "granted",
+    "flags": [
+     "source_type_missing"
+    ],
+    "matched_criteria": [
+     "graph neural network",
+     "molecular property"
+    ]
+   }
+  },
+  {
+   "file": "broken/corrupt.bin",
+   "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "decision": "needs_review",
+   "reason_code": "metadata_missing",
+   "reason": "关键元数据缺失（title_missing, year_missing, source_type_missing, metadata_missing），需补全后复核",
+   "evidence_refs": [],
+   "metadata": {
+    "title": null,
+    "year": null,
+    "doi": null,
+    "source_type": null,
+    "language": "unknown",
+    "keywords": [],
+    "full_text_available": false,
+    "permission": "granted",
+    "flags": [
+     "title_missing",
+     "year_missing",
+     "doi_missing",
+     "source_type_missing",
+     "no_full_text",
+     "metadata_missing"
+    ]
+   }
+  },
+  {
+   "file": "data/qm9_results.xlsx",
+   "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "decision": "exclude",
+   "reason_code": "off_topic",
+   "reason": "未命中任何纳入标准或研究问题内容",
+   "evidence_refs": [
+    {
+     "evidence_id": "E-03b6dd92d4-79586165d64b#1-0",
+     "file": "data/qm9_results.xlsx",
+     "sha256": "",
+     "chunk_id": "79586165d64b#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      127
+     ],
+     "quote": "[sheet: QM9]\ntarget | mae_mlp | mae_gcn | units\nalpha | 0.052 | 0.045 | eV\nbeta | 0.118 | 0.099 | eV\ngamma | 0.087 | 0.075 | eV"
+    }
+   ],
+   "metadata": {
+    "title": null,
+    "year": null,
+    "doi": null,
+    "source_type": null,
+    "language": "en",
+    "keywords": [],
+    "full_text_available": true,
+    "permission": "granted",
+    "flags": [
+     "title_missing",
+     "year_missing",
+     "doi_missing",
+     "source_type_missing"
+    ]
+   }
+  },
+  {
+   "file": "notes/meeting_2024.md",
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "decision": "needs_review",
+   "reason_code": "metadata_missing",
+   "reason": "关键元数据缺失（title_missing, source_type_missing, metadata_missing），需补全后复核",
+   "evidence_refs": [
+    {
+     "evidence_id": "E-9d5c4673d5-42876943129d#1-0",
+     "file": "notes/meeting_2024.md",
+     "sha256": "",
+     "chunk_id": "42876943129d#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      277
+     ],
+     "quote": "# Project Alpha meeting, 2024-03\r\n\r\nBatch B-2024-03. We discussed message passing for molecular property prediction.\r\nConsensus: QM9 improvements look real but stereochemistry remains a limitation.\r\nAction: compare the final 2025 version against the 2024 draft before citing.\r\n"
+    }
+   ],
+   "metadata": {
+    "title": null,
+    "year": 2024,
+    "doi": null,
+    "source_type": null,
+    "language": "en",
+    "keywords": [],
+    "full_text_available": true,
+    "permission": "granted",
+    "flags": [
+     "title_missing",
+     "doi_missing",
+     "source_type_missing",
+     "metadata_missing"
+    ]
+   }
+  },
+  {
+   "file": "papers/gcn_2024_v1_draft.pdf",
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "decision": "include",
+   "reason_code": "included",
+   "reason": "满足已声明的纳入标准，且未触发排除或待复核条件",
+   "evidence_refs": [
+    {
+     "evidence_id": "E-731c345f34-6f788fefe601#1-0",
+     "file": "papers/gcn_2024_v1_draft.pdf",
+     "sha256": "",
+     "chunk_id": "6f788fefe601#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      305
+     ],
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\n",
+     "pages": [
+      1
+     ]
+    }
+   ],
+   "metadata": {
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "year": null,
+    "doi": null,
+    "source_type": null,
+    "language": "en",
+    "keywords": [],
+    "full_text_available": true,
+    "permission": "granted",
+    "flags": [
+     "year_missing",
+     "doi_missing",
+     "source_type_missing"
+    ],
+    "matched_criteria": [
+     "graph neural network",
+     "molecular property"
+    ]
+   }
+  },
+  {
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "decision": "exclude",
+   "reason_code": "duplicate",
+   "reason": "重复记录按 sha256 归并到 aliases/gcn_2025_copy.pdf",
+   "evidence_refs": [
+    {
+     "evidence_id": "E-d376fa4d13-5f08c5529931#1-0",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "sha256": "",
+     "chunk_id": "5f08c5529931#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      335
+     ],
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\n",
+     "pages": [
+      1
+     ]
+    }
+   ],
+   "metadata": {
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "year": 2025,
+    "doi": "10.1234/example.gcn.2025",
+    "source_type": null,
+    "language": "en",
+    "keywords": [],
+    "full_text_available": true,
+    "permission": "granted",
+    "flags": [
+     "source_type_missing"
+    ],
+    "duplicate_of": "aliases/gcn_2025_copy.pdf",
+    "duplicate_basis": "sha256"
+   }
+  },
+  {
+   "file": "scans/old_paper.png",
+   "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "decision": "needs_review",
+   "reason_code": "metadata_missing",
+   "reason": "关键元数据缺失（title_missing, year_missing, source_type_missing, metadata_missing），需补全后复核",
+   "evidence_refs": [],
+   "metadata": {
+    "title": null,
+    "year": null,
+    "doi": null,
+    "source_type": null,
+    "language": "unknown",
+    "keywords": [],
+    "full_text_available": false,
+    "permission": "granted",
+    "flags": [
+     "title_missing",
+     "year_missing",
+     "doi_missing",
+     "source_type_missing",
+     "no_full_text",
+     "metadata_missing"
+    ]
+   }
+  },
+  {
+   "file": "slides/overview.pptx",
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "decision": "include",
+   "reason_code": "included",
+   "reason": "满足已声明的纳入标准，且未触发排除或待复核条件",
+   "evidence_refs": [
+    {
+     "evidence_id": "E-b373fdaf92-8f41206bbdf1#1-0",
+     "file": "slides/overview.pptx",
+     "sha256": "",
+     "chunk_id": "8f41206bbdf1#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      137
+     ],
+     "quote": "[slide 1]\nGraph Neural Networks for Molecular Property Prediction\nProject Alpha overview: GNN, QM9, message passing, stereochemistry gap."
+    }
+   ],
+   "metadata": {
+    "title": null,
+    "year": null,
+    "doi": null,
+    "source_type": null,
+    "language": "en",
+    "keywords": [],
+    "full_text_available": true,
+    "permission": "granted",
+    "flags": [
+     "title_missing",
+     "year_missing",
+     "doi_missing",
+     "source_type_missing"
+    ],
+    "matched_criteria": [
+     "graph neural network",
+     "molecular property"
+    ]
+   }
+  }
+ ],
+ "review_draft": "# 综述草稿\n\n研究问题：基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白\n\n## 筛选协议与范围\n\n- 输入未明确声明前瞻性协议；本稿不推断其注册状态。\n- 纳入标准：graph neural network；molecular property。\n- 排除标准：unrelated。\n- 已声明约束：full_text_required=False。\n\n## 材料事实\n\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E01][S1]。\n  > 原文：[slide 1] Graph Neural Networks for Molecular Property Prediction Project Alpha overview: GNN, QM9, message passing, stereochemistry gap. [E01]\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E02][S2]。\n  > 原文：[page 1] Graph Neural Networks for Molecular Property Prediction ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned convolution encodes atoms as n [E02]\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E03][S3]。\n  > 原文：[page 1] Graph Neural Networks for Molecular Property Prediction DOI: 10.1234/example.gcn.2025 ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned [E03]\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E04][S4]。\n  > 原文：[page 1] Graph Neural Networks for Molecular Property Prediction DOI: 10.1234/example.gcn.2025 ## Abstract We survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned [E04]\n- 材料记录（尚未完成证据强度判定）：candidate evidence; agent must assess claim support [E05][S5]。\n  > 原文：# Project Alpha meeting, 2024-03 Batch B-2024-03. We discussed message passing for molecular property prediction. Consensus: QM9 improvements look real but stereochemistry remains a limitation. Action: compare the final 2025 version ag [E05]\n\n## 主题归纳\n\n- 材料事实：在本批纳入文献中，主题「molecular / graph / neural」覆盖 3 个来源， recurrent terms 为 molecular, graph, neural, prediction, property。[E-d376fa4d13-5f08c5529931#1-0][E-731c345f34-6f788fefe601#1-0][E-b373fdaf92-8f41206bbdf1#1-0][S3][S2][S1]\n\n## 合理推断\n\n- 合理推断：主题「molecular / graph / neural」可能涉及 molecular, graph, neural, prediction 的重复关注；这是对本批材料的归纳，不是领域共识。[E-d376fa4d13-5f08c5529931#1-0][E-731c345f34-6f788fefe601#1-0][E-b373fdaf92-8f41206bbdf1#1-0][S3][S2][S1]\n\n## 无法确定：冲突、空白与边界\n\n- 无法确定：没有传入冲突或覆盖矩阵空白记录；这不代表不存在冲突或全球空白。\n\n## 引用索引\n\n- [E01] slides/overview.pptx | sha256=8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876 | chunk= | offset=\n- [E02] papers/gcn_2024_v1_draft.pdf | sha256=6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf | chunk= | offset=\n- [E03] aliases/gcn_2025_copy.pdf | sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46 | chunk= | offset=\n- [E04] papers/gcn_2025_final.pdf | sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46 | chunk= | offset=\n- [E05] notes/meeting_2024.md | sha256=42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4 | chunk= | offset=\n- [E-731c345f34-6f788fefe601#1-0] papers/gcn_2024_v1_draft.pdf | sha256= | chunk=6f788fefe601#1 | offset=\n- [E-b373fdaf92-8f41206bbdf1#1-0] slides/overview.pptx | sha256= | chunk=8f41206bbdf1#1 | offset=\n- [E-d376fa4d13-5f08c5529931#1-0] aliases/gcn_2025_copy.pdf | sha256= | chunk=5f08c5529931#1 | offset=\n- [S1] slides/overview.pptx | sha256=8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876\n- [S2] papers/gcn_2024_v1_draft.pdf | sha256=6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf\n- [S3] aliases/gcn_2025_copy.pdf | sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46\n- [S4] papers/gcn_2025_final.pdf | sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46\n- [S5] notes/meeting_2024.md | sha256=42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4\n",
+ "enhancement_status": {
+  "state": "ok",
+  "profile": "review"
+ },
+ "screening_protocol": {
+  "question": "基于本批文献评估图神经网络在分子性质预测中的方法、局限与研究空白",
+  "inclusion": [
+   "graph neural network",
+   "molecular property"
+  ],
+  "exclusion": [
+   "unrelated"
+  ],
+  "reason_codes": {
+   "duplicate": "重复记录按 sha256 或 DOI 归并，仅保留一个主记录",
+   "off_topic": "未命中纳入标准，或命中明确的排除标准",
+   "no_full_text": "协议要求全文，但当前材料只有摘要或未提取正文",
+   "metadata_missing": "关键元数据缺失，无法核验协议约束",
+   "permission_denied": "文件权限或访问状态不允许读取",
+   "year_out_of_range": "文献年份不在协议时间范围内",
+   "year_unknown": "无法从元数据或正文确定文献年份",
+   "language_mismatch": "文献语言不在协议允许范围内",
+   "language_unknown": "无法可靠确定文献语言",
+   "document_type_mismatch": "文件或文献类型不在协议允许范围内",
+   "included": "满足已声明的纳入标准且未触发排除或待复核条件",
+   "insufficient_information": "材料不足，不能可靠判断纳入或排除",
+   "inclusion_1": "graph neural network",
+   "inclusion_2": "molecular property",
+   "exclusion_1": "unrelated"
+  },
+  "prospective": false,
+  "constraints": {
+   "year": {},
+   "languages": [],
+   "document_types": [],
+   "literature_types": [],
+   "full_text_required": false,
+   "permission": null
+  }
+ },
+ "themes": [
+  {
+   "theme_id": "T1",
+   "label": "molecular / graph / neural",
+   "top_terms": [
+    "molecular",
+    "graph",
+    "neural",
+    "prediction",
+    "property",
+    "networks"
+   ],
+   "member_files": [
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2024_v1_draft.pdf",
+    "slides/overview.pptx"
+   ],
+   "evidence_quotes": [
+    {
+     "evidence_id": "E-d376fa4d13-5f08c5529931#1-0",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "sha256": "",
+     "chunk_id": "5f08c5529931#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      335
+     ],
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\n",
+     "pages": [
+      1
+     ]
+    },
+    {
+     "evidence_id": "E-731c345f34-6f788fefe601#1-0",
+     "file": "papers/gcn_2024_v1_draft.pdf",
+     "sha256": "",
+     "chunk_id": "6f788fefe601#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      305
+     ],
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\n",
+     "pages": [
+      1
+     ]
+    },
+    {
+     "evidence_id": "E-b373fdaf92-8f41206bbdf1#1-0",
+     "file": "slides/overview.pptx",
+     "sha256": "",
+     "chunk_id": "8f41206bbdf1#1",
+     "kind": "tail",
+     "offset": [
+      0,
+      137
+     ],
+     "quote": "[slide 1]\nGraph Neural Networks for Molecular Property Prediction\nProject Alpha overview: GNN, QM9, message passing, stereochemistry gap."
+    }
+   ],
+   "subthemes": [],
+   "boundary": "本批 3 篇纳入文献中出现的主题；仅反映传入材料，不代表领域全貌。"
+  }
+ ],
+ "evidence_strength": {
+  "admin/version_notes.md": {
+   "strength": "insufficient",
+   "basis": [
+    "没有提供原文引文，不能评估证据强度",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "没有提供原文引文，不能评估证据强度；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断",
+    "没有 quote/offset 证据，不得据此写强结论"
+   ],
+   "evidence_refs": []
+  },
+  "aliases/gcn_2025_copy.pdf": {
+   "strength": "suggestive",
+   "basis": [
+    "有原文引文，但来源类型或措辞不足以支持 proven",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "有原文引文，但来源类型或措辞不足以支持 proven；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断"
+   ],
+   "evidence_refs": [
+    {
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned "
+    }
+   ]
+  },
+  "broken/corrupt.bin": {
+   "strength": "insufficient",
+   "basis": [
+    "没有提供原文引文，不能评估证据强度",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "没有提供原文引文，不能评估证据强度；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断",
+    "没有 quote/offset 证据，不得据此写强结论"
+   ],
+   "evidence_refs": []
+  },
+  "data/qm9_results.xlsx": {
+   "strength": "insufficient",
+   "basis": [
+    "没有提供原文引文，不能评估证据强度",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "没有提供原文引文，不能评估证据强度；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断",
+    "没有 quote/offset 证据，不得据此写强结论"
+   ],
+   "evidence_refs": []
+  },
+  "notes/meeting_2024.md": {
+   "strength": "proven",
+   "basis": [
+    "来源类型与全文结果措辞支持直接、可回链的材料证据",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "来源类型与全文结果措辞支持直接、可回链的材料证据；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断"
+   ],
+   "evidence_refs": [
+    {
+     "quote": "# Project Alpha meeting, 2024-03\r\n\r\nBatch B-2024-03. We discussed message passing for molecular property prediction.\r\nConsensus: QM9 improvements look real but stereochemistry remains a limitation.\r\nAction: compare the final 2025 version ag"
+    }
+   ]
+  },
+  "papers/gcn_2024_v1_draft.pdf": {
+   "strength": "suggestive",
+   "basis": [
+    "有原文引文，但来源类型或措辞不足以支持 proven",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "有原文引文，但来源类型或措辞不足以支持 proven；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断"
+   ],
+   "evidence_refs": [
+    {
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as n"
+    }
+   ]
+  },
+  "papers/gcn_2025_final.pdf": {
+   "strength": "suggestive",
+   "basis": [
+    "有原文引文，但来源类型或措辞不足以支持 proven",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "有原文引文，但来源类型或措辞不足以支持 proven；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断"
+   ],
+   "evidence_refs": [
+    {
+     "quote": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned "
+    }
+   ]
+  },
+  "scans/old_paper.png": {
+   "strength": "insufficient",
+   "basis": [
+    "没有提供原文引文，不能评估证据强度",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "没有提供原文引文，不能评估证据强度；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断",
+    "没有 quote/offset 证据，不得据此写强结论"
+   ],
+   "evidence_refs": []
+  },
+  "slides/overview.pptx": {
+   "strength": "suggestive",
+   "basis": [
+    "有原文引文，但来源类型或措辞不足以支持 proven",
+    "来源类型未提供，未自行补造"
+   ],
+   "rationale": "有原文引文，但来源类型或措辞不足以支持 proven；来源类型未提供，未自行补造",
+   "limitations": [
+    "来源类型未知可能影响强度判断"
+   ],
+   "evidence_refs": [
+    {
+     "quote": "[slide 1]\nGraph Neural Networks for Molecular Property Prediction\nProject Alpha overview: GNN, QM9, message passing, stereochemistry gap."
+    }
+   ]
+  }
+ },
+ "conflicts": [],
+ "research_gaps": [],
+ "prisma_flow": {
+  "identified": 9,
+  "duplicates_removed": 2,
+  "screened": 7,
+  "excluded": 1,
+  "included": 3,
+  "needs_review": 3,
+  "excluded_with_reasons": {
+   "off_topic": 1
+  },
+  "identified_files": [
+   "admin/version_notes.md",
+   "aliases/gcn_2025_copy.pdf",
+   "broken/corrupt.bin",
+   "data/qm9_results.xlsx",
+   "notes/meeting_2024.md",
+   "papers/gcn_2024_v1_draft.pdf",
+   "papers/gcn_2025_final.pdf",
+   "scans/old_paper.png",
+   "slides/overview.pptx"
+  ],
+  "duplicate_files": [
+   "admin/version_notes.md",
+   "papers/gcn_2025_final.pdf"
+  ],
+  "screened_files": [
+   "aliases/gcn_2025_copy.pdf",
+   "broken/corrupt.bin",
+   "data/qm9_results.xlsx",
+   "notes/meeting_2024.md",
+   "papers/gcn_2024_v1_draft.pdf",
+   "scans/old_paper.png",
+   "slides/overview.pptx"
+  ],
+  "excluded_files": [
+   "data/qm9_results.xlsx"
+  ],
+  "included_files": [
+   "aliases/gcn_2025_copy.pdf",
+   "papers/gcn_2024_v1_draft.pdf",
+   "slides/overview.pptx"
+  ],
+  "needs_review_files": [
+   "broken/corrupt.bin",
+   "notes/meeting_2024.md",
+   "scans/old_paper.png"
+  ],
+  "exclusion_details": [
+   {
+    "file": "data/qm9_results.xlsx",
+    "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+    "reason_code": "off_topic",
+    "reason": "未命中任何纳入标准或研究问题内容",
+    "evidence_refs": [
+     {
+      "evidence_id": "E-03b6dd92d4-79586165d64b#1-0",
+      "file": "data/qm9_results.xlsx",
+      "sha256": "",
+      "chunk_id": "79586165d64b#1",
+      "kind": "tail",
+      "offset": [
+       0,
+       127
+      ],
+      "quote": "[sheet: QM9]\ntarget | mae_mlp | mae_gcn | units\nalpha | 0.052 | 0.045 | eV\nbeta | 0.118 | 0.099 | eV\ngamma | 0.087 | 0.075 | eV"
+     }
+    ]
+   }
+  ],
+  "accounting_note": "screened = identified - duplicates_removed; include/exclude/needs_review 以非重复记录计"
+ },
+ "output_contract_preserved": false,
+ "output_contract_validation": {
+  "missing": [],
+  "error": "top-level contract is not a field object"
+ }
+}

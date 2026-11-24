@@ -1,0 +1,363 @@
+{
+ "schema": "bohrium-organized-library@1",
+ "generated_at": "2026-11-24T21:38:07+08:00",
+ "source_root": "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9",
+ "source_files_total": 9,
+ "organized_files": 8,
+ "alias_rows": 1,
+ "failures": [],
+ "catalog": {
+  "bucket_count": 7,
+  "file_count": 9,
+  "buckets": [
+   {
+    "bucket_id": "admin",
+    "title": "行政说明",
+    "criteria": "path=['admin']",
+    "members": [
+     {
+      "relpath": "admin/version_notes.md",
+      "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+      "ext": ".md",
+      "size": 370,
+      "metadata": {
+       "title": "Administrative version notes",
+       "author": null,
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "journal"
+       ]
+      },
+      "assignment_basis": "path=['admin']"
+     }
+    ],
+    "display_order": 1,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "broken",
+    "title": "损坏件",
+    "criteria": "path=['broken']",
+    "members": [
+     {
+      "relpath": "broken/corrupt.bin",
+      "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+      "ext": ".bin",
+      "size": 2048,
+      "metadata": {
+       "title": "corrupt",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "path=['broken']"
+     }
+    ],
+    "display_order": 2,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "data",
+    "title": "数据",
+    "criteria": "extension=['.xlsx']",
+    "members": [
+     {
+      "relpath": "data/qm9_results.xlsx",
+      "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+      "ext": ".xlsx",
+      "size": 4962,
+      "metadata": {
+       "title": "target | mae_mlp | mae_gcn | units",
+       "author": "openpyxl",
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "extension=['.xlsx']"
+     }
+    ],
+    "display_order": 3,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "notes",
+    "title": "笔记",
+    "criteria": "path=['notes']",
+    "members": [
+     {
+      "relpath": "notes/meeting_2024.md",
+      "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+      "ext": ".md",
+      "size": 277,
+      "metadata": {
+       "title": "Project Alpha meeting, 2024-03",
+       "author": null,
+       "year": 2024,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "path=['notes']"
+     }
+    ],
+    "display_order": 4,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "papers",
+    "title": "论文",
+    "criteria": "extension=['.pdf']",
+    "members": [
+     {
+      "relpath": "aliases/gcn_2025_copy.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "ext": ".pdf",
+      "size": 34356,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "journal"
+       ]
+      },
+      "assignment_basis": "extension=['.pdf']"
+     },
+     {
+      "relpath": "papers/gcn_2024_v1_draft.pdf",
+      "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+      "ext": ".pdf",
+      "size": 34254,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "extension=['.pdf']"
+     },
+     {
+      "relpath": "papers/gcn_2025_final.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "ext": ".pdf",
+      "size": 34356,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "journal"
+       ]
+      },
+      "assignment_basis": "extension=['.pdf']"
+     }
+    ],
+    "display_order": 5,
+    "member_count": 3
+   },
+   {
+    "bucket_id": "scans",
+    "title": "扫描件",
+    "criteria": "extension=['.png']",
+    "members": [
+     {
+      "relpath": "scans/old_paper.png",
+      "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+      "ext": ".png",
+      "size": 5038,
+      "metadata": {
+       "title": "old_paper",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "extension=['.png']"
+     }
+    ],
+    "display_order": 6,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "slides",
+    "title": "幻灯片",
+    "criteria": "extension=['.pptx']",
+    "members": [
+     {
+      "relpath": "slides/overview.pptx",
+      "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+      "ext": ".pptx",
+      "size": 28316,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "extension=['.pptx']"
+     }
+    ],
+    "display_order": 7,
+    "member_count": 1
+   }
+  ],
+  "unclassified": [],
+  "rules_source": "case organization rules + explicit assignments + declared fallbacks"
+ },
+ "operations": [
+  {
+   "action": "copy+rename+metadata",
+   "source": "admin/version_notes.md",
+   "target": "admin/2025-Administrative-version-notes.md",
+   "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "target_sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "broken/corrupt.bin",
+   "target": "broken/undated-corrupt.bin",
+   "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "target_sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "data/qm9_results.xlsx",
+   "target": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+   "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "target_sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "notes/meeting_2024.md",
+   "target": "notes/2024-Project-Alpha-meeting-2024-03.md",
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "target_sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "papers/gcn_2024_v1_draft.pdf",
+   "target": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "target_sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "papers/gcn_2025_final.pdf",
+   "target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "target_sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "scans/old_paper.png",
+   "target": "scans/undated-old_paper.png",
+   "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "target_sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "slides/overview.pptx",
+   "target": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "target_sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "alias",
+   "source": "aliases/gcn_2025_copy.pdf",
+   "target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "remove alias row from manifest; source untouched"
+  }
+ ],
+ "aliases": [
+  {
+   "alias": "aliases/gcn_2025_copy.pdf",
+   "canonical_source": "papers/gcn_2025_final.pdf",
+   "canonical_target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "reason": "identical sha256; one regular-file copy retained"
+  }
+ ],
+ "rollback": {
+  "originals_modified": false,
+  "action": "delete only <out>/organized",
+  "note": "all originals remain at source_root; manifest records every target"
+ }
+}

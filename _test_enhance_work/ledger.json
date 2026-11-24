@@ -1,0 +1,58 @@
+[
+ {
+  "ts": "2026-11-24T21:38:07+08:00",
+  "action": "organize_copy",
+  "subject": "admin/version_notes.md",
+  "detail": "-> organized/admin/2025-Administrative-version-notes.md; sha256=43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+  "status": "ok"
+ },
+ {
+  "ts": "2026-11-24T21:38:07+08:00",
+  "action": "organize_copy",
+  "subject": "broken/corrupt.bin",
+  "detail": "-> organized/broken/undated-corrupt.bin; sha256=3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+  "status": "ok"
+ },
+ {
+  "ts": "2026-11-24T21:38:07+08:00",
+  "action": "organize_copy",
+  "subject": "data/qm9_results.xlsx",
+  "detail": "-> organized/data/undated-target-mae_mlp-mae_gcn-units.xlsx; sha256=79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+  "status": "ok"
+ },
+ {
+  "ts": "2026-11-24T21:38:07+08:00",
+  "action": "organize_copy",
+  "subject": "notes/meeting_2024.md",
+  "detail": "-> organized/notes/2024-Project-Alpha-meeting-2024-03.md; sha256=42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+  "status": "ok"
+ },
+ {
+  "ts": "2026-11-24T21:38:07+08:00",
+  "action": "organize_copy",
+  "subject": "papers/gcn_2024_v1_draft.pdf",
+  "detail": "-> organized/papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf; sha256=6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+  "status": "ok"
+ },
+ {
+  "ts": "2026-11-24T21:38:07+08:00",
+  "action": "organize_copy",
+  "subject": "papers/gcn_2025_final.pdf",
+  "detail": "-> organized/papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf; sha256=5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+  "status": "ok"
+ },
+ {
+  "ts": "2026-11-24T21:38:07+08:00",
+  "action": "organize_copy",
+  "subject": "scans/old_paper.png",
+  "detail": "-> organized/scans/undated-old_paper.png; sha256=96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+  "status": "ok"
+ },
+ {
+  "ts": "2026-11-24T21:38:07+08:00",
+  "action": "organize_copy",
+  "subject": "slides/overview.pptx",
+  "detail": "-> organized/slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx; sha256=8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+  "status": "ok"
+ }
+]

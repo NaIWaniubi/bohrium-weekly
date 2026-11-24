@@ -1,0 +1,11 @@
+[page 1]
+Graph Neural Networks for Molecular Property Prediction
+## Abstract
+We survey graph neural network architectures for molecular property prediction from SMILES and molecular
+## Methods
+Edge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M
+## Results
+On QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.
+## Limitations
+The model does not handle stereochemistry beyond two dimensions.
+Draft-only paragraph: preliminary stereochemistry probe.

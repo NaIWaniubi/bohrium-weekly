@@ -1,0 +1,9 @@
+[
+ {
+  "alias": "aliases/gcn_2025_copy.pdf",
+  "canonical_source": "papers/gcn_2025_final.pdf",
+  "canonical_target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+  "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+  "reason": "identical sha256; one regular-file copy retained"
+ }
+]
