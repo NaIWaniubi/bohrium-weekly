@@ -1,0 +1,31 @@
+{
+ "schema": "bohrium-file-metadata@1",
+ "source_relpath": "scans/old_paper.png",
+ "source_sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+ "target_relpath": "scans/undated-old_paper.png",
+ "file_facts": {
+  "name": "old_paper.png",
+  "ext": ".png",
+  "size": 5038,
+  "mtime": 1795526995,
+  "permissions": "0o666",
+  "readable": true
+ },
+ "metadata": {
+  "title": "old_paper",
+  "author": null,
+  "year": null,
+  "journal": null,
+  "doi": null,
+  "source": "file metadata / extracted text",
+  "missing": [
+   "author",
+   "year",
+   "journal",
+   "doi"
+  ]
+ },
+ "bucket": "scans",
+ "assignment_basis": "extension=['.png']",
+ "generated_at": "2026-11-24T21:38:07+08:00"
+}

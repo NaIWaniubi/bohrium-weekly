@@ -1,0 +1,2754 @@
+{
+ "case_id": "profile9-classify",
+ "status": "partial",
+ "question": "按项目、文献类型和版本整理资料，保留版本关系",
+ "query_expanded": false,
+ "query_plans": [
+  "按项目、文献类型和版本整理资料，保留版本关系",
+  "保留",
+  "关系",
+  "和版",
+  "型和",
+  "按项"
+ ],
+ "scanned_files": 9,
+ "index_chunks": 7,
+ "filter_audit": [
+  {
+   "constraint": "final_keep",
+   "count": 9,
+   "kept": 9
+  }
+ ],
+ "candidates_after_filter": 9,
+ "hit_count": 0,
+ "hits": [],
+ "evidence_windows": [],
+ "citations": [],
+ "version_resolution": {
+  "aliases": [
+   {
+    "family": "doi:10.1234/example.gcn.2025",
+    "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+    "chains": [
+     {
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "paths": [
+       "aliases/gcn_2025_copy.pdf",
+       "papers/gcn_2025_final.pdf"
+      ],
+      "resolution": "identical content: prefer canonical relpath aliases/gcn_2025_copy.pdf"
+     }
+    ],
+    "recommended_canonical": "papers/gcn_2025_final.pdf"
+   }
+  ],
+  "dedup_groups": {
+   "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46": [
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ]
+  },
+  "near_duplicates": [
+   {
+    "family": "graph neural networks for molecular property prediction",
+    "paths": [
+     "papers/gcn_2024_v1_draft.pdf",
+     "slides/overview.pptx"
+    ],
+    "shas": [
+     "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876"
+    ],
+    "sizes": [
+     34254,
+     28316
+    ],
+    "resolution": "same title family, distinct content, sizes within 25%% — treat as version variants, cite the one the question targets (rank by variant_rank)"
+   }
+  ]
+ },
+ "needs_tool_list": [
+  {
+   "file": "broken/corrupt.bin",
+   "status": "needs_tool",
+   "why": ".bin: no extractor (native lib absent, no CLI)"
+  },
+  {
+   "file": "scans/old_paper.png",
+   "status": "needs_tool",
+   "why": "image raster — OCR text layer only via ocr-tool"
+  }
+ ],
+ "dedup_groups": {
+  "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46": [
+   "aliases/gcn_2025_copy.pdf",
+   "papers/gcn_2025_final.pdf"
+  ]
+ },
+ "families": {
+  "doi:10.1234/example.gcn.2025": {
+   "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+   "members": [
+    "admin/version_notes.md",
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ]
+  },
+  "graph neural networks for molecular property prediction": {
+   "title_guess": "Graph Neural Networks for Molecular Property Prediction",
+   "members": [
+    "papers/gcn_2024_v1_draft.pdf",
+    "slides/overview.pptx"
+   ]
+  }
+ },
+ "answer": {
+  "content": "已盘点 9 个输入文件，完成分类 9 个、共 7 个目录桶；识别 1 组精确重复与 2 个版本族。\n实体整理副本位于 organized/，规范文件 8 个，重复别名 1 条；源文件未修改。\n- [admin] 行政说明：1 个；示例 admin/version_notes.md\n- [broken] 损坏件：1 个；示例 broken/corrupt.bin\n- [data] 数据：1 个；示例 data/qm9_results.xlsx\n- [notes] 笔记：1 个；示例 notes/meeting_2024.md\n- [papers] 论文：3 个；示例 aliases/gcn_2025_copy.pdf, papers/gcn_2024_v1_draft.pdf, papers/gcn_2025_final.pdf\n- [scans] 扫描件：1 个；示例 scans/old_paper.png\n- [slides] 幻灯片：1 个；示例 slides/overview.pptx",
+  "evidence_refs": [],
+  "profile": "classify"
+ },
+ "evidence": {
+  "dir": "evidence/hits/",
+  "digest_note": "one file per hit, full text"
+ },
+ "sources": [
+  {
+   "relpath": "admin/version_notes.md",
+   "name": "version_notes.md",
+   "ext": ".md",
+   "size": 370,
+   "mtime": 1795526992,
+   "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+    "chars": 370,
+    "extractor": "text:read_text_safe"
+   },
+   "meta": {
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "admin",
+   "target": "organized/admin/2025-Administrative-version-notes.md"
+  },
+  {
+   "relpath": "aliases/gcn_2025_copy.pdf",
+   "name": "gcn_2025_copy.pdf",
+   "ext": ".pdf",
+   "size": 34356,
+   "mtime": 1795526992,
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chars": 563,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen",
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "papers",
+   "target": "organized/papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf"
+  },
+  {
+   "relpath": "broken/corrupt.bin",
+   "name": "corrupt.bin",
+   "ext": ".bin",
+   "size": 2048,
+   "mtime": 1795526995,
+   "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "needs_tool",
+   "extraction": null,
+   "meta": null,
+   "bucket": "broken",
+   "target": "organized/broken/undated-corrupt.bin"
+  },
+  {
+   "relpath": "data/qm9_results.xlsx",
+   "name": "qm9_results.xlsx",
+   "ext": ".xlsx",
+   "size": 4962,
+   "mtime": 1795526994,
+   "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "4405200cf8bcd278b3a593d169781a2a2379ff09231509a8228b04fce5904841",
+    "chars": 127,
+    "extractor": "native"
+   },
+   "meta": {
+    "sheets": [
+     "QM9"
+    ],
+    "creator": "openpyxl",
+    "created": "2026-11-24T13:29:54Z",
+    "modified": "2026-11-24T13:29:54Z"
+   },
+   "bucket": "data",
+   "target": "organized/data/undated-target-mae_mlp-mae_gcn-units.xlsx"
+  },
+  {
+   "relpath": "notes/meeting_2024.md",
+   "name": "meeting_2024.md",
+   "ext": ".md",
+   "size": 277,
+   "mtime": 1795526994,
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+    "chars": 277,
+    "extractor": "text:read_text_safe"
+   },
+   "meta": null,
+   "bucket": "notes",
+   "target": "organized/notes/2024-Project-Alpha-meeting-2024-03.md"
+  },
+  {
+   "relpath": "papers/gcn_2024_v1_draft.pdf",
+   "name": "gcn_2024_v1_draft.pdf",
+   "ext": ".pdf",
+   "size": 34254,
+   "mtime": 1795526991,
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "f5f20422187f1dec97352add736b0fec62d15bcc8bb33ba83c01214ab7d386fa",
+    "chars": 517,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen"
+   },
+   "bucket": "papers",
+   "target": "organized/papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf"
+  },
+  {
+   "relpath": "papers/gcn_2025_final.pdf",
+   "name": "gcn_2025_final.pdf",
+   "ext": ".pdf",
+   "size": 34356,
+   "mtime": 1795526992,
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chars": 563,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen",
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "papers",
+   "target": "organized/papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf"
+  },
+  {
+   "relpath": "scans/old_paper.png",
+   "name": "old_paper.png",
+   "ext": ".png",
+   "size": 5038,
+   "mtime": 1795526995,
+   "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "needs_tool",
+   "extraction": null,
+   "meta": null,
+   "bucket": "scans",
+   "target": "organized/scans/undated-old_paper.png"
+  },
+  {
+   "relpath": "slides/overview.pptx",
+   "name": "overview.pptx",
+   "ext": ".pptx",
+   "size": 28316,
+   "mtime": 1795526995,
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "e3c1937a53de24002dad0d7ee88db68072aed1486464577ccb6f5506ebcbfb1f",
+    "chars": 137,
+    "extractor": "native"
+   },
+   "meta": {
+    "slides": 1,
+    "created": "2013-01-27T09:14:16Z",
+    "modified": "2013-01-27T09:15:58Z"
+   },
+   "bucket": "slides",
+   "target": "organized/slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx"
+  }
+ ],
+ "uncertainty": {
+  "missing": [
+   {
+    "file": "broken/corrupt.bin",
+    "reason": ".bin: no extractor (native lib absent, no CLI)",
+    "kind": "text extraction unavailable"
+   },
+   {
+    "file": "scans/old_paper.png",
+    "reason": "image raster — OCR text layer only via ocr-tool",
+    "kind": "text extraction unavailable"
+   }
+  ],
+  "conflicts": [],
+  "limits": [
+   "1 组近重复/版本变体仅按标题族与体积启发式识别，需结合行政版本说明确认",
+   "无查询词命中；未生成事实性答案"
+  ]
+ },
+ "change_records": [
+  {
+   "action": "copy+rename+metadata",
+   "source": "admin/version_notes.md",
+   "target": "admin/2025-Administrative-version-notes.md",
+   "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "target_sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "broken/corrupt.bin",
+   "target": "broken/undated-corrupt.bin",
+   "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "target_sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "data/qm9_results.xlsx",
+   "target": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+   "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "target_sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "notes/meeting_2024.md",
+   "target": "notes/2024-Project-Alpha-meeting-2024-03.md",
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "target_sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "papers/gcn_2024_v1_draft.pdf",
+   "target": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "target_sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "papers/gcn_2025_final.pdf",
+   "target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "target_sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "scans/old_paper.png",
+   "target": "scans/undated-old_paper.png",
+   "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "target_sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "copy+rename+metadata",
+   "source": "slides/overview.pptx",
+   "target": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "target_sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "delete generated target and sidecar; source untouched"
+  },
+  {
+   "action": "alias",
+   "source": "aliases/gcn_2025_copy.pdf",
+   "target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "status": "ok",
+   "reversible": true,
+   "rollback": "remove alias row from manifest; source untouched"
+  }
+ ],
+ "provenance": {
+  "engine_revision": "bohrium-weekly-common@5.0",
+  "generated_at": "2026-11-24T21:38:07+08:00",
+  "input_case_digest": "5427971afcd0f4ccccad0f1787fa44a88839822e1b0fd2ec09aee10279a3b0e0",
+  "task_md_digest": null,
+  "index_digest": "0b16cb5e4ac8440961d7bf2b994f0cf7f4cfdde6b66af671a688d231ff05c3af",
+  "profile": "classify",
+  "deterministic_first_delivery": true,
+  "delivery_contract_version": 2,
+  "source_files_modified": false
+ },
+ "failure_recovery": [
+  {
+   "file": "broken/corrupt.bin",
+   "status": "pending",
+   "action": "call official pdf/office/ocr tool, then rerun with --force",
+   "reversible": true
+  },
+  {
+   "file": "scans/old_paper.png",
+   "status": "pending",
+   "action": "call official pdf/office/ocr tool, then rerun with --force",
+   "reversible": true
+  }
+ ],
+ "catalog": {
+  "bucket_count": 7,
+  "file_count": 9,
+  "buckets": [
+   {
+    "bucket_id": "admin",
+    "title": "行政说明",
+    "criteria": "path=['admin']",
+    "members": [
+     {
+      "relpath": "admin/version_notes.md",
+      "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+      "ext": ".md",
+      "size": 370,
+      "metadata": {
+       "title": "Administrative version notes",
+       "author": null,
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "journal"
+       ]
+      },
+      "assignment_basis": "path=['admin']",
+      "target": "organized/admin/2025-Administrative-version-notes.md"
+     }
+    ],
+    "display_order": 1,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "broken",
+    "title": "损坏件",
+    "criteria": "path=['broken']",
+    "members": [
+     {
+      "relpath": "broken/corrupt.bin",
+      "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+      "ext": ".bin",
+      "size": 2048,
+      "metadata": {
+       "title": "corrupt",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "path=['broken']",
+      "target": "organized/broken/undated-corrupt.bin"
+     }
+    ],
+    "display_order": 2,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "data",
+    "title": "数据",
+    "criteria": "extension=['.xlsx']",
+    "members": [
+     {
+      "relpath": "data/qm9_results.xlsx",
+      "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+      "ext": ".xlsx",
+      "size": 4962,
+      "metadata": {
+       "title": "target | mae_mlp | mae_gcn | units",
+       "author": "openpyxl",
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "extension=['.xlsx']",
+      "target": "organized/data/undated-target-mae_mlp-mae_gcn-units.xlsx"
+     }
+    ],
+    "display_order": 3,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "notes",
+    "title": "笔记",
+    "criteria": "path=['notes']",
+    "members": [
+     {
+      "relpath": "notes/meeting_2024.md",
+      "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+      "ext": ".md",
+      "size": 277,
+      "metadata": {
+       "title": "Project Alpha meeting, 2024-03",
+       "author": null,
+       "year": 2024,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "path=['notes']",
+      "target": "organized/notes/2024-Project-Alpha-meeting-2024-03.md"
+     }
+    ],
+    "display_order": 4,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "papers",
+    "title": "论文",
+    "criteria": "extension=['.pdf']",
+    "members": [
+     {
+      "relpath": "aliases/gcn_2025_copy.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "ext": ".pdf",
+      "size": 34356,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "journal"
+       ]
+      },
+      "assignment_basis": "extension=['.pdf']",
+      "target": "organized/papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf"
+     },
+     {
+      "relpath": "papers/gcn_2024_v1_draft.pdf",
+      "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+      "ext": ".pdf",
+      "size": 34254,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "extension=['.pdf']",
+      "target": "organized/papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf"
+     },
+     {
+      "relpath": "papers/gcn_2025_final.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "ext": ".pdf",
+      "size": 34356,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "journal"
+       ]
+      },
+      "assignment_basis": "extension=['.pdf']",
+      "target": "organized/papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf"
+     }
+    ],
+    "display_order": 5,
+    "member_count": 3
+   },
+   {
+    "bucket_id": "scans",
+    "title": "扫描件",
+    "criteria": "extension=['.png']",
+    "members": [
+     {
+      "relpath": "scans/old_paper.png",
+      "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+      "ext": ".png",
+      "size": 5038,
+      "metadata": {
+       "title": "old_paper",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "extension=['.png']",
+      "target": "organized/scans/undated-old_paper.png"
+     }
+    ],
+    "display_order": 6,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "slides",
+    "title": "幻灯片",
+    "criteria": "extension=['.pptx']",
+    "members": [
+     {
+      "relpath": "slides/overview.pptx",
+      "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+      "ext": ".pptx",
+      "size": 28316,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "extension=['.pptx']",
+      "target": "organized/slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx"
+     }
+    ],
+    "display_order": 7,
+    "member_count": 1
+   }
+  ],
+  "unclassified": [],
+  "rules_source": "case organization rules + explicit assignments + declared fallbacks"
+ },
+ "version_lineage": [
+  {
+   "family_key": "doi:10.1234/example.gcn.2025",
+   "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+   "identity_basis": "doi",
+   "canonical": "papers/gcn_2025_final.pdf",
+   "members": [
+    {
+     "relpath": "admin/version_notes.md",
+     "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "aliases/gcn_2025_copy.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "papers/gcn_2025_final.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "variant_rank": 100
+    }
+   ],
+   "evidence": "same DOI when present, otherwise same normalized title; ordered by variant_rank+mtime"
+  },
+  {
+   "family_key": "graph neural networks for molecular property prediction",
+   "title_guess": "Graph Neural Networks for Molecular Property Prediction",
+   "identity_basis": "title",
+   "canonical": "papers/gcn_2024_v1_draft.pdf",
+   "members": [
+    {
+     "relpath": "slides/overview.pptx",
+     "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "papers/gcn_2024_v1_draft.pdf",
+     "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "variant_rank": 5
+    }
+   ],
+   "evidence": "same DOI when present, otherwise same normalized title; ordered by variant_rank+mtime"
+  }
+ ],
+ "exact_duplicates": [
+  {
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "paths": [
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ],
+   "resolution": "retain one canonical copy; record remaining paths as aliases"
+  }
+ ],
+ "near_duplicates": [
+  {
+   "family": "graph neural networks for molecular property prediction",
+   "paths": [
+    "papers/gcn_2024_v1_draft.pdf",
+    "slides/overview.pptx"
+   ],
+   "shas": [
+    "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+    "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876"
+   ],
+   "sizes": [
+    34254,
+    28316
+   ],
+   "resolution": "same title family, distinct content, sizes within 25%% — treat as version variants, cite the one the question targets (rank by variant_rank)"
+  }
+ ],
+ "unclassified": [],
+ "operation_evidence": {
+  "source_root": "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9",
+  "source_files_total": 9,
+  "filtered_files": 9,
+  "index_chunks": 7,
+  "index_path": "E:/myzcode/bohrium-weekly/.selftest/profile9_index.json",
+  "ledger": "E:/myzcode/bohrium-weekly/_test_enhance_work\\ledger.json",
+  "scan_summary": {
+   "files_total": 9,
+   "chunks_total": 7,
+   "chunks_with_text": 7,
+   "chunks_page_aware": 3,
+   "families": 4,
+   "version_families_multi": 2,
+   "exact_dup_groups": 1,
+   "near_dup_groups": 1,
+   "needs_tool": 2,
+   "errors": 0,
+   "text_files": 7,
+   "needs_tool_files": 2,
+   "error_files": 0,
+   "symlink_files": 0
+  },
+  "run_recipe": [
+   "python -I scan_index.py --root <library> --out <work>/index.json --ledger <work>/ledger.json",
+   "python -I run_case.py --case <case.json> --index <work>/index.json --work <work> --out <out>"
+  ],
+  "hash_verification": {
+   "evidence_refs": 0,
+   "verified": 0,
+   "rate": 0.0,
+   "method": "source sha256 + chunk sha256 + extracted-text quote/offset slice"
+  },
+  "originals_modified": false,
+  "path": "organized",
+  "manifest": "organized/manifest.json",
+  "aliases": "organized/aliases.json",
+  "rollback": "ROLLBACK.md",
+  "organized_files": 8,
+  "alias_rows": [
+   {
+    "alias": "aliases/gcn_2025_copy.pdf",
+    "canonical_source": "papers/gcn_2025_final.pdf",
+    "canonical_target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+    "reason": "identical sha256; one regular-file copy retained"
+   }
+  ],
+  "failures": []
+ },
+ "search_results": [],
+ "evidence_matrix": [],
+ "screening_log": [
+  {
+   "file": "admin/version_notes.md",
+   "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "broken/corrupt.bin",
+   "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "data/qm9_results.xlsx",
+   "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "notes/meeting_2024.md",
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "papers/gcn_2024_v1_draft.pdf",
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "scans/old_paper.png",
+   "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "slides/overview.pptx",
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  }
+ ],
+ "review_draft": null,
+ "enhancement_status": {
+  "state": "ok",
+  "profile": "classify"
+ },
+ "administrative_notes": {
+  "notes": [
+   {
+    "file": "admin/version_notes.md",
+    "chunk_id": "43c7bc2eb1df#1",
+    "kind": "version_note",
+    "raw": "# Administrative version notes",
+    "text": "# Administrative version notes",
+    "chunk_text": "# Administrative version notes\r\n\r\nCanonical document: papers/gcn_2025_final.pdf\r\nAlias: aliases/gcn_2025_copy.pdf (identical sha256 copy)\r\nSupersedes: papers/gcn_2024_v1_draft.pdf\r\nMetadata note: final version includes DOI 10.1234/example.gcn.2025 and reproducibility appendix.\r\nRecovery note: if index is stale, rebuild from source files; do not trust cached aliases.\r\n",
+    "chunk_offset": 0,
+    "evidence_offset": 0,
+    "evidence_end": 30,
+    "subject": null,
+    "target": null,
+    "references": [],
+    "resolved_references": []
+   },
+   {
+    "file": "admin/version_notes.md",
+    "chunk_id": "43c7bc2eb1df#1",
+    "kind": "canonical",
+    "raw": "Canonical document: papers/gcn_2025_final.pdf",
+    "text": "Canonical document: papers/gcn_2025_final.pdf",
+    "chunk_text": "# Administrative version notes\r\n\r\nCanonical document: papers/gcn_2025_final.pdf\r\nAlias: aliases/gcn_2025_copy.pdf (identical sha256 copy)\r\nSupersedes: papers/gcn_2024_v1_draft.pdf\r\nMetadata note: final version includes DOI 10.1234/example.gcn.2025 and reproducibility appendix.\r\nRecovery note: if index is stale, rebuild from source files; do not trust cached aliases.\r\n",
+    "chunk_offset": 34,
+    "evidence_offset": 34,
+    "evidence_end": 79,
+    "subject": null,
+    "target": "papers/gcn_2025_final.pdf",
+    "references": [
+     "papers/gcn_2025_final.pdf"
+    ],
+    "resolved_references": [
+     "papers/gcn_2025_final.pdf"
+    ]
+   },
+   {
+    "file": "admin/version_notes.md",
+    "chunk_id": "43c7bc2eb1df#1",
+    "kind": "supersedes",
+    "raw": "Supersedes: papers/gcn_2024_v1_draft.pdf",
+    "text": "Supersedes: papers/gcn_2024_v1_draft.pdf",
+    "chunk_text": "# Administrative version notes\r\n\r\nCanonical document: papers/gcn_2025_final.pdf\r\nAlias: aliases/gcn_2025_copy.pdf (identical sha256 copy)\r\nSupersedes: papers/gcn_2024_v1_draft.pdf\r\nMetadata note: final version includes DOI 10.1234/example.gcn.2025 and reproducibility appendix.\r\nRecovery note: if index is stale, rebuild from source files; do not trust cached aliases.\r\n",
+    "chunk_offset": 139,
+    "evidence_offset": 139,
+    "evidence_end": 179,
+    "subject": "papers/gcn_2024_v1_draft.pdf",
+    "target": "admin/version_notes.md",
+    "references": [
+     "papers/gcn_2024_v1_draft.pdf"
+    ],
+    "resolved_references": [
+     "papers/gcn_2024_v1_draft.pdf"
+    ],
+    "version_relation": {
+     "older_ref": "papers/gcn_2024_v1_draft.pdf",
+     "newer_ref": "admin/version_notes.md",
+     "older": "papers/gcn_2024_v1_draft.pdf",
+     "newer": "admin/version_notes.md",
+     "evidence_offset": 139,
+     "file": "admin/version_notes.md",
+     "raw": "Supersedes: papers/gcn_2024_v1_draft.pdf"
+    }
+   },
+   {
+    "file": "admin/version_notes.md",
+    "chunk_id": "43c7bc2eb1df#1",
+    "kind": "metadata",
+    "raw": "Metadata note: final version includes DOI 10.1234/example.gcn.2025 and reproducibility appendix.",
+    "text": "Metadata note: final version includes DOI 10.1234/example.gcn.2025 and reproducibility appendix.",
+    "chunk_text": "# Administrative version notes\r\n\r\nCanonical document: papers/gcn_2025_final.pdf\r\nAlias: aliases/gcn_2025_copy.pdf (identical sha256 copy)\r\nSupersedes: papers/gcn_2024_v1_draft.pdf\r\nMetadata note: final version includes DOI 10.1234/example.gcn.2025 and reproducibility appendix.\r\nRecovery note: if index is stale, rebuild from source files; do not trust cached aliases.\r\n",
+    "chunk_offset": 181,
+    "evidence_offset": 181,
+    "evidence_end": 277,
+    "subject": null,
+    "target": null,
+    "references": [
+     "10.1234/example.gcn.2025"
+    ],
+    "resolved_references": []
+   },
+   {
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "kind": "version_note",
+    "raw": "Canonical version with final administrative approval.",
+    "text": "Canonical version with final administrative approval.",
+    "chunk_text": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n## Limitations\nThe model does not handle stereochemistry beyond two dimensions.\n## Reproducibility\nCanonical version with final administrative approval.\n",
+    "chunk_offset": 509,
+    "evidence_offset": 509,
+    "evidence_end": 562,
+    "subject": null,
+    "target": null,
+    "references": [],
+    "resolved_references": []
+   },
+   {
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "kind": "version_note",
+    "raw": "Canonical version with final administrative approval.",
+    "text": "Canonical version with final administrative approval.",
+    "chunk_text": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n## Limitations\nThe model does not handle stereochemistry beyond two dimensions.\n## Reproducibility\nCanonical version with final administrative approval.\n",
+    "chunk_offset": 509,
+    "evidence_offset": 509,
+    "evidence_end": 562,
+    "subject": null,
+    "target": null,
+    "references": [],
+    "resolved_references": []
+   }
+  ],
+  "alias_map": {},
+  "canonical_overrides": {
+   "papers/gcn_2025_final.pdf": "papers/gcn_2025_final.pdf"
+  },
+  "conflicts": [
+   {
+    "kind": "unresolved_reference",
+    "file": "admin/version_notes.md",
+    "reference": "10.1234/example.gcn.2025",
+    "evidence_offset": 181,
+    "raw": "Metadata note: final version includes DOI 10.1234/example.gcn.2025 and reproducibility appendix.",
+    "reason": "declared reference does not resolve uniquely to an indexed file"
+   },
+   {
+    "kind": "unresolved_reference",
+    "file": "data/qm9_results.xlsx",
+    "reference": "0.045",
+    "evidence_offset": 48,
+    "raw": "alpha | 0.052 | 0.045 | eV",
+    "reason": "declared reference does not resolve uniquely to an indexed file"
+   },
+   {
+    "kind": "unresolved_reference",
+    "file": "data/qm9_results.xlsx",
+    "reference": "0.052",
+    "evidence_offset": 48,
+    "raw": "alpha | 0.052 | 0.045 | eV",
+    "reason": "declared reference does not resolve uniquely to an indexed file"
+   },
+   {
+    "kind": "unresolved_reference",
+    "file": "data/qm9_results.xlsx",
+    "reference": "0.075",
+    "evidence_offset": 101,
+    "raw": "gamma | 0.087 | 0.075 | eV",
+    "reason": "declared reference does not resolve uniquely to an indexed file"
+   },
+   {
+    "kind": "unresolved_reference",
+    "file": "data/qm9_results.xlsx",
+    "reference": "0.087",
+    "evidence_offset": 101,
+    "raw": "gamma | 0.087 | 0.075 | eV",
+    "reason": "declared reference does not resolve uniquely to an indexed file"
+   },
+   {
+    "kind": "unresolved_reference",
+    "file": "data/qm9_results.xlsx",
+    "reference": "0.099",
+    "evidence_offset": 75,
+    "raw": "beta | 0.118 | 0.099 | eV",
+    "reason": "declared reference does not resolve uniquely to an indexed file"
+   },
+   {
+    "kind": "unresolved_reference",
+    "file": "data/qm9_results.xlsx",
+    "reference": "0.118",
+    "evidence_offset": 75,
+    "raw": "beta | 0.118 | 0.099 | eV",
+    "reason": "declared reference does not resolve uniquely to an indexed file"
+   }
+  ],
+  "version_relations": [
+   {
+    "older_ref": "papers/gcn_2024_v1_draft.pdf",
+    "newer_ref": "admin/version_notes.md",
+    "older": "papers/gcn_2024_v1_draft.pdf",
+    "newer": "admin/version_notes.md",
+    "evidence_offset": 139,
+    "file": "admin/version_notes.md",
+    "raw": "Supersedes: papers/gcn_2024_v1_draft.pdf"
+   }
+  ],
+  "summary": {
+   "notes": 6,
+   "canonical_claims": 1,
+   "alias_claims": 0,
+   "aliases": 0,
+   "supersession_relations": 1,
+   "conflicts": 7
+  }
+ },
+ "tags": {
+  "admin/version_notes.md": [
+   {
+    "tag": "version note",
+    "source": "body",
+    "evidence_offset": 17,
+    "evidence_end": 29,
+    "evidence_text": "version note",
+    "chunk_id": "43c7bc2eb1df#1",
+    "priority": 4
+   },
+   {
+    "tag": "graph convolutional network",
+    "source": "body",
+    "evidence_offset": 61,
+    "evidence_end": 64,
+    "evidence_text": "gcn",
+    "chunk_id": "43c7bc2eb1df#1",
+    "priority": 4
+   },
+   {
+    "tag": "final",
+    "source": "body",
+    "evidence_offset": 70,
+    "evidence_end": 75,
+    "evidence_text": "final",
+    "chunk_id": "43c7bc2eb1df#1",
+    "priority": 4
+   },
+   {
+    "tag": "draft",
+    "source": "body",
+    "evidence_offset": 170,
+    "evidence_end": 175,
+    "evidence_text": "draft",
+    "chunk_id": "43c7bc2eb1df#1",
+    "priority": 4
+   },
+   {
+    "tag": "metadata",
+    "source": "body",
+    "evidence_offset": 181,
+    "evidence_end": 189,
+    "evidence_text": "Metadata",
+    "chunk_id": "43c7bc2eb1df#1",
+    "priority": 4
+   }
+  ],
+  "aliases/gcn_2025_copy.pdf": [
+   {
+    "tag": "graph neural network",
+    "source": "title",
+    "evidence_offset": 0,
+    "evidence_end": 20,
+    "evidence_text": "Graph Neural Network",
+    "chunk_id": "",
+    "priority": 0
+   },
+   {
+    "tag": "molecular property prediction",
+    "source": "title",
+    "evidence_offset": 26,
+    "evidence_end": 55,
+    "evidence_text": "Molecular Property Prediction",
+    "chunk_id": "",
+    "priority": 0
+   },
+   {
+    "tag": "survey",
+    "source": "abstract",
+    "evidence_offset": 110,
+    "evidence_end": 116,
+    "evidence_text": "survey",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 2
+   },
+   {
+    "tag": "abstract",
+    "source": "body_structure",
+    "evidence_offset": 95,
+    "evidence_end": 106,
+    "evidence_text": "## Abstract",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 3
+   },
+   {
+    "tag": "methods",
+    "source": "body_structure",
+    "evidence_offset": 212,
+    "evidence_end": 222,
+    "evidence_text": "## Methods",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 3
+   },
+   {
+    "tag": "results",
+    "source": "body_structure",
+    "evidence_offset": 324,
+    "evidence_end": 334,
+    "evidence_text": "## Results",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 3
+   },
+   {
+    "tag": "limitations",
+    "source": "body_structure",
+    "evidence_offset": 410,
+    "evidence_end": 424,
+    "evidence_text": "## Limitations",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 3
+   },
+   {
+    "tag": "graph convolutional network",
+    "source": "body",
+    "evidence_offset": 86,
+    "evidence_end": 89,
+    "evidence_text": "gcn",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 4
+   },
+   {
+    "tag": "final",
+    "source": "body",
+    "evidence_offset": 532,
+    "evidence_end": 537,
+    "evidence_text": "final",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 4
+   }
+  ],
+  "broken/corrupt.bin": [],
+  "data/qm9_results.xlsx": [
+   {
+    "tag": "graph convolutional network",
+    "source": "body",
+    "evidence_offset": 36,
+    "evidence_end": 39,
+    "evidence_text": "gcn",
+    "chunk_id": "79586165d64b#1",
+    "priority": 4
+   }
+  ],
+  "notes/meeting_2024.md": [
+   {
+    "tag": "message passing",
+    "source": "body",
+    "evidence_offset": 66,
+    "evidence_end": 81,
+    "evidence_text": "message passing",
+    "chunk_id": "42876943129d#1",
+    "priority": 4
+   },
+   {
+    "tag": "molecular property prediction",
+    "source": "body",
+    "evidence_offset": 86,
+    "evidence_end": 115,
+    "evidence_text": "molecular property prediction",
+    "chunk_id": "42876943129d#1",
+    "priority": 4
+   },
+   {
+    "tag": "limitations",
+    "source": "body",
+    "evidence_offset": 186,
+    "evidence_end": 196,
+    "evidence_text": "limitation",
+    "chunk_id": "42876943129d#1",
+    "priority": 4
+   },
+   {
+    "tag": "final",
+    "source": "body",
+    "evidence_offset": 219,
+    "evidence_end": 224,
+    "evidence_text": "final",
+    "chunk_id": "42876943129d#1",
+    "priority": 4
+   },
+   {
+    "tag": "draft",
+    "source": "body",
+    "evidence_offset": 255,
+    "evidence_end": 260,
+    "evidence_text": "draft",
+    "chunk_id": "42876943129d#1",
+    "priority": 4
+   }
+  ],
+  "papers/gcn_2024_v1_draft.pdf": [
+   {
+    "tag": "graph neural network",
+    "source": "title",
+    "evidence_offset": 0,
+    "evidence_end": 20,
+    "evidence_text": "Graph Neural Network",
+    "chunk_id": "",
+    "priority": 0
+   },
+   {
+    "tag": "molecular property prediction",
+    "source": "title",
+    "evidence_offset": 26,
+    "evidence_end": 55,
+    "evidence_text": "Molecular Property Prediction",
+    "chunk_id": "",
+    "priority": 0
+   },
+   {
+    "tag": "survey",
+    "source": "abstract",
+    "evidence_offset": 80,
+    "evidence_end": 86,
+    "evidence_text": "survey",
+    "chunk_id": "6f788fefe601#1",
+    "priority": 2
+   },
+   {
+    "tag": "abstract",
+    "source": "body_structure",
+    "evidence_offset": 65,
+    "evidence_end": 76,
+    "evidence_text": "## Abstract",
+    "chunk_id": "6f788fefe601#1",
+    "priority": 3
+   },
+   {
+    "tag": "methods",
+    "source": "body_structure",
+    "evidence_offset": 182,
+    "evidence_end": 192,
+    "evidence_text": "## Methods",
+    "chunk_id": "6f788fefe601#1",
+    "priority": 3
+   },
+   {
+    "tag": "results",
+    "source": "body_structure",
+    "evidence_offset": 294,
+    "evidence_end": 304,
+    "evidence_text": "## Results",
+    "chunk_id": "6f788fefe601#1",
+    "priority": 3
+   },
+   {
+    "tag": "limitations",
+    "source": "body_structure",
+    "evidence_offset": 380,
+    "evidence_end": 394,
+    "evidence_text": "## Limitations",
+    "chunk_id": "6f788fefe601#1",
+    "priority": 3
+   },
+   {
+    "tag": "draft",
+    "source": "body",
+    "evidence_offset": 460,
+    "evidence_end": 465,
+    "evidence_text": "Draft",
+    "chunk_id": "6f788fefe601#1",
+    "priority": 4
+   }
+  ],
+  "papers/gcn_2025_final.pdf": [
+   {
+    "tag": "graph neural network",
+    "source": "title",
+    "evidence_offset": 0,
+    "evidence_end": 20,
+    "evidence_text": "Graph Neural Network",
+    "chunk_id": "",
+    "priority": 0
+   },
+   {
+    "tag": "molecular property prediction",
+    "source": "title",
+    "evidence_offset": 26,
+    "evidence_end": 55,
+    "evidence_text": "Molecular Property Prediction",
+    "chunk_id": "",
+    "priority": 0
+   },
+   {
+    "tag": "survey",
+    "source": "abstract",
+    "evidence_offset": 110,
+    "evidence_end": 116,
+    "evidence_text": "survey",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 2
+   },
+   {
+    "tag": "abstract",
+    "source": "body_structure",
+    "evidence_offset": 95,
+    "evidence_end": 106,
+    "evidence_text": "## Abstract",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 3
+   },
+   {
+    "tag": "methods",
+    "source": "body_structure",
+    "evidence_offset": 212,
+    "evidence_end": 222,
+    "evidence_text": "## Methods",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 3
+   },
+   {
+    "tag": "results",
+    "source": "body_structure",
+    "evidence_offset": 324,
+    "evidence_end": 334,
+    "evidence_text": "## Results",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 3
+   },
+   {
+    "tag": "limitations",
+    "source": "body_structure",
+    "evidence_offset": 410,
+    "evidence_end": 424,
+    "evidence_text": "## Limitations",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 3
+   },
+   {
+    "tag": "graph convolutional network",
+    "source": "body",
+    "evidence_offset": 86,
+    "evidence_end": 89,
+    "evidence_text": "gcn",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 4
+   },
+   {
+    "tag": "final",
+    "source": "body",
+    "evidence_offset": 532,
+    "evidence_end": 537,
+    "evidence_text": "final",
+    "chunk_id": "5f08c5529931#1",
+    "priority": 4
+   }
+  ],
+  "scans/old_paper.png": [],
+  "slides/overview.pptx": [
+   {
+    "tag": "graph neural network",
+    "source": "body",
+    "evidence_offset": 10,
+    "evidence_end": 30,
+    "evidence_text": "Graph Neural Network",
+    "chunk_id": "8f41206bbdf1#1",
+    "priority": 4
+   },
+   {
+    "tag": "molecular property prediction",
+    "source": "body",
+    "evidence_offset": 36,
+    "evidence_end": 65,
+    "evidence_text": "Molecular Property Prediction",
+    "chunk_id": "8f41206bbdf1#1",
+    "priority": 4
+   },
+   {
+    "tag": "message passing",
+    "source": "body",
+    "evidence_offset": 100,
+    "evidence_end": 115,
+    "evidence_text": "message passing",
+    "chunk_id": "8f41206bbdf1#1",
+    "priority": 4
+   }
+  ]
+ },
+ "permission_audit": {
+  "files": [
+   {
+    "relpath": "admin/version_notes.md",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884"
+   },
+   {
+    "relpath": "aliases/gcn_2025_copy.pdf",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46"
+   },
+   {
+    "relpath": "broken/corrupt.bin",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686"
+   },
+   {
+    "relpath": "data/qm9_results.xlsx",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b"
+   },
+   {
+    "relpath": "notes/meeting_2024.md",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4"
+   },
+   {
+    "relpath": "papers/gcn_2024_v1_draft.pdf",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf"
+   },
+   {
+    "relpath": "papers/gcn_2025_final.pdf",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46"
+   },
+   {
+    "relpath": "scans/old_paper.png",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1"
+   },
+   {
+    "relpath": "slides/overview.pptx",
+    "readable": true,
+    "writable": true,
+    "permissions": "0o666",
+    "is_symlink": false,
+    "symlink_target": null,
+    "action": "organize",
+    "recommended_action": "organize",
+    "recommendation": "可整理",
+    "reasons": [],
+    "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876"
+   }
+  ],
+  "summary": {
+   "files": 9,
+   "organize": 9,
+   "read_only_archive": 0,
+   "skip_pending_permissions": 0,
+   "unknown_writable": 0
+  }
+ },
+ "before_after": {
+  "status": "ok",
+  "out_dir": "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify",
+  "before_tree_path": "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+  "after_tree_path": "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+  "tree_diff_path": "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json",
+  "before_tree": {
+   "schema": "bohrium-library-tree@1",
+   "kind": "source_read_only_snapshot",
+   "root": "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9",
+   "snapshot_mode": "verified_read_only",
+   "source_modified": false,
+   "file_count": 9,
+   "files": [
+    {
+     "relpath": "admin/version_notes.md",
+     "name": "version_notes.md",
+     "ext": ".md",
+     "size": 370,
+     "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    },
+    {
+     "relpath": "aliases/gcn_2025_copy.pdf",
+     "name": "gcn_2025_copy.pdf",
+     "ext": ".pdf",
+     "size": 34356,
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    },
+    {
+     "relpath": "broken/corrupt.bin",
+     "name": "corrupt.bin",
+     "ext": ".bin",
+     "size": 2048,
+     "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    },
+    {
+     "relpath": "data/qm9_results.xlsx",
+     "name": "qm9_results.xlsx",
+     "ext": ".xlsx",
+     "size": 4962,
+     "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    },
+    {
+     "relpath": "notes/meeting_2024.md",
+     "name": "meeting_2024.md",
+     "ext": ".md",
+     "size": 277,
+     "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    },
+    {
+     "relpath": "papers/gcn_2024_v1_draft.pdf",
+     "name": "gcn_2024_v1_draft.pdf",
+     "ext": ".pdf",
+     "size": 34254,
+     "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    },
+    {
+     "relpath": "papers/gcn_2025_final.pdf",
+     "name": "gcn_2025_final.pdf",
+     "ext": ".pdf",
+     "size": 34356,
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    },
+    {
+     "relpath": "scans/old_paper.png",
+     "name": "old_paper.png",
+     "ext": ".png",
+     "size": 5038,
+     "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    },
+    {
+     "relpath": "slides/overview.pptx",
+     "name": "overview.pptx",
+     "ext": ".pptx",
+     "size": 28316,
+     "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+     "sha256_verified": true,
+     "readable": true,
+     "writable": true,
+     "permissions": "0o666",
+     "is_symlink": false,
+     "symlink_target": null
+    }
+   ],
+   "errors": []
+  },
+  "after_tree": {
+   "schema": "bohrium-library-tree@1",
+   "kind": "organized_snapshot",
+   "root": "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized",
+   "snapshot_mode": "verified_read_only",
+   "source_modified": false,
+   "file_count": 19,
+   "files": [
+    {
+     "relpath": ".bohrium-organized",
+     "name": ".bohrium-organized",
+     "size": 65,
+     "sha256": "9dbf1d6c884c137428ad9b11c11bd6b03121264f1d9c5f77a0e936a03cc6cbd6",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "marker"
+    },
+    {
+     "relpath": "admin/2025-Administrative-version-notes.md",
+     "name": "2025-Administrative-version-notes.md",
+     "size": 370,
+     "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "organized_file"
+    },
+    {
+     "relpath": "admin/2025-Administrative-version-notes.md.meta.json",
+     "name": "2025-Administrative-version-notes.md.meta.json",
+     "size": 764,
+     "sha256": "bde184036a13c6fdc3433637a972bc7af9f6f43d5eedfce64054e468dd73aab4",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "metadata_sidecar"
+    },
+    {
+     "relpath": "aliases.json",
+     "name": "aliases.json",
+     "size": 360,
+     "sha256": "99dca9c1233d3ab475847efc4fde42f8845ee2a9cff5204f8062f4397280041b",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "aliases"
+    },
+    {
+     "relpath": "broken/undated-corrupt.bin",
+     "name": "undated-corrupt.bin",
+     "size": 2048,
+     "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "organized_file"
+    },
+    {
+     "relpath": "broken/undated-corrupt.bin.meta.json",
+     "name": "undated-corrupt.bin.meta.json",
+     "size": 723,
+     "sha256": "dd89e060cde720d5551ed3189306397713fe71d558fc3f7ddc229134cfa9cd73",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "metadata_sidecar"
+    },
+    {
+     "relpath": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+     "name": "undated-target-mae_mlp-mae_gcn-units.xlsx",
+     "size": 4962,
+     "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "organized_file"
+    },
+    {
+     "relpath": "data/undated-target-mae_mlp-mae_gcn-units.xlsx.meta.json",
+     "name": "undated-target-mae_mlp-mae_gcn-units.xlsx.meta.json",
+     "size": 773,
+     "sha256": "ffa4d409a8ce861405d9b7cb1290a33d933df02bc18e8dcd067d794e162768c1",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "metadata_sidecar"
+    },
+    {
+     "relpath": "manifest.json",
+     "name": "manifest.json",
+     "size": 11247,
+     "sha256": "e7fae502ecb38d6b0a7f371b41b843783074f31a0b4ee4c47e441f6344558096",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "manifest"
+    },
+    {
+     "relpath": "notes/2024-Project-Alpha-meeting-2024-03.md",
+     "name": "2024-Project-Alpha-meeting-2024-03.md",
+     "size": 277,
+     "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "organized_file"
+    },
+    {
+     "relpath": "notes/2024-Project-Alpha-meeting-2024-03.md.meta.json",
+     "name": "2024-Project-Alpha-meeting-2024-03.md.meta.json",
+     "size": 754,
+     "sha256": "fd8277c2df0daf91dca4591b634a5375ff49d01c91b9309219f26a35c64e8725",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "metadata_sidecar"
+    },
+    {
+     "relpath": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+     "name": "2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+     "size": 34356,
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "organized_file"
+    },
+    {
+     "relpath": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf.meta.json",
+     "name": "2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf.meta.json",
+     "size": 839,
+     "sha256": "827b84c40e59ccee00af168a63e7db7a74a9a98465ffd7c0c6b8d15c30841d1c",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "metadata_sidecar"
+    },
+    {
+     "relpath": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+     "name": "undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+     "size": 34254,
+     "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "organized_file"
+    },
+    {
+     "relpath": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf.meta.json",
+     "name": "undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf.meta.json",
+     "size": 839,
+     "sha256": "990c3d359dcd4198556ff5c263d60997857f68b48cc78c0219f0789a6880b3bb",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "metadata_sidecar"
+    },
+    {
+     "relpath": "scans/undated-old_paper.png",
+     "name": "undated-old_paper.png",
+     "size": 5038,
+     "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "organized_file"
+    },
+    {
+     "relpath": "scans/undated-old_paper.png.meta.json",
+     "name": "undated-old_paper.png.meta.json",
+     "size": 731,
+     "sha256": "eb62f7e67b7540011520ee23ac04b014ab96beaf849e05bb898af67914411926",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "metadata_sidecar"
+    },
+    {
+     "relpath": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+     "name": "undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+     "size": 28316,
+     "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "organized_file"
+    },
+    {
+     "relpath": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx.meta.json",
+     "name": "undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx.meta.json",
+     "size": 830,
+     "sha256": "443fe043077e6786a63a1f130fbc9be51335761be6039a6fc2bc67ad7f069179",
+     "sha256_verified": true,
+     "is_symlink": false,
+     "symlink_target": null,
+     "artifact_type": "metadata_sidecar"
+    }
+   ],
+   "manifest_path": "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+   "manifest_sha256": "e7fae502ecb38d6b0a7f371b41b843783074f31a0b4ee4c47e441f6344558096",
+   "errors": []
+  },
+  "tree_diff": {
+   "added": [
+    {
+     "path": ".bohrium-organized",
+     "sha256": "9dbf1d6c884c137428ad9b11c11bd6b03121264f1d9c5f77a0e936a03cc6cbd6",
+     "artifact_type": "marker",
+     "source_relpath": null
+    },
+    {
+     "path": "admin/2025-Administrative-version-notes.md",
+     "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+     "artifact_type": "organized_file",
+     "source_relpath": "admin/version_notes.md"
+    },
+    {
+     "path": "admin/2025-Administrative-version-notes.md.meta.json",
+     "sha256": "bde184036a13c6fdc3433637a972bc7af9f6f43d5eedfce64054e468dd73aab4",
+     "artifact_type": "metadata_sidecar",
+     "source_relpath": null
+    },
+    {
+     "path": "aliases.json",
+     "sha256": "99dca9c1233d3ab475847efc4fde42f8845ee2a9cff5204f8062f4397280041b",
+     "artifact_type": "aliases",
+     "source_relpath": null
+    },
+    {
+     "path": "broken/undated-corrupt.bin",
+     "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+     "artifact_type": "organized_file",
+     "source_relpath": "broken/corrupt.bin"
+    },
+    {
+     "path": "broken/undated-corrupt.bin.meta.json",
+     "sha256": "dd89e060cde720d5551ed3189306397713fe71d558fc3f7ddc229134cfa9cd73",
+     "artifact_type": "metadata_sidecar",
+     "source_relpath": null
+    },
+    {
+     "path": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+     "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+     "artifact_type": "organized_file",
+     "source_relpath": "data/qm9_results.xlsx"
+    },
+    {
+     "path": "data/undated-target-mae_mlp-mae_gcn-units.xlsx.meta.json",
+     "sha256": "ffa4d409a8ce861405d9b7cb1290a33d933df02bc18e8dcd067d794e162768c1",
+     "artifact_type": "metadata_sidecar",
+     "source_relpath": null
+    },
+    {
+     "path": "manifest.json",
+     "sha256": "e7fae502ecb38d6b0a7f371b41b843783074f31a0b4ee4c47e441f6344558096",
+     "artifact_type": "manifest",
+     "source_relpath": null
+    },
+    {
+     "path": "notes/2024-Project-Alpha-meeting-2024-03.md",
+     "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+     "artifact_type": "organized_file",
+     "source_relpath": "notes/meeting_2024.md"
+    },
+    {
+     "path": "notes/2024-Project-Alpha-meeting-2024-03.md.meta.json",
+     "sha256": "fd8277c2df0daf91dca4591b634a5375ff49d01c91b9309219f26a35c64e8725",
+     "artifact_type": "metadata_sidecar",
+     "source_relpath": null
+    },
+    {
+     "path": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "artifact_type": "organized_file",
+     "source_relpath": "papers/gcn_2025_final.pdf"
+    },
+    {
+     "path": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf.meta.json",
+     "sha256": "827b84c40e59ccee00af168a63e7db7a74a9a98465ffd7c0c6b8d15c30841d1c",
+     "artifact_type": "metadata_sidecar",
+     "source_relpath": null
+    },
+    {
+     "path": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+     "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "artifact_type": "organized_file",
+     "source_relpath": "papers/gcn_2024_v1_draft.pdf"
+    },
+    {
+     "path": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf.meta.json",
+     "sha256": "990c3d359dcd4198556ff5c263d60997857f68b48cc78c0219f0789a6880b3bb",
+     "artifact_type": "metadata_sidecar",
+     "source_relpath": null
+    },
+    {
+     "path": "scans/undated-old_paper.png",
+     "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+     "artifact_type": "organized_file",
+     "source_relpath": "scans/old_paper.png"
+    },
+    {
+     "path": "scans/undated-old_paper.png.meta.json",
+     "sha256": "eb62f7e67b7540011520ee23ac04b014ab96beaf849e05bb898af67914411926",
+     "artifact_type": "metadata_sidecar",
+     "source_relpath": null
+    },
+    {
+     "path": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+     "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+     "artifact_type": "organized_file",
+     "source_relpath": "slides/overview.pptx"
+    },
+    {
+     "path": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx.meta.json",
+     "sha256": "443fe043077e6786a63a1f130fbc9be51335761be6039a6fc2bc67ad7f069179",
+     "artifact_type": "metadata_sidecar",
+     "source_relpath": null
+    }
+   ],
+   "moved": [],
+   "renamed": [
+    {
+     "source": "admin/version_notes.md",
+     "target": "admin/2025-Administrative-version-notes.md",
+     "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884"
+    },
+    {
+     "source": "broken/corrupt.bin",
+     "target": "broken/undated-corrupt.bin",
+     "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686"
+    },
+    {
+     "source": "data/qm9_results.xlsx",
+     "target": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+     "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b"
+    },
+    {
+     "source": "notes/meeting_2024.md",
+     "target": "notes/2024-Project-Alpha-meeting-2024-03.md",
+     "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4"
+    },
+    {
+     "source": "papers/gcn_2024_v1_draft.pdf",
+     "target": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+     "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf"
+    },
+    {
+     "source": "papers/gcn_2025_final.pdf",
+     "target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46"
+    },
+    {
+     "source": "scans/old_paper.png",
+     "target": "scans/undated-old_paper.png",
+     "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1"
+    },
+    {
+     "source": "slides/overview.pptx",
+     "target": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+     "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876"
+    }
+   ],
+   "aliases": [
+    {
+     "alias": "aliases/gcn_2025_copy.pdf",
+     "canonical_source": null,
+     "canonical_target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "status": "ok"
+    }
+   ],
+   "unclassified": [],
+   "failed": [],
+   "hash_checks": [
+    {
+     "source": "admin/version_notes.md",
+     "target": "admin/2025-Administrative-version-notes.md",
+     "source_sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+     "target_sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+     "verified": true
+    },
+    {
+     "source": "broken/corrupt.bin",
+     "target": "broken/undated-corrupt.bin",
+     "source_sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+     "target_sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+     "verified": true
+    },
+    {
+     "source": "data/qm9_results.xlsx",
+     "target": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+     "source_sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+     "target_sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+     "verified": true
+    },
+    {
+     "source": "notes/meeting_2024.md",
+     "target": "notes/2024-Project-Alpha-meeting-2024-03.md",
+     "source_sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+     "target_sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+     "verified": true
+    },
+    {
+     "source": "papers/gcn_2024_v1_draft.pdf",
+     "target": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+     "source_sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "target_sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "verified": true
+    },
+    {
+     "source": "papers/gcn_2025_final.pdf",
+     "target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+     "source_sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "target_sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "verified": true
+    },
+    {
+     "source": "scans/old_paper.png",
+     "target": "scans/undated-old_paper.png",
+     "source_sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+     "target_sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+     "verified": true
+    },
+    {
+     "source": "slides/overview.pptx",
+     "target": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+     "source_sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+     "target_sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+     "verified": true
+    }
+   ],
+   "counts": {
+    "added": 19,
+    "moved": 0,
+    "renamed": 8,
+    "aliases": 1,
+    "unclassified": 0,
+    "failed": 0,
+    "hash_checks": 8,
+    "hash_checks_verified": 8
+   },
+   "all_hashes_verified": true,
+   "source_unchanged": true,
+   "status": "ok"
+  },
+  "manifest_path": "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+  "write_errors": []
+ },
+ "idempotency_digest": "716e7766e1e488e7b911290dc83b0d993c5744f4225a97c235e093ba2dbb7232",
+ "rubric_mapped": {
+  "rubric_mapped": {
+   "actual_effect": {
+    "label": "实际效果",
+    "max_score": 40,
+    "earned_score": 37,
+    "status": "partial",
+    "metrics": {
+     "source_files": 9,
+     "catalog_file_count": 9,
+     "catalog_unclassified": 0,
+     "organized_files": 8,
+     "alias_rows": 1,
+     "failures": 0,
+     "processed_files": 9,
+     "completion_ratio": 1.0,
+     "copy_hash_checks": 8,
+     "copy_hash_checks_verified": 8,
+     "copy_hash_verification_rate": 1.0,
+     "files_with_tags": 7,
+     "tag_count": 40,
+     "max_tags_per_file": 9,
+     "tag_coverage": 0.777778,
+     "admin_notes": 6,
+     "admin_aliases": 0,
+     "canonical_overrides": 1,
+     "admin_conflicts": 7,
+     "unknown_permission_files": 0,
+     "idempotency_digest_valid": true,
+     "evidence_path_count": 7
+    },
+    "evidence_paths": [
+     "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+    ],
+    "subitems": {
+     "completion": {
+      "max_score": 15,
+      "earned_score": 15,
+      "status": "met",
+      "metrics": {
+       "source_files": 9,
+       "processed_files": 9,
+       "completion_ratio": 1.0,
+       "failures": 0,
+       "unclassified": 0
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "correctness": {
+      "max_score": 15,
+      "earned_score": 15,
+      "status": "met",
+      "metrics": {
+       "copy_hash_checks": 8,
+       "verified": 8,
+       "verification_rate": 1.0
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "integrity": {
+      "max_score": 5,
+      "earned_score": 2,
+      "status": "partial",
+      "metrics": {
+       "accounted_files": 9,
+       "failures": 0,
+       "unclassified": 0,
+       "admin_conflicts": 7
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "verifiability": {
+      "max_score": 5,
+      "earned_score": 5,
+      "status": "met",
+      "metrics": {
+       "before_tree": true,
+       "after_tree": true,
+       "tree_diff": true,
+       "hash_checks": 8
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     }
+    }
+   },
+   "usage_gain": {
+    "label": "使用增益",
+    "max_score": 25,
+    "earned_score": 18,
+    "status": "partial",
+    "metrics": {
+     "source_files": 9,
+     "catalog_file_count": 9,
+     "catalog_unclassified": 0,
+     "organized_files": 8,
+     "alias_rows": 1,
+     "failures": 0,
+     "processed_files": 9,
+     "completion_ratio": 1.0,
+     "copy_hash_checks": 8,
+     "copy_hash_checks_verified": 8,
+     "copy_hash_verification_rate": 1.0,
+     "files_with_tags": 7,
+     "tag_count": 40,
+     "max_tags_per_file": 9,
+     "tag_coverage": 0.777778,
+     "admin_notes": 6,
+     "admin_aliases": 0,
+     "canonical_overrides": 1,
+     "admin_conflicts": 7,
+     "unknown_permission_files": 0,
+     "idempotency_digest_valid": true,
+     "evidence_path_count": 7
+    },
+    "evidence_paths": [
+     "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+    ],
+    "subitems": {
+     "quality": {
+      "max_score": 15,
+      "earned_score": 8,
+      "status": "partial",
+      "metrics": {
+       "files_with_tags": 7,
+       "tag_coverage": 0.777778,
+       "admin_notes": 6
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "efficiency": {
+      "max_score": 5,
+      "earned_score": 5,
+      "status": "met",
+      "metrics": {
+       "organized_or_aliased": 9,
+       "source_files": 9
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "verifiability": {
+      "max_score": 5,
+      "earned_score": 5,
+      "status": "met",
+      "metrics": {
+       "evidence_paths": 7,
+       "hash_checks": 8,
+       "verification_rate": 1.0
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     }
+    }
+   },
+   "innovation": {
+    "label": "创新增益",
+    "max_score": 15,
+    "earned_score": 12,
+    "status": "partial",
+    "metrics": {
+     "source_files": 9,
+     "catalog_file_count": 9,
+     "catalog_unclassified": 0,
+     "organized_files": 8,
+     "alias_rows": 1,
+     "failures": 0,
+     "processed_files": 9,
+     "completion_ratio": 1.0,
+     "copy_hash_checks": 8,
+     "copy_hash_checks_verified": 8,
+     "copy_hash_verification_rate": 1.0,
+     "files_with_tags": 7,
+     "tag_count": 40,
+     "max_tags_per_file": 9,
+     "tag_coverage": 0.777778,
+     "admin_notes": 6,
+     "admin_aliases": 0,
+     "canonical_overrides": 1,
+     "admin_conflicts": 7,
+     "unknown_permission_files": 0,
+     "idempotency_digest_valid": true,
+     "evidence_path_count": 7
+    },
+    "evidence_paths": [
+     "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+    ],
+    "subitems": {
+     "new_capability": {
+      "max_score": 5,
+      "earned_score": 5,
+      "status": "met",
+      "metrics": {
+       "admin_notes": 6,
+       "tags": 40,
+       "aliases": 0,
+       "canonical_overrides": 1
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "method_improvement": {
+      "max_score": 5,
+      "earned_score": 2,
+      "status": "partial",
+      "metrics": {
+       "aliases": 0,
+       "canonical_overrides": 1,
+       "normalized_tag_count": 40
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "innovation_evidence": {
+      "max_score": 5,
+      "earned_score": 5,
+      "status": "met",
+      "metrics": {
+       "idempotency_digest_valid": true,
+       "before_tree": true,
+       "tree_diff": true
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     }
+    }
+   },
+   "reliability": {
+    "label": "可靠体验",
+    "max_score": 10,
+    "earned_score": 9,
+    "status": "partial",
+    "metrics": {
+     "source_files": 9,
+     "catalog_file_count": 9,
+     "catalog_unclassified": 0,
+     "organized_files": 8,
+     "alias_rows": 1,
+     "failures": 0,
+     "processed_files": 9,
+     "completion_ratio": 1.0,
+     "copy_hash_checks": 8,
+     "copy_hash_checks_verified": 8,
+     "copy_hash_verification_rate": 1.0,
+     "files_with_tags": 7,
+     "tag_count": 40,
+     "max_tags_per_file": 9,
+     "tag_coverage": 0.777778,
+     "admin_notes": 6,
+     "admin_aliases": 0,
+     "canonical_overrides": 1,
+     "admin_conflicts": 7,
+     "unknown_permission_files": 0,
+     "idempotency_digest_valid": true,
+     "evidence_path_count": 7
+    },
+    "evidence_paths": [
+     "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+    ],
+    "subitems": {
+     "usability": {
+      "max_score": 3,
+      "earned_score": 3,
+      "status": "met",
+      "metrics": {
+       "manifest": true,
+       "rollback": true,
+       "tree_diff": true
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "stability": {
+      "max_score": 4,
+      "earned_score": 4,
+      "status": "met",
+      "metrics": {
+       "idempotency_digest_valid": true,
+       "manifest": true
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "exception_handling": {
+      "max_score": 3,
+      "earned_score": 2,
+      "status": "partial",
+      "metrics": {
+       "failures": 0,
+       "unknown_permission_files": 0,
+       "admin_conflicts": 7
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     }
+    }
+   },
+   "ecosystem": {
+    "label": "生态贡献",
+    "max_score": 10,
+    "earned_score": 10,
+    "status": "met",
+    "metrics": {
+     "source_files": 9,
+     "catalog_file_count": 9,
+     "catalog_unclassified": 0,
+     "organized_files": 8,
+     "alias_rows": 1,
+     "failures": 0,
+     "processed_files": 9,
+     "completion_ratio": 1.0,
+     "copy_hash_checks": 8,
+     "copy_hash_checks_verified": 8,
+     "copy_hash_verification_rate": 1.0,
+     "files_with_tags": 7,
+     "tag_count": 40,
+     "max_tags_per_file": 9,
+     "tag_coverage": 0.777778,
+     "admin_notes": 6,
+     "admin_aliases": 0,
+     "canonical_overrides": 1,
+     "admin_conflicts": 7,
+     "unknown_permission_files": 0,
+     "idempotency_digest_valid": true,
+     "evidence_path_count": 7
+    },
+    "evidence_paths": [
+     "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+     "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+    ],
+    "subitems": {
+     "documentation": {
+      "max_score": 3,
+      "earned_score": 3,
+      "status": "met",
+      "metrics": {
+       "rollback": true,
+       "manifest": true
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "reusability": {
+      "max_score": 4,
+      "earned_score": 4,
+      "status": "met",
+      "metrics": {
+       "manifest": true,
+       "aliases": true,
+       "tree_diff": true
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     },
+     "sharing": {
+      "max_score": 3,
+      "earned_score": 3,
+      "status": "met",
+      "metrics": {
+       "output_contract_present": true,
+       "evidence_paths": 7
+      },
+      "evidence_paths": [
+       "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+       "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+      ]
+     }
+    }
+   }
+  },
+  "summary": {
+   "total_possible": 100,
+   "total_earned": 86,
+   "status": "partial",
+   "evidence_paths": [
+    "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9_index.json",
+    "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\ROLLBACK.md",
+    "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\after_tree.json",
+    "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\before_tree.json",
+    "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\aliases.json",
+    "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\organized\\manifest.json",
+    "E:\\myzcode\\bohrium-weekly\\_test_enhance_classify\\tree_diff.json"
+   ],
+   "metrics": {
+    "source_files": 9,
+    "catalog_file_count": 9,
+    "catalog_unclassified": 0,
+    "organized_files": 8,
+    "alias_rows": 1,
+    "failures": 0,
+    "processed_files": 9,
+    "completion_ratio": 1.0,
+    "copy_hash_checks": 8,
+    "copy_hash_checks_verified": 8,
+    "copy_hash_verification_rate": 1.0,
+    "files_with_tags": 7,
+    "tag_count": 40,
+    "max_tags_per_file": 9,
+    "tag_coverage": 0.777778,
+    "admin_notes": 6,
+    "admin_aliases": 0,
+    "canonical_overrides": 1,
+    "admin_conflicts": 7,
+    "unknown_permission_files": 0,
+    "idempotency_digest_valid": true,
+    "evidence_path_count": 7
+   }
+  }
+ },
+ "output_contract_preserved": true,
+ "output_contract_validation": {
+  "missing": []
+ }
+}

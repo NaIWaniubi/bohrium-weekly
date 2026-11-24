@@ -1,0 +1,30 @@
+{
+ "schema": "bohrium-file-metadata@1",
+ "source_relpath": "data/qm9_results.xlsx",
+ "source_sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+ "target_relpath": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+ "file_facts": {
+  "name": "qm9_results.xlsx",
+  "ext": ".xlsx",
+  "size": 4962,
+  "mtime": 1795526994,
+  "permissions": "0o666",
+  "readable": true
+ },
+ "metadata": {
+  "title": "target | mae_mlp | mae_gcn | units",
+  "author": "openpyxl",
+  "year": null,
+  "journal": null,
+  "doi": null,
+  "source": "file metadata / extracted text",
+  "missing": [
+   "year",
+   "journal",
+   "doi"
+  ]
+ },
+ "bucket": "data",
+ "assignment_basis": "extension=['.xlsx']",
+ "generated_at": "2026-11-24T21:38:07+08:00"
+}

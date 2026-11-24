@@ -1,0 +1,30 @@
+{
+ "schema": "bohrium-file-metadata@1",
+ "source_relpath": "notes/meeting_2024.md",
+ "source_sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+ "target_relpath": "notes/2024-Project-Alpha-meeting-2024-03.md",
+ "file_facts": {
+  "name": "meeting_2024.md",
+  "ext": ".md",
+  "size": 277,
+  "mtime": 1795526994,
+  "permissions": "0o666",
+  "readable": true
+ },
+ "metadata": {
+  "title": "Project Alpha meeting, 2024-03",
+  "author": null,
+  "year": 2024,
+  "journal": null,
+  "doi": null,
+  "source": "file metadata / extracted text",
+  "missing": [
+   "author",
+   "journal",
+   "doi"
+  ]
+ },
+ "bucket": "notes",
+ "assignment_basis": "path=['notes']",
+ "generated_at": "2026-11-24T21:38:07+08:00"
+}

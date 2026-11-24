@@ -87,3 +87,17 @@ python -I tools/build_submissions.py
 
 脚本按每个 `_submit/<slug>/GITHUB_URL.txt` 指向的 Skill 目录重建 32 个自包含包，
 并校验 UTF-8、50 文件、单文件 500KB、总 2MB 与必需资源；不会调用平台或修改源文件。
+
+## Rubrics 覆盖评估
+
+```bash
+python -I .selftest/gen_profile9.py
+python -I tools/rubric_eval.py
+```
+
+`profile9` 生成与组织方隐藏案例同构的 9 文档资料库：真实 PDF 版本族、精确副本别名、
+行政版本说明、DOI/作者元数据、Excel 数据、会议记录、PPT、扫描件与损坏件。
+`rubric_eval.py` 分别跑分类/检索/综述三条链路，并按公开 rubrics 检查实体整理、标签、
+权限、版本、前后树、幂等、NL 约束、查询改写、PRF、句子证据、跨文件共识、筛选协议、
+主题聚类、证据强度、冲突/空白、PRISMA 与引用草稿；输出 `.selftest/rubric_eval_out/scorecard.json`。
+该分数是本地覆盖诊断，不冒充平台正式评分。

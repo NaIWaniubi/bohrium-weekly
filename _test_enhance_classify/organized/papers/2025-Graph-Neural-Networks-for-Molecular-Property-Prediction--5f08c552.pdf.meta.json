@@ -1,0 +1,28 @@
+{
+ "schema": "bohrium-file-metadata@1",
+ "source_relpath": "papers/gcn_2025_final.pdf",
+ "source_sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+ "target_relpath": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+ "file_facts": {
+  "name": "gcn_2025_final.pdf",
+  "ext": ".pdf",
+  "size": 34356,
+  "mtime": 1795526992,
+  "permissions": "0o666",
+  "readable": true
+ },
+ "metadata": {
+  "title": "Graph Neural Networks for Molecular Property Prediction",
+  "author": "Yongrun Chen",
+  "year": 2025,
+  "journal": null,
+  "doi": "10.1234/example.gcn.2025",
+  "source": "file metadata / extracted text",
+  "missing": [
+   "journal"
+  ]
+ },
+ "bucket": "papers",
+ "assignment_basis": "extension=['.pdf']",
+ "generated_at": "2026-11-24T21:38:07+08:00"
+}

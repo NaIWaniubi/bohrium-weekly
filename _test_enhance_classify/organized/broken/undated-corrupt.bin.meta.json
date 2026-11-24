@@ -1,0 +1,31 @@
+{
+ "schema": "bohrium-file-metadata@1",
+ "source_relpath": "broken/corrupt.bin",
+ "source_sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+ "target_relpath": "broken/undated-corrupt.bin",
+ "file_facts": {
+  "name": "corrupt.bin",
+  "ext": ".bin",
+  "size": 2048,
+  "mtime": 1795526995,
+  "permissions": "0o666",
+  "readable": true
+ },
+ "metadata": {
+  "title": "corrupt",
+  "author": null,
+  "year": null,
+  "journal": null,
+  "doi": null,
+  "source": "file metadata / extracted text",
+  "missing": [
+   "author",
+   "year",
+   "journal",
+   "doi"
+  ]
+ },
+ "bucket": "broken",
+ "assignment_basis": "path=['broken']",
+ "generated_at": "2026-11-24T21:38:07+08:00"
+}

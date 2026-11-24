@@ -1,0 +1,2446 @@
+{
+ "case_id": "profile9-search",
+ "status": "ok",
+ "question": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+ "query_expanded": true,
+ "query_plans": [
+  "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+  "QM9 mean absolute error",
+  "stereochemistry limitations",
+  "final version",
+  "pdf",
+  "qm9",
+  "不要",
+  "中关",
+  "于误"
+ ],
+ "scanned_files": 9,
+ "index_chunks": 7,
+ "filter_audit": [
+  {
+   "constraint": "type=.pdf",
+   "kept": 3,
+   "dropped_since_prev": 6
+  },
+  {
+   "constraint": "year=2025..2025",
+   "kept": 2,
+   "dropped_since_prev": 1
+  },
+  {
+   "constraint": "final_keep",
+   "count": 2,
+   "kept": 2
+  }
+ ],
+ "candidates_after_filter": 2,
+ "hit_count": 2,
+ "hits": [
+  {
+   "rank": 1,
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+   "chunk_id": "5f08c5529931#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with a",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 563,
+   "score_raw": 0.8323,
+   "bm25_main": 1.4586,
+   "bm25_title": 0.6931,
+   "dense_cosine": 0.3621,
+   "rrf_score": 0.080645,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 2,
+     "plan_text": "QM9 mean absolute error",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 3,
+     "plan_text": "stereochemistry limitations",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 4,
+     "plan_text": "final version",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 5,
+     "plan_text": "pdf",
+     "bm25_rank": 2
+    }
+   ]
+  },
+  {
+   "rank": 2,
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+   "chunk_id": "5f08c5529931#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with a",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 563,
+   "score_raw": 0.6828,
+   "bm25_main": 1.4586,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.3621,
+   "rrf_score": 0.081967,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 2,
+     "plan_text": "QM9 mean absolute error",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 3,
+     "plan_text": "stereochemistry limitations",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 4,
+     "plan_text": "final version",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 5,
+     "plan_text": "pdf",
+     "bm25_rank": 1
+    }
+   ]
+  }
+ ],
+ "evidence_windows": [
+  {
+   "file": "papers/gcn_2025_final.pdf",
+   "offset": [
+    110,
+    563
+   ],
+   "text": "survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M ## Results On QM9, the GNN reduces mean absolute error by 12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. ## Reproducibility Canonical version with final administrative approval. "
+  },
+  {
+   "file": "aliases/gcn_2025_copy.pdf",
+   "offset": [
+    110,
+    563
+   ],
+   "text": "survey graph neural network architectures for molecular property prediction from SMILES and molecular ## Methods Edge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M ## Results On QM9, the GNN reduces mean absolute error by 12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. ## Reproducibility Canonical version with final administrative approval. "
+  }
+ ],
+ "citations": [
+  {
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "section_kind": "tail",
+   "anchor": {
+    "first_sentence": "Edge-conditioned convolution encodes atoms as nodes and bonds as edges.",
+    "paragraph_offset": [
+     223,
+     323
+    ]
+   },
+   "quotes": [
+    {
+     "offset": [
+      170,
+      563
+     ],
+     "text": "...12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. ## Reproducibility Canonical version with final administrative approval."
+    }
+   ]
+  },
+  {
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "section_kind": "tail",
+   "anchor": {
+    "first_sentence": "Edge-conditioned convolution encodes atoms as nodes and bonds as edges.",
+    "paragraph_offset": [
+     223,
+     323
+    ]
+   },
+   "quotes": [
+    {
+     "offset": [
+      170,
+      563
+     ],
+     "text": "...12 percent relative to MLP. ## Limitations The model does not handle stereochemistry beyond two dimensions. ## Reproducibility Canonical version with final administrative approval."
+    }
+   ]
+  }
+ ],
+ "version_resolution": {
+  "aliases": [
+   {
+    "family": "doi:10.1234/example.gcn.2025",
+    "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+    "chains": [
+     {
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "paths": [
+       "aliases/gcn_2025_copy.pdf",
+       "papers/gcn_2025_final.pdf"
+      ],
+      "resolution": "identical content: prefer canonical relpath aliases/gcn_2025_copy.pdf"
+     }
+    ],
+    "recommended_canonical": "papers/gcn_2025_final.pdf"
+   }
+  ],
+  "dedup_groups": {
+   "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46": [
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ]
+  },
+  "near_duplicates": [
+   {
+    "family": "graph neural networks for molecular property prediction",
+    "paths": [
+     "papers/gcn_2024_v1_draft.pdf",
+     "slides/overview.pptx"
+    ],
+    "shas": [
+     "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876"
+    ],
+    "sizes": [
+     34254,
+     28316
+    ],
+    "resolution": "same title family, distinct content, sizes within 25%% — treat as version variants, cite the one the question targets (rank by variant_rank)"
+   }
+  ]
+ },
+ "needs_tool_list": [
+  {
+   "file": "broken/corrupt.bin",
+   "status": "needs_tool",
+   "why": ".bin: no extractor (native lib absent, no CLI)"
+  },
+  {
+   "file": "scans/old_paper.png",
+   "status": "needs_tool",
+   "why": "image raster — OCR text layer only via ocr-tool"
+  }
+ ],
+ "dedup_groups": {
+  "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46": [
+   "aliases/gcn_2025_copy.pdf",
+   "papers/gcn_2025_final.pdf"
+  ]
+ },
+ "families": {
+  "doi:10.1234/example.gcn.2025": {
+   "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+   "members": [
+    "admin/version_notes.md",
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ]
+  },
+  "graph neural networks for molecular property prediction": {
+   "title_guess": "Graph Neural Networks for Molecular Property Prediction",
+   "members": [
+    "papers/gcn_2024_v1_draft.pdf",
+    "slides/overview.pptx"
+   ]
+  }
+ },
+ "answer": {
+  "content": "检索完成：过滤后 2 个候选章节进入排序，以下为前 2 条定位。进入 evidence_refs 的条目均带源文件哈希、章节/页码、提取文本 offset 与逐字 quote；完整结果见 hits。\n1. papers/gcn_2025_final.pdf · pages=1 · offset={'start': 0, 'end': 563} · [page 1] Graph Neural Networks for Molecular Property Prediction DOI: 10.1234/example.gcn.2025 ## Abstract We survey graph neural network architectures for molecular property predi\n2. aliases/gcn_2025_copy.pdf · pages=1 · offset={'start': 0, 'end': 563} · [page 1] Graph Neural Networks for Molecular Property Prediction DOI: 10.1234/example.gcn.2025 ## Abstract We survey graph neural network architectures for molecular property predi",
+  "evidence_refs": [
+   {
+    "evidence_id": "E01",
+    "file": "papers/gcn_2025_final.pdf",
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+    "sha256_verified": true,
+    "chunk_id": "5f08c5529931#1",
+    "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chunk_hash_verified": true,
+    "quote_verified": true,
+    "source_slice_verified": true,
+    "extracted_text": "evidence/extracted_text/5f08c5529931_papers__gcn_2025_final.pdf.txt",
+    "extracted_text_sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "artifact_hash_verified": true,
+    "source_path_error": null,
+    "offset_space": "extracted_text_chars",
+    "pages": [
+     1
+    ],
+    "printed_page_offset": null,
+    "chunk_offset": {
+     "start": 0,
+     "end": 563
+    },
+    "offset": [
+     170,
+     410
+    ],
+    "anchor": "Edge-conditioned convolution encodes atoms as nodes and bonds as edges.",
+    "quote": "erty prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n",
+    "meaning": "查询词命中的原文候选；用于定位与复核，实质结论须由 Agent 阅读上下文后确认"
+   },
+   {
+    "evidence_id": "E02",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+    "sha256_verified": true,
+    "chunk_id": "5f08c5529931#1",
+    "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chunk_hash_verified": true,
+    "quote_verified": true,
+    "source_slice_verified": true,
+    "extracted_text": "evidence/extracted_text/5f08c5529931_aliases__gcn_2025_copy.pdf.txt",
+    "extracted_text_sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "artifact_hash_verified": true,
+    "source_path_error": null,
+    "offset_space": "extracted_text_chars",
+    "pages": [
+     1
+    ],
+    "printed_page_offset": null,
+    "chunk_offset": {
+     "start": 0,
+     "end": 563
+    },
+    "offset": [
+     170,
+     410
+    ],
+    "anchor": "Edge-conditioned convolution encodes atoms as nodes and bonds as edges.",
+    "quote": "erty prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n",
+    "meaning": "查询词命中的原文候选；用于定位与复核，实质结论须由 Agent 阅读上下文后确认"
+   }
+  ],
+  "profile": "search"
+ },
+ "evidence": {
+  "dir": "evidence/hits/",
+  "digest_note": "one file per hit, full text"
+ },
+ "sources": [
+  {
+   "relpath": "admin/version_notes.md",
+   "name": "version_notes.md",
+   "ext": ".md",
+   "size": 370,
+   "mtime": 1795526992,
+   "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+    "chars": 370,
+    "extractor": "text:read_text_safe"
+   },
+   "meta": {
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "admin",
+   "target": null
+  },
+  {
+   "relpath": "aliases/gcn_2025_copy.pdf",
+   "name": "gcn_2025_copy.pdf",
+   "ext": ".pdf",
+   "size": 34356,
+   "mtime": 1795526992,
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chars": 563,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen",
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "aliases",
+   "target": null
+  },
+  {
+   "relpath": "broken/corrupt.bin",
+   "name": "corrupt.bin",
+   "ext": ".bin",
+   "size": 2048,
+   "mtime": 1795526995,
+   "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "needs_tool",
+   "extraction": null,
+   "meta": null,
+   "bucket": "broken",
+   "target": null
+  },
+  {
+   "relpath": "data/qm9_results.xlsx",
+   "name": "qm9_results.xlsx",
+   "ext": ".xlsx",
+   "size": 4962,
+   "mtime": 1795526994,
+   "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "4405200cf8bcd278b3a593d169781a2a2379ff09231509a8228b04fce5904841",
+    "chars": 127,
+    "extractor": "native"
+   },
+   "meta": {
+    "sheets": [
+     "QM9"
+    ],
+    "creator": "openpyxl",
+    "created": "2026-11-24T13:29:54Z",
+    "modified": "2026-11-24T13:29:54Z"
+   },
+   "bucket": "data",
+   "target": null
+  },
+  {
+   "relpath": "notes/meeting_2024.md",
+   "name": "meeting_2024.md",
+   "ext": ".md",
+   "size": 277,
+   "mtime": 1795526994,
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+    "chars": 277,
+    "extractor": "text:read_text_safe"
+   },
+   "meta": null,
+   "bucket": "notes",
+   "target": null
+  },
+  {
+   "relpath": "papers/gcn_2024_v1_draft.pdf",
+   "name": "gcn_2024_v1_draft.pdf",
+   "ext": ".pdf",
+   "size": 34254,
+   "mtime": 1795526991,
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "f5f20422187f1dec97352add736b0fec62d15bcc8bb33ba83c01214ab7d386fa",
+    "chars": 517,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen"
+   },
+   "bucket": "papers",
+   "target": null
+  },
+  {
+   "relpath": "papers/gcn_2025_final.pdf",
+   "name": "gcn_2025_final.pdf",
+   "ext": ".pdf",
+   "size": 34356,
+   "mtime": 1795526992,
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+    "chars": 563,
+    "extractor": "native"
+   },
+   "meta": {
+    "pages": 1,
+    "title": "Graph Neural Networks for Molecular Property Prediction",
+    "author": "Yongrun Chen",
+    "doi": "10.1234/example.gcn.2025"
+   },
+   "bucket": "papers",
+   "target": null
+  },
+  {
+   "relpath": "scans/old_paper.png",
+   "name": "old_paper.png",
+   "ext": ".png",
+   "size": 5038,
+   "mtime": 1795526995,
+   "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "needs_tool",
+   "extraction": null,
+   "meta": null,
+   "bucket": "scans",
+   "target": null
+  },
+  {
+   "relpath": "slides/overview.pptx",
+   "name": "overview.pptx",
+   "ext": ".pptx",
+   "size": 28316,
+   "mtime": 1795526995,
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "permissions": "0o666",
+   "readable": true,
+   "writable": true,
+   "is_symlink": false,
+   "symlink_target": null,
+   "extracted_status": "text",
+   "extraction": {
+    "sha256": "e3c1937a53de24002dad0d7ee88db68072aed1486464577ccb6f5506ebcbfb1f",
+    "chars": 137,
+    "extractor": "native"
+   },
+   "meta": {
+    "slides": 1,
+    "created": "2013-01-27T09:14:16Z",
+    "modified": "2013-01-27T09:15:58Z"
+   },
+   "bucket": "slides",
+   "target": null
+  }
+ ],
+ "uncertainty": {
+  "missing": [],
+  "conflicts": [],
+  "limits": [
+   "1 组近重复/版本变体仅按标题族与体积启发式识别，需结合行政版本说明确认"
+  ]
+ },
+ "change_records": [],
+ "provenance": {
+  "engine_revision": "bohrium-weekly-common@5.0",
+  "generated_at": "2026-11-24T21:36:32+08:00",
+  "input_case_digest": "aa5706c10d0523b8518ce4596f2a9088125c8213c24074fc7c4506f937a26989",
+  "task_md_digest": null,
+  "index_digest": "0b16cb5e4ac8440961d7bf2b994f0cf7f4cfdde6b66af671a688d231ff05c3af",
+  "profile": "search",
+  "deterministic_first_delivery": true,
+  "delivery_contract_version": 2,
+  "source_files_modified": false
+ },
+ "failure_recovery": [],
+ "catalog": {
+  "bucket_count": 8,
+  "file_count": 9,
+  "buckets": [
+   {
+    "bucket_id": "admin",
+    "title": "admin",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "admin/version_notes.md",
+      "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+      "ext": ".md",
+      "size": 370,
+      "metadata": {
+       "title": "Administrative version notes",
+       "author": null,
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "journal"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 1,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "aliases",
+    "title": "aliases",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "aliases/gcn_2025_copy.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "ext": ".pdf",
+      "size": 34356,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "journal"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 2,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "broken",
+    "title": "broken",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "broken/corrupt.bin",
+      "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+      "ext": ".bin",
+      "size": 2048,
+      "metadata": {
+       "title": "corrupt",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 3,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "data",
+    "title": "data",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "data/qm9_results.xlsx",
+      "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+      "ext": ".xlsx",
+      "size": 4962,
+      "metadata": {
+       "title": "target | mae_mlp | mae_gcn | units",
+       "author": "openpyxl",
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 4,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "notes",
+    "title": "notes",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "notes/meeting_2024.md",
+      "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+      "ext": ".md",
+      "size": 277,
+      "metadata": {
+       "title": "Project Alpha meeting, 2024-03",
+       "author": null,
+       "year": 2024,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 5,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "papers",
+    "title": "papers",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "papers/gcn_2024_v1_draft.pdf",
+      "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+      "ext": ".pdf",
+      "size": 34254,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     },
+     {
+      "relpath": "papers/gcn_2025_final.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "ext": ".pdf",
+      "size": 34356,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": "Yongrun Chen",
+       "year": 2025,
+       "journal": null,
+       "doi": "10.1234/example.gcn.2025",
+       "source": "file metadata / extracted text",
+       "missing": [
+        "journal"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 6,
+    "member_count": 2
+   },
+   {
+    "bucket_id": "scans",
+    "title": "scans",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "scans/old_paper.png",
+      "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+      "ext": ".png",
+      "size": 5038,
+      "metadata": {
+       "title": "old_paper",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 7,
+    "member_count": 1
+   },
+   {
+    "bucket_id": "slides",
+    "title": "slides",
+    "criteria": "source top-level directory",
+    "members": [
+     {
+      "relpath": "slides/overview.pptx",
+      "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+      "ext": ".pptx",
+      "size": 28316,
+      "metadata": {
+       "title": "Graph Neural Networks for Molecular Property Prediction",
+       "author": null,
+       "year": null,
+       "journal": null,
+       "doi": null,
+       "source": "file metadata / extracted text",
+       "missing": [
+        "author",
+        "year",
+        "journal",
+        "doi"
+       ]
+      },
+      "assignment_basis": "source top-level directory"
+     }
+    ],
+    "display_order": 8,
+    "member_count": 1
+   }
+  ],
+  "unclassified": [],
+  "rules_source": "case organization rules + explicit assignments + declared fallbacks"
+ },
+ "version_lineage": [
+  {
+   "family_key": "doi:10.1234/example.gcn.2025",
+   "title_guess": "Canonical document: papers/gcn_2025_final.pdf",
+   "identity_basis": "doi",
+   "canonical": "papers/gcn_2025_final.pdf",
+   "members": [
+    {
+     "relpath": "admin/version_notes.md",
+     "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "aliases/gcn_2025_copy.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "papers/gcn_2025_final.pdf",
+     "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+     "variant_rank": 100
+    }
+   ],
+   "evidence": "same DOI when present, otherwise same normalized title; ordered by variant_rank+mtime"
+  },
+  {
+   "family_key": "graph neural networks for molecular property prediction",
+   "title_guess": "Graph Neural Networks for Molecular Property Prediction",
+   "identity_basis": "title",
+   "canonical": "papers/gcn_2024_v1_draft.pdf",
+   "members": [
+    {
+     "relpath": "slides/overview.pptx",
+     "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+     "variant_rank": 0
+    },
+    {
+     "relpath": "papers/gcn_2024_v1_draft.pdf",
+     "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+     "variant_rank": 5
+    }
+   ],
+   "evidence": "same DOI when present, otherwise same normalized title; ordered by variant_rank+mtime"
+  }
+ ],
+ "exact_duplicates": [
+  {
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "paths": [
+    "aliases/gcn_2025_copy.pdf",
+    "papers/gcn_2025_final.pdf"
+   ],
+   "resolution": "retain one canonical copy; record remaining paths as aliases"
+  }
+ ],
+ "near_duplicates": [
+  {
+   "family": "graph neural networks for molecular property prediction",
+   "paths": [
+    "papers/gcn_2024_v1_draft.pdf",
+    "slides/overview.pptx"
+   ],
+   "shas": [
+    "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+    "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876"
+   ],
+   "sizes": [
+    34254,
+    28316
+   ],
+   "resolution": "same title family, distinct content, sizes within 25%% — treat as version variants, cite the one the question targets (rank by variant_rank)"
+  }
+ ],
+ "unclassified": [],
+ "operation_evidence": {
+  "source_root": "E:\\myzcode\\bohrium-weekly\\.selftest\\profile9",
+  "source_files_total": 9,
+  "filtered_files": 2,
+  "index_chunks": 7,
+  "index_path": "E:/myzcode/bohrium-weekly/.selftest/profile9_index.json",
+  "ledger": "E:/myzcode/bohrium-weekly/_test_enhance_work\\ledger.json",
+  "scan_summary": {
+   "files_total": 9,
+   "chunks_total": 7,
+   "chunks_with_text": 7,
+   "chunks_page_aware": 3,
+   "families": 4,
+   "version_families_multi": 2,
+   "exact_dup_groups": 1,
+   "near_dup_groups": 1,
+   "needs_tool": 2,
+   "errors": 0,
+   "text_files": 7,
+   "needs_tool_files": 2,
+   "error_files": 0,
+   "symlink_files": 0
+  },
+  "run_recipe": [
+   "python -I scan_index.py --root <library> --out <work>/index.json --ledger <work>/ledger.json",
+   "python -I run_case.py --case <case.json> --index <work>/index.json --work <work> --out <out>"
+  ],
+  "hash_verification": {
+   "evidence_refs": 2,
+   "verified": 2,
+   "rate": 1.0,
+   "method": "source sha256 + chunk sha256 + extracted-text quote/offset slice"
+  },
+  "originals_modified": false
+ },
+ "search_results": [
+  {
+   "rank": 1,
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+   "chunk_id": "5f08c5529931#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with a",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 563,
+   "score_raw": 0.8323,
+   "bm25_main": 1.4586,
+   "bm25_title": 0.6931,
+   "dense_cosine": 0.3621,
+   "rrf_score": 0.080645,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 2,
+     "plan_text": "QM9 mean absolute error",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 3,
+     "plan_text": "stereochemistry limitations",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 4,
+     "plan_text": "final version",
+     "bm25_rank": 2
+    },
+    {
+     "plan": 5,
+     "plan_text": "pdf",
+     "bm25_rank": 2
+    }
+   ]
+  },
+  {
+   "rank": 2,
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256_file": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "sha256_chunk": "42891f4fd478fb4a661d09d422cc2e7070f694cf690e9dcb8d74c67b6649bc72",
+   "chunk_id": "5f08c5529931#1",
+   "kind": "tail",
+   "offset": {
+    "start": 0,
+    "end": 563
+   },
+   "pages": [
+    1
+   ],
+   "printed_page_offset": null,
+   "snippet": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with a",
+   "has_more": false,
+   "part_index": 1,
+   "n_chars": 563,
+   "score_raw": 0.6828,
+   "bm25_main": 1.4586,
+   "bm25_title": 0.0,
+   "dense_cosine": 0.3621,
+   "rrf_score": 0.081967,
+   "plan_evidence": [
+    {
+     "plan": 1,
+     "plan_text": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 2,
+     "plan_text": "QM9 mean absolute error",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 3,
+     "plan_text": "stereochemistry limitations",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 4,
+     "plan_text": "final version",
+     "bm25_rank": 1
+    },
+    {
+     "plan": 5,
+     "plan_text": "pdf",
+     "bm25_rank": 1
+    }
+   ]
+  }
+ ],
+ "evidence_matrix": [
+  {
+   "evidence_id": "E01",
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "pages": [
+    1
+   ],
+   "offset": [
+    170,
+    410
+   ],
+   "offset_space": "extracted_text_chars",
+   "extracted_text": "evidence/extracted_text/5f08c5529931_papers__gcn_2025_final.pdf.txt",
+   "quote": "erty prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n",
+   "quote_verified": true,
+   "artifact_hash_verified": true,
+   "supports": "candidate evidence; agent must assess claim support",
+   "strength": "unassessed"
+  },
+  {
+   "evidence_id": "E02",
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "pages": [
+    1
+   ],
+   "offset": [
+    170,
+    410
+   ],
+   "offset_space": "extracted_text_chars",
+   "extracted_text": "evidence/extracted_text/5f08c5529931_aliases__gcn_2025_copy.pdf.txt",
+   "quote": "erty prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n",
+   "quote_verified": true,
+   "artifact_hash_verified": true,
+   "supports": "candidate evidence; agent must assess claim support",
+   "strength": "unassessed"
+  }
+ ],
+ "screening_log": [
+  {
+   "file": "admin/version_notes.md",
+   "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "aliases/gcn_2025_copy.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "status": "candidate",
+   "reason": "appears in ranked evidence"
+  },
+  {
+   "file": "broken/corrupt.bin",
+   "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "data/qm9_results.xlsx",
+   "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "notes/meeting_2024.md",
+   "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "papers/gcn_2024_v1_draft.pdf",
+   "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "papers/gcn_2025_final.pdf",
+   "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+   "status": "candidate",
+   "reason": "appears in ranked evidence"
+  },
+  {
+   "file": "scans/old_paper.png",
+   "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  },
+  {
+   "file": "slides/overview.pptx",
+   "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+   "status": "not_retrieved",
+   "reason": "no query-term evidence in deterministic pass; not proof of irrelevance"
+  }
+ ],
+ "review_draft": null,
+ "enhancement_status": {
+  "state": "ok",
+  "profile": "search"
+ },
+ "nl_constraints": {
+  "filters": {
+   "type": [
+    ".pdf"
+   ],
+   "year": {
+    "min": 2025,
+    "max": 2025
+   }
+  },
+  "constraints": [
+   {
+    "field": "type",
+    "value": [
+     ".pdf"
+    ],
+    "raw": "[\".pdf\"]",
+    "span": null,
+    "evidence_span": null,
+    "source": "case.filters.type",
+    "structured": true,
+    "applied": true
+   },
+   {
+    "field": "year",
+    "value": {
+     "min": 2025,
+     "max": 2025
+    },
+    "raw": "{\"max\": 2025, \"min\": 2025}",
+    "span": null,
+    "evidence_span": null,
+    "source": "case.filters.year",
+    "structured": true,
+    "applied": true
+   },
+   {
+    "field": "year",
+    "value": 2025,
+    "raw": "2025年",
+    "span": [
+     2,
+     7
+    ],
+    "evidence_span": [
+     2,
+     7
+    ],
+    "start": 2,
+    "end": 7,
+    "source": "question",
+    "structured": false,
+    "applied": false
+   }
+  ]
+ },
+ "rewritten_query_plans": [
+  {
+   "plan_id": "plan-01",
+   "text": "QM9 mean absolute error",
+   "kind": "expansion",
+   "source_terms": [
+    "QM9 mean absolute error"
+   ]
+  },
+  {
+   "plan_id": "plan-02",
+   "text": "stereochemistry limitations",
+   "kind": "expansion",
+   "source_terms": [
+    "stereochemistry limitations"
+   ]
+  },
+  {
+   "plan_id": "plan-03",
+   "text": "final version",
+   "kind": "expansion",
+   "source_terms": [
+    "final version"
+   ]
+  },
+  {
+   "plan_id": "plan-04",
+   "text": "误差和立体化学局限的章节",
+   "kind": "entity",
+   "source_terms": [
+    "误差和立体化学局限的章节"
+   ]
+  },
+  {
+   "plan_id": "plan-05",
+   "text": "不要引用草稿或扫描件",
+   "kind": "entity",
+   "source_terms": [
+    "不要引用草稿或扫描件"
+   ]
+  },
+  {
+   "plan_id": "plan-06",
+   "text": "年最终版中关于",
+   "kind": "entity",
+   "source_terms": [
+    "年最终版中关于"
+   ]
+  },
+  {
+   "plan_id": "plan-07",
+   "text": "只看",
+   "kind": "entity",
+   "source_terms": [
+    "只看"
+   ]
+  },
+  {
+   "plan_id": "plan-08",
+   "text": "找出",
+   "kind": "entity",
+   "source_terms": [
+    "找出"
+   ]
+  },
+  {
+   "plan_id": "plan-09",
+   "text": "pdf",
+   "kind": "entity",
+   "source_terms": [
+    "pdf"
+   ]
+  },
+  {
+   "plan_id": "plan-10",
+   "text": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+   "kind": "overview",
+   "source_terms": [
+    "误差和立体化学局限的章节",
+    "不要引用草稿或扫描件",
+    "年最终版中关于",
+    "只看",
+    "找出",
+    "pdf",
+    "qm9"
+   ]
+  }
+ ],
+ "prf_expansion": {
+  "expansion_terms": [
+   "reproducibility",
+   "administrative",
+   "dimensions",
+   "canonical",
+   "approval",
+   "evaluate",
+   "relative",
+   "percent",
+   "reduces",
+   "results",
+   "beyond",
+   "handle"
+  ],
+  "evidence": [
+   {
+    "term": "reproducibility",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     198,
+     213
+    ],
+    "source_offset": [
+     198,
+     213
+    ],
+    "text": "and molecular\n#"
+   },
+   {
+    "term": "reproducibility",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     198,
+     213
+    ],
+    "source_offset": [
+     198,
+     213
+    ],
+    "text": "and molecular\n#"
+   },
+   {
+    "term": "administrative",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     243,
+     257
+    ],
+    "source_offset": [
+     243,
+     257
+    ],
+    "text": "volution encod"
+   },
+   {
+    "term": "administrative",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     243,
+     257
+    ],
+    "source_offset": [
+     243,
+     257
+    ],
+    "text": "volution encod"
+   },
+   {
+    "term": "dimensions",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     183,
+     193
+    ],
+    "source_offset": [
+     183,
+     193
+    ],
+    "text": "on from SM"
+   },
+   {
+    "term": "dimensions",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     183,
+     193
+    ],
+    "source_offset": [
+     183,
+     193
+    ],
+    "text": "on from SM"
+   },
+   {
+    "term": "canonical",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     214,
+     223
+    ],
+    "source_offset": [
+     214,
+     223
+    ],
+    "text": " Methods\n"
+   },
+   {
+    "term": "canonical",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     214,
+     223
+    ],
+    "source_offset": [
+     214,
+     223
+    ],
+    "text": " Methods\n"
+   },
+   {
+    "term": "approval",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     258,
+     266
+    ],
+    "source_offset": [
+     258,
+     266
+    ],
+    "text": "s atoms "
+   },
+   {
+    "term": "approval",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     258,
+     266
+    ],
+    "source_offset": [
+     258,
+     266
+    ],
+    "text": "s atoms "
+   },
+   {
+    "term": "evaluate",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     3,
+     11
+    ],
+    "source_offset": [
+     3,
+     11
+    ],
+    "text": "ge 1]\nGr"
+   },
+   {
+    "term": "evaluate",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     3,
+     11
+    ],
+    "source_offset": [
+     3,
+     11
+    ],
+    "text": "ge 1]\nGr"
+   },
+   {
+    "term": "relative",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     98,
+     106
+    ],
+    "source_offset": [
+     98,
+     106
+    ],
+    "text": "Abstract"
+   },
+   {
+    "term": "relative",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     98,
+     106
+    ],
+    "source_offset": [
+     98,
+     106
+    ],
+    "text": "Abstract"
+   },
+   {
+    "term": "percent",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     90,
+     97
+    ],
+    "source_offset": [
+     90,
+     97
+    ],
+    "text": "2025\n##"
+   },
+   {
+    "term": "percent",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     90,
+     97
+    ],
+    "source_offset": [
+     90,
+     97
+    ],
+    "text": "2025\n##"
+   },
+   {
+    "term": "reduces",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     56,
+     63
+    ],
+    "source_offset": [
+     56,
+     63
+    ],
+    "text": "edictio"
+   },
+   {
+    "term": "reduces",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     56,
+     63
+    ],
+    "source_offset": [
+     56,
+     63
+    ],
+    "text": "edictio"
+   },
+   {
+    "term": "results",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     32,
+     39
+    ],
+    "source_offset": [
+     32,
+     39
+    ],
+    "text": "or Mole"
+   },
+   {
+    "term": "results",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     32,
+     39
+    ],
+    "source_offset": [
+     32,
+     39
+    ],
+    "text": "or Mole"
+   },
+   {
+    "term": "beyond",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     172,
+     178
+    ],
+    "source_offset": [
+     172,
+     178
+    ],
+    "text": "ty pre"
+   },
+   {
+    "term": "beyond",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     172,
+     178
+    ],
+    "source_offset": [
+     172,
+     178
+    ],
+    "text": "ty pre"
+   },
+   {
+    "term": "handle",
+    "file": "papers/gcn_2025_final.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     149,
+     155
+    ],
+    "source_offset": [
+     149,
+     155
+    ],
+    "text": "es for"
+   },
+   {
+    "term": "handle",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "chunk_id": "5f08c5529931#1",
+    "sha256_file": null,
+    "offset": [
+     149,
+     155
+    ],
+    "source_offset": [
+     149,
+     155
+    ],
+    "text": "es for"
+   }
+  ],
+  "term_evidence": {
+   "reproducibility": [
+    {
+     "term": "reproducibility",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      198,
+      213
+     ],
+     "source_offset": [
+      198,
+      213
+     ],
+     "text": "and molecular\n#"
+    },
+    {
+     "term": "reproducibility",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      198,
+      213
+     ],
+     "source_offset": [
+      198,
+      213
+     ],
+     "text": "and molecular\n#"
+    }
+   ],
+   "administrative": [
+    {
+     "term": "administrative",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      243,
+      257
+     ],
+     "source_offset": [
+      243,
+      257
+     ],
+     "text": "volution encod"
+    },
+    {
+     "term": "administrative",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      243,
+      257
+     ],
+     "source_offset": [
+      243,
+      257
+     ],
+     "text": "volution encod"
+    }
+   ],
+   "dimensions": [
+    {
+     "term": "dimensions",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      183,
+      193
+     ],
+     "source_offset": [
+      183,
+      193
+     ],
+     "text": "on from SM"
+    },
+    {
+     "term": "dimensions",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      183,
+      193
+     ],
+     "source_offset": [
+      183,
+      193
+     ],
+     "text": "on from SM"
+    }
+   ],
+   "canonical": [
+    {
+     "term": "canonical",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      214,
+      223
+     ],
+     "source_offset": [
+      214,
+      223
+     ],
+     "text": " Methods\n"
+    },
+    {
+     "term": "canonical",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      214,
+      223
+     ],
+     "source_offset": [
+      214,
+      223
+     ],
+     "text": " Methods\n"
+    }
+   ],
+   "approval": [
+    {
+     "term": "approval",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      258,
+      266
+     ],
+     "source_offset": [
+      258,
+      266
+     ],
+     "text": "s atoms "
+    },
+    {
+     "term": "approval",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      258,
+      266
+     ],
+     "source_offset": [
+      258,
+      266
+     ],
+     "text": "s atoms "
+    }
+   ],
+   "evaluate": [
+    {
+     "term": "evaluate",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      3,
+      11
+     ],
+     "source_offset": [
+      3,
+      11
+     ],
+     "text": "ge 1]\nGr"
+    },
+    {
+     "term": "evaluate",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      3,
+      11
+     ],
+     "source_offset": [
+      3,
+      11
+     ],
+     "text": "ge 1]\nGr"
+    }
+   ],
+   "relative": [
+    {
+     "term": "relative",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      98,
+      106
+     ],
+     "source_offset": [
+      98,
+      106
+     ],
+     "text": "Abstract"
+    },
+    {
+     "term": "relative",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      98,
+      106
+     ],
+     "source_offset": [
+      98,
+      106
+     ],
+     "text": "Abstract"
+    }
+   ],
+   "percent": [
+    {
+     "term": "percent",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      90,
+      97
+     ],
+     "source_offset": [
+      90,
+      97
+     ],
+     "text": "2025\n##"
+    },
+    {
+     "term": "percent",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      90,
+      97
+     ],
+     "source_offset": [
+      90,
+      97
+     ],
+     "text": "2025\n##"
+    }
+   ],
+   "reduces": [
+    {
+     "term": "reduces",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      56,
+      63
+     ],
+     "source_offset": [
+      56,
+      63
+     ],
+     "text": "edictio"
+    },
+    {
+     "term": "reduces",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      56,
+      63
+     ],
+     "source_offset": [
+      56,
+      63
+     ],
+     "text": "edictio"
+    }
+   ],
+   "results": [
+    {
+     "term": "results",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      32,
+      39
+     ],
+     "source_offset": [
+      32,
+      39
+     ],
+     "text": "or Mole"
+    },
+    {
+     "term": "results",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      32,
+      39
+     ],
+     "source_offset": [
+      32,
+      39
+     ],
+     "text": "or Mole"
+    }
+   ],
+   "beyond": [
+    {
+     "term": "beyond",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      172,
+      178
+     ],
+     "source_offset": [
+      172,
+      178
+     ],
+     "text": "ty pre"
+    },
+    {
+     "term": "beyond",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      172,
+      178
+     ],
+     "source_offset": [
+      172,
+      178
+     ],
+     "text": "ty pre"
+    }
+   ],
+   "handle": [
+    {
+     "term": "handle",
+     "file": "papers/gcn_2025_final.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      149,
+      155
+     ],
+     "source_offset": [
+      149,
+      155
+     ],
+     "text": "es for"
+    },
+    {
+     "term": "handle",
+     "file": "aliases/gcn_2025_copy.pdf",
+     "chunk_id": "5f08c5529931#1",
+     "sha256_file": null,
+     "offset": [
+      149,
+      155
+     ],
+     "source_offset": [
+      149,
+      155
+     ],
+     "text": "es for"
+    }
+   ]
+  }
+ },
+ "diversified_results": {
+  "hits": [
+   {
+    "chunk_id": "5f08c5529931#1",
+    "kind": "tail",
+    "start": 0,
+    "end": 563,
+    "text": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n## Limitations\nThe model does not handle stereochemistry beyond two dimensions.\n## Reproducibility\nCanonical version with final administrative approval.\n",
+    "has_more": false,
+    "n_chars": 563,
+    "part_index": 1,
+    "pages": [
+     1
+    ],
+    "file": "papers/gcn_2025_final.pdf",
+    "score_raw": 0.832258,
+    "bm25_main": 1.4586,
+    "bm25_title": 0.6931,
+    "dense_cosine": 0.3621,
+    "rrf_score": 0.080645,
+    "plan_evidence": [
+     {
+      "plan": 1,
+      "plan_text": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+      "bm25_rank": 2
+     },
+     {
+      "plan": 2,
+      "plan_text": "QM9 mean absolute error",
+      "bm25_rank": 2
+     },
+     {
+      "plan": 3,
+      "plan_text": "stereochemistry limitations",
+      "bm25_rank": 2
+     },
+     {
+      "plan": 4,
+      "plan_text": "final version",
+      "bm25_rank": 2
+     },
+     {
+      "plan": 5,
+      "plan_text": "pdf",
+      "bm25_rank": 2
+     }
+    ],
+    "diversified_rank": 1
+   },
+   {
+    "chunk_id": "5f08c5529931#1",
+    "kind": "tail",
+    "start": 0,
+    "end": 563,
+    "text": "[page 1]\nGraph Neural Networks for Molecular Property Prediction\nDOI: 10.1234/example.gcn.2025\n## Abstract\nWe survey graph neural network architectures for molecular property prediction from SMILES and molecular\n## Methods\nEdge-conditioned convolution encodes atoms as nodes and bonds as edges. We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n## Limitations\nThe model does not handle stereochemistry beyond two dimensions.\n## Reproducibility\nCanonical version with final administrative approval.\n",
+    "has_more": false,
+    "n_chars": 563,
+    "part_index": 1,
+    "pages": [
+     1
+    ],
+    "file": "aliases/gcn_2025_copy.pdf",
+    "score_raw": 0.682787,
+    "bm25_main": 1.4586,
+    "bm25_title": 0.0,
+    "dense_cosine": 0.3621,
+    "rrf_score": 0.081967,
+    "plan_evidence": [
+     {
+      "plan": 1,
+      "plan_text": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+      "bm25_rank": 1
+     },
+     {
+      "plan": 2,
+      "plan_text": "QM9 mean absolute error",
+      "bm25_rank": 1
+     },
+     {
+      "plan": 3,
+      "plan_text": "stereochemistry limitations",
+      "bm25_rank": 1
+     },
+     {
+      "plan": 4,
+      "plan_text": "final version",
+      "bm25_rank": 1
+     },
+     {
+      "plan": 5,
+      "plan_text": "pdf",
+      "bm25_rank": 1
+     }
+    ],
+    "diversified_rank": 2
+   }
+  ],
+  "dropped": []
+ },
+ "claim_evidence": [
+  [
+   {
+    "offset": [
+     295,
+     562
+    ],
+    "source_offset": [
+     295,
+     562
+    ],
+    "offset_space": "chunk_text",
+    "text": "We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n## Limitations\nThe model does not handle stereochemistry beyond two dimensions.\n## Reproducibility\nCanonical version with final administrative approval.",
+    "score": 5.3175,
+    "reason": "query_terms=qm9; conclusion_terms=results"
+   }
+  ],
+  [
+   {
+    "offset": [
+     295,
+     562
+    ],
+    "source_offset": [
+     295,
+     562
+    ],
+    "offset_space": "chunk_text",
+    "text": "We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n## Limitations\nThe model does not handle stereochemistry beyond two dimensions.\n## Reproducibility\nCanonical version with final administrative approval.",
+    "score": 5.3175,
+    "reason": "query_terms=qm9; conclusion_terms=results"
+   }
+  ]
+ ],
+ "cross_file_consensus": {
+  "agreements": [],
+  "conflicts": [],
+  "unknown": [
+   {
+    "cluster_id": "topic-01",
+    "topic": "qm9",
+    "file": "papers/gcn_2025_final.pdf",
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+    "chunk_id": "5f08c5529931#1",
+    "quote": "We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n## Limitations\nThe model does not handle stereochemistry beyond two dimensions.\n## Reproducibility\nCanonical version with final administrative approval.",
+    "offset": [
+     295,
+     562
+    ],
+    "source_offset": [
+     295,
+     562
+    ],
+    "relation": "negative",
+    "reason": "single_independent_file_or_duplicate_content",
+    "confidence": "candidate",
+    "causal_claim": false,
+    "files_in_cluster": [
+     "aliases/gcn_2025_copy.pdf",
+     "papers/gcn_2025_final.pdf"
+    ]
+   },
+   {
+    "cluster_id": "topic-01",
+    "topic": "qm9",
+    "file": "aliases/gcn_2025_copy.pdf",
+    "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+    "chunk_id": "5f08c5529931#1",
+    "quote": "We evaluate on QM9 with an M\n## Results\nOn QM9, the GNN reduces mean absolute error by 12 percent relative to MLP.\n## Limitations\nThe model does not handle stereochemistry beyond two dimensions.\n## Reproducibility\nCanonical version with final administrative approval.",
+    "offset": [
+     295,
+     562
+    ],
+    "source_offset": [
+     295,
+     562
+    ],
+    "relation": "negative",
+    "reason": "single_independent_file_or_duplicate_content",
+    "confidence": "candidate",
+    "causal_claim": false,
+    "files_in_cluster": [
+     "aliases/gcn_2025_copy.pdf",
+     "papers/gcn_2025_final.pdf"
+    ]
+   }
+  ]
+ },
+ "coverage": {
+  "files": {
+   "total": 9,
+   "hit_files": 2,
+   "referenced_files": 2,
+   "ratio": 0.222222
+  },
+  "sections": {
+   "total_chunks": 7,
+   "hit_chunks": 2,
+   "kinds": [
+    "tail"
+   ],
+   "page_aware_hits": 2,
+   "locator_hits": 0,
+   "ratio": 0.285714
+  },
+  "metadata": {
+   "total_files": 9,
+   "files_with_metadata": 6,
+   "metadata_fields": {
+    "author": 3,
+    "created": 2,
+    "creator": 1,
+    "doi": 3,
+    "modified": 2,
+    "pages": 3,
+    "sheets": 1,
+    "slides": 1,
+    "title": 3
+   },
+   "version_families": 2,
+   "aliases": 1,
+   "ratio": 0.666667
+  },
+  "filters": {
+   "dimensions": [
+    "final_keep",
+    "type",
+    "year"
+   ],
+   "audit_rows": 3,
+   "executed_constraints": 3,
+   "eliminated_events": 7,
+   "ratio": 1.0
+  }
+ },
+ "rubric_mapped": {
+  "case_id": "profile9-search",
+  "question": "找出2025年最终版中关于QM9误差和立体化学局限的章节，只看PDF，不要引用草稿或扫描件",
+  "rubric_mapped": {
+   "actual_effect": {
+    "weight": 40,
+    "max_points": 40,
+    "points": 9.78,
+    "evidence": [
+     "file_coverage=0.2222",
+     "section_coverage=0.2857"
+    ]
+   },
+   "usage_gain": {
+    "weight": 25,
+    "max_points": 25,
+    "points": 20.5,
+    "evidence": [
+     "query_plans=10",
+     "plan_kinds=entity,expansion,overview"
+    ]
+   },
+   "innovation": {
+    "weight": 15,
+    "max_points": 15,
+    "points": 8.33,
+    "evidence": [
+     "plan_kind_diversity=3",
+     "consensus_candidates=2"
+    ]
+   },
+   "reliability": {
+    "weight": 10,
+    "max_points": 10,
+    "points": 10.0,
+    "evidence": [
+     "fully_verified_refs=2/2",
+     "refs_with_any_verification=2/2"
+    ]
+   },
+   "ecosystem": {
+    "weight": 10,
+    "max_points": 10,
+    "points": 8.0,
+    "evidence": [
+     "version_families=2",
+     "aliases=1",
+     "metadata_files=6",
+     "filter_dimensions=3",
+     "output_contract=False"
+    ]
+   }
+  },
+  "coverage": {
+   "files": {
+    "total": 9,
+    "hit_files": 2,
+    "referenced_files": 2,
+    "ratio": 0.222222
+   },
+   "sections": {
+    "total_chunks": 7,
+    "hit_chunks": 2,
+    "kinds": [
+     "tail"
+    ],
+    "page_aware_hits": 2,
+    "locator_hits": 0,
+    "ratio": 0.285714
+   },
+   "metadata": {
+    "total_files": 9,
+    "files_with_metadata": 6,
+    "metadata_fields": {
+     "author": 3,
+     "created": 2,
+     "creator": 1,
+     "doi": 3,
+     "modified": 2,
+     "pages": 3,
+     "sheets": 1,
+     "slides": 1,
+     "title": 3
+    },
+    "version_families": 2,
+    "aliases": 1,
+    "ratio": 0.666667
+   },
+   "filters": {
+    "dimensions": [
+     "final_keep",
+     "type",
+     "year"
+    ],
+    "audit_rows": 3,
+    "executed_constraints": 3,
+    "eliminated_events": 7,
+    "ratio": 1.0
+   }
+  },
+  "efficiency_evidence": {
+   "query_plan_count": 10,
+   "filter_eliminated_count": 7,
+   "deduplicated_count": 0,
+   "citation_review_count": 2,
+   "citation_fully_verified_count": 2,
+   "index_exact_duplicate_groups": 1,
+   "consensus_counts": {
+    "agreements": 0,
+    "conflicts": 0,
+    "unknown": 2
+   }
+  }
+ },
+ "output_contract_preserved": false,
+ "output_contract_validation": {
+  "missing": [],
+  "error": "top-level contract is not a field object"
+ }
+}

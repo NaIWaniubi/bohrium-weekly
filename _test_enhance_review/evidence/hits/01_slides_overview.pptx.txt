@@ -1,0 +1,7 @@
+# evidence: rank=1 file=slides/overview.pptx
+# sha256_file=8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876
+# chunk_id=8f41206bbdf1#1
+
+[slide 1]
+Graph Neural Networks for Molecular Property Prediction
+Project Alpha overview: GNN, QM9, message passing, stereochemistry gap.

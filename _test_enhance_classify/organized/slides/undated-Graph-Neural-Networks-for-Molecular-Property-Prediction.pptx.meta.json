@@ -1,0 +1,31 @@
+{
+ "schema": "bohrium-file-metadata@1",
+ "source_relpath": "slides/overview.pptx",
+ "source_sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+ "target_relpath": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+ "file_facts": {
+  "name": "overview.pptx",
+  "ext": ".pptx",
+  "size": 28316,
+  "mtime": 1795526995,
+  "permissions": "0o666",
+  "readable": true
+ },
+ "metadata": {
+  "title": "Graph Neural Networks for Molecular Property Prediction",
+  "author": null,
+  "year": null,
+  "journal": null,
+  "doi": null,
+  "source": "file metadata / extracted text",
+  "missing": [
+   "author",
+   "year",
+   "journal",
+   "doi"
+  ]
+ },
+ "bucket": "slides",
+ "assignment_basis": "extension=['.pptx']",
+ "generated_at": "2026-11-24T21:38:07+08:00"
+}

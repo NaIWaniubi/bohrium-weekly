@@ -1,0 +1,29 @@
+{
+ "schema": "bohrium-file-metadata@1",
+ "source_relpath": "admin/version_notes.md",
+ "source_sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+ "target_relpath": "admin/2025-Administrative-version-notes.md",
+ "file_facts": {
+  "name": "version_notes.md",
+  "ext": ".md",
+  "size": 370,
+  "mtime": 1795526992,
+  "permissions": "0o666",
+  "readable": true
+ },
+ "metadata": {
+  "title": "Administrative version notes",
+  "author": null,
+  "year": 2025,
+  "journal": null,
+  "doi": "10.1234/example.gcn.2025",
+  "source": "file metadata / extracted text",
+  "missing": [
+   "author",
+   "journal"
+  ]
+ },
+ "bucket": "admin",
+ "assignment_basis": "path=['admin']",
+ "generated_at": "2026-11-24T21:38:07+08:00"
+}

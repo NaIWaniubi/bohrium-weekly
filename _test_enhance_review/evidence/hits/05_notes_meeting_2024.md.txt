@@ -1,0 +1,9 @@
+# evidence: rank=5 file=notes/meeting_2024.md
+# sha256_file=42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4
+# chunk_id=42876943129d#1
+
+# Project Alpha meeting, 2024-03
+
+Batch B-2024-03. We discussed message passing for molecular property prediction.
+Consensus: QM9 improvements look real but stereochemistry remains a limitation.
+Action: compare the final 2025 version against the 2024 draft before citing.

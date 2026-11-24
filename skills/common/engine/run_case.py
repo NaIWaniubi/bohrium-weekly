@@ -37,6 +37,7 @@ from answer import (apply_filters, rank_chunks, query_plans, tokenize,
                     build_citations, evidence_windows)
 from finalize import (finalize_result, fill_output_contract, infer_profile,
                       resolve_library_root, validate_index_paths)
+from enhance import apply_enhancements
 
 
 def load_case(case_path):
@@ -227,12 +228,6 @@ def main():
         sys.exit(2)
     if not library_root:
         library_root = index.get("root")
-    flt = extract_filter(index, case)
-    if not flt and args.terms_file is None and not case.get("question"):
-        print("WARN: no explicit filters in case; applying need_text=false lenient pass")
-
-    keep, audit = apply_filters(index, flt)
-
     question = case.get("question") or case.get("research_question") or case.get("task")
     if isinstance(question, dict):
         question = question.get("text") or question.get("q") or json.dumps(question, ensure_ascii=False)
@@ -250,11 +245,22 @@ def main():
         terms_txt = case["expanded_terms"]
     expanded_q = (question + "\n" + terms_txt) if terms_txt else question
 
-    kept_chunks = [c for c in index.get("chunks", []) if c.get("file") in keep]
-    plans = query_plans(question or expanded_q[:512], terms_txt)
-    hits, ranked = rank_chunks(kept_chunks, question or expanded_q[:512],
-                              top=args.top, plans=plans,
-                              terms_txt=terms_txt)
+    profile = args.profile if args.profile != "auto" else infer_profile(case, task_md)
+    flt = extract_filter(index, case)
+    if not flt and args.terms_file is None and not case.get("question"):
+        print("WARN: no explicit filters in case; applying need_text=false lenient pass")
+
+    search_meta = {}
+    if profile == "search":
+        from enhance import prepare_search
+        keep, audit, kept_chunks, hits, plans, search_meta = prepare_search(
+            index, case, task_md, question, terms_txt, flt, top=args.top)
+    else:
+        keep, audit = apply_filters(index, flt)
+        kept_chunks = [c for c in index.get("chunks", []) if c.get("file") in keep]
+        plans = query_plans(question or expanded_q[:512], terms_txt)
+        hits, ranked = rank_chunks(kept_chunks, question or expanded_q[:512],
+                                  top=args.top, plans=plans, terms_txt=terms_txt)
 
     file_meta = {f["relpath"]: f for f in index.get("files", [])}
 
@@ -363,7 +369,6 @@ def main():
     }
 
     # ---- complete deterministic first delivery (never leaves answer null) ----
-    profile = None if args.profile == "auto" else args.profile
     complete = finalize_result(
         index=index, case=case, task_md=task_md, question=question,
         hit_chunks=hits, hit_rows=hit_rows, citations=citations,
@@ -371,6 +376,12 @@ def main():
         ledger_path=ledger_path, profile=profile, index_path=index_path, plans=plans,
     )
     result.update(complete)
+    enhanced = apply_enhancements(
+        result=result, index=index, case=case, task_md=task_md,
+        profile=profile, out_dir=out_dir, work_dir=work_dir,
+        hits=hits, kept_chunks=kept_chunks, plans=plans, search_meta=search_meta,
+    )
+    result.update(enhanced)
     fill_output_contract(result, case)
 
     write_json(os.path.join(out_dir, "result.json"), result)

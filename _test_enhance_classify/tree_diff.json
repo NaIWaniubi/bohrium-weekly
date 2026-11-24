@@ -1,0 +1,243 @@
+{
+  "added": [
+    {
+      "artifact_type": "marker",
+      "path": ".bohrium-organized",
+      "sha256": "9dbf1d6c884c137428ad9b11c11bd6b03121264f1d9c5f77a0e936a03cc6cbd6",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "organized_file",
+      "path": "admin/2025-Administrative-version-notes.md",
+      "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+      "source_relpath": "admin/version_notes.md"
+    },
+    {
+      "artifact_type": "metadata_sidecar",
+      "path": "admin/2025-Administrative-version-notes.md.meta.json",
+      "sha256": "bde184036a13c6fdc3433637a972bc7af9f6f43d5eedfce64054e468dd73aab4",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "aliases",
+      "path": "aliases.json",
+      "sha256": "99dca9c1233d3ab475847efc4fde42f8845ee2a9cff5204f8062f4397280041b",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "organized_file",
+      "path": "broken/undated-corrupt.bin",
+      "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+      "source_relpath": "broken/corrupt.bin"
+    },
+    {
+      "artifact_type": "metadata_sidecar",
+      "path": "broken/undated-corrupt.bin.meta.json",
+      "sha256": "dd89e060cde720d5551ed3189306397713fe71d558fc3f7ddc229134cfa9cd73",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "organized_file",
+      "path": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+      "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+      "source_relpath": "data/qm9_results.xlsx"
+    },
+    {
+      "artifact_type": "metadata_sidecar",
+      "path": "data/undated-target-mae_mlp-mae_gcn-units.xlsx.meta.json",
+      "sha256": "ffa4d409a8ce861405d9b7cb1290a33d933df02bc18e8dcd067d794e162768c1",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "manifest",
+      "path": "manifest.json",
+      "sha256": "e7fae502ecb38d6b0a7f371b41b843783074f31a0b4ee4c47e441f6344558096",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "organized_file",
+      "path": "notes/2024-Project-Alpha-meeting-2024-03.md",
+      "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+      "source_relpath": "notes/meeting_2024.md"
+    },
+    {
+      "artifact_type": "metadata_sidecar",
+      "path": "notes/2024-Project-Alpha-meeting-2024-03.md.meta.json",
+      "sha256": "fd8277c2df0daf91dca4591b634a5375ff49d01c91b9309219f26a35c64e8725",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "organized_file",
+      "path": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "source_relpath": "papers/gcn_2025_final.pdf"
+    },
+    {
+      "artifact_type": "metadata_sidecar",
+      "path": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf.meta.json",
+      "sha256": "827b84c40e59ccee00af168a63e7db7a74a9a98465ffd7c0c6b8d15c30841d1c",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "organized_file",
+      "path": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+      "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+      "source_relpath": "papers/gcn_2024_v1_draft.pdf"
+    },
+    {
+      "artifact_type": "metadata_sidecar",
+      "path": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf.meta.json",
+      "sha256": "990c3d359dcd4198556ff5c263d60997857f68b48cc78c0219f0789a6880b3bb",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "organized_file",
+      "path": "scans/undated-old_paper.png",
+      "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+      "source_relpath": "scans/old_paper.png"
+    },
+    {
+      "artifact_type": "metadata_sidecar",
+      "path": "scans/undated-old_paper.png.meta.json",
+      "sha256": "eb62f7e67b7540011520ee23ac04b014ab96beaf849e05bb898af67914411926",
+      "source_relpath": null
+    },
+    {
+      "artifact_type": "organized_file",
+      "path": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+      "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+      "source_relpath": "slides/overview.pptx"
+    },
+    {
+      "artifact_type": "metadata_sidecar",
+      "path": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx.meta.json",
+      "sha256": "443fe043077e6786a63a1f130fbc9be51335761be6039a6fc2bc67ad7f069179",
+      "source_relpath": null
+    }
+  ],
+  "aliases": [
+    {
+      "alias": "aliases/gcn_2025_copy.pdf",
+      "canonical_source": null,
+      "canonical_target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "status": "ok"
+    }
+  ],
+  "all_hashes_verified": true,
+  "counts": {
+    "added": 19,
+    "aliases": 1,
+    "failed": 0,
+    "hash_checks": 8,
+    "hash_checks_verified": 8,
+    "moved": 0,
+    "renamed": 8,
+    "unclassified": 0
+  },
+  "failed": [],
+  "hash_checks": [
+    {
+      "source": "admin/version_notes.md",
+      "source_sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+      "target": "admin/2025-Administrative-version-notes.md",
+      "target_sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+      "verified": true
+    },
+    {
+      "source": "broken/corrupt.bin",
+      "source_sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+      "target": "broken/undated-corrupt.bin",
+      "target_sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+      "verified": true
+    },
+    {
+      "source": "data/qm9_results.xlsx",
+      "source_sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+      "target": "data/undated-target-mae_mlp-mae_gcn-units.xlsx",
+      "target_sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+      "verified": true
+    },
+    {
+      "source": "notes/meeting_2024.md",
+      "source_sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+      "target": "notes/2024-Project-Alpha-meeting-2024-03.md",
+      "target_sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+      "verified": true
+    },
+    {
+      "source": "papers/gcn_2024_v1_draft.pdf",
+      "source_sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+      "target": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf",
+      "target_sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+      "verified": true
+    },
+    {
+      "source": "papers/gcn_2025_final.pdf",
+      "source_sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf",
+      "target_sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "verified": true
+    },
+    {
+      "source": "scans/old_paper.png",
+      "source_sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+      "target": "scans/undated-old_paper.png",
+      "target_sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+      "verified": true
+    },
+    {
+      "source": "slides/overview.pptx",
+      "source_sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+      "target": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx",
+      "target_sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+      "verified": true
+    }
+  ],
+  "moved": [],
+  "renamed": [
+    {
+      "sha256": "43c7bc2eb1dfa362dcb5a3bb2d345057fbc6bd6ecc439c6b496fd72afb323884",
+      "source": "admin/version_notes.md",
+      "target": "admin/2025-Administrative-version-notes.md"
+    },
+    {
+      "sha256": "3f2fdf16f593849b960638102d8e42a2210b2d83b05893a6ffd73d6bdb70c686",
+      "source": "broken/corrupt.bin",
+      "target": "broken/undated-corrupt.bin"
+    },
+    {
+      "sha256": "79586165d64b887b513bb99e45d0bb2c0598c05c32dcccc1bab78488be66913b",
+      "source": "data/qm9_results.xlsx",
+      "target": "data/undated-target-mae_mlp-mae_gcn-units.xlsx"
+    },
+    {
+      "sha256": "42876943129d30697bf31cbe4ceea2007418dececda66f1f53f8ae0d10add8e4",
+      "source": "notes/meeting_2024.md",
+      "target": "notes/2024-Project-Alpha-meeting-2024-03.md"
+    },
+    {
+      "sha256": "6f788fefe601b78254f47bb10f79b2728ecde3ab9200244f61805ad4bc3755bf",
+      "source": "papers/gcn_2024_v1_draft.pdf",
+      "target": "papers/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pdf"
+    },
+    {
+      "sha256": "5f08c5529931e9566c08a775de3b939e36ff100168d511a487b2156b4f7f8a46",
+      "source": "papers/gcn_2025_final.pdf",
+      "target": "papers/2025-Graph-Neural-Networks-for-Molecular-Property-Prediction--5f08c552.pdf"
+    },
+    {
+      "sha256": "96c9f7270db3fb9eb2d76be668b5fb278ad4efaab106ebd57eb411f28126d6f1",
+      "source": "scans/old_paper.png",
+      "target": "scans/undated-old_paper.png"
+    },
+    {
+      "sha256": "8f41206bbdf13d4ffee16aef6487f02ffaa6a3bf61876ee7f60f8569c49a8876",
+      "source": "slides/overview.pptx",
+      "target": "slides/undated-Graph-Neural-Networks-for-Molecular-Property-Prediction.pptx"
+    }
+  ],
+  "source_unchanged": true,
+  "status": "ok",
+  "unclassified": []
+}
