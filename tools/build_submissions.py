@@ -8,6 +8,8 @@ import argparse
 import os
 import re
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +17,9 @@ SKILLS = ROOT / "skills"
 SUBMIT = ROOT / "_submit"
 ENGINE_FILES = (
     "lib.py", "scan_index.py", "answer.py", "run_case.py", "finalize.py",
+    "enhance.py", "classify_enhance.py", "search_enhance.py", "review_enhance.py",
+    "enhance_v7.py", "version_metadata.py", "review_quality.py", "search_quality.py",
+    "datacode_enhance.py",
     "baseline.py", "benchmark.py", "render_report.py",
 )
 
@@ -79,6 +84,13 @@ def validate_package(package):
     missing = required - present
     if missing:
         raise ValueError(f"package missing required files: {sorted(missing)}")
+    engine_dir = package / "common" / "engine"
+    modules = sorted(path.stem for path in engine_dir.glob("*.py"))
+    code = "import sys; sys.path.insert(0, " + repr(str(engine_dir)) + "); " + "; ".join(
+        "import " + name for name in modules)
+    proc = subprocess.run([sys.executable, "-I", "-c", code], capture_output=True, text=True, timeout=60)
+    if proc.returncode != 0:
+        raise ValueError(f"isolated package import failed: {proc.stderr[-500:]}")
     return len(files), total
 
 
@@ -86,7 +98,11 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--keep-existing", action="store_true",
                     help="only rebuild packages already present (default)")
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
+    all_engine = {path.name for path in (SKILLS / "common" / "engine").glob("*.py")}
+    missing = sorted(all_engine - set(ENGINE_FILES))
+    if missing:
+        raise SystemExit("ENGINE_FILES is missing shipped modules: " + ", ".join(missing))
     if not SUBMIT.exists():
         raise SystemExit("no _submit directory; create package folders with GITHUB_URL.txt first")
     packages = sorted(p for p in SUBMIT.iterdir() if p.is_dir())
