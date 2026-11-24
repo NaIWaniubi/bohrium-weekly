@@ -29,6 +29,7 @@ description: |
 | search_quality.py | 去废词查询计划、canonical hits、章节/句子证据、带 [E#] 的直接答案、覆盖与效率报告 |
 | review_quality.py | claim 级证据矩阵、canonical 纳排、主题/冲突/空白矩阵、无占位句的引用综述草稿 |
 | datacode_enhance.py | 真实表格导入/清洗审计/描述与推断统计/效应量/CI/SVG 图表/代码执行/质量验证/报告 |
+| experiment_enhance.py | 实验设计：目标/假设/变量操作化、对照、可行 run plan、资源公式、参数范围、风险登记、方案比较与参数优化计划 |
 | benchmark.py / render_report.py / baseline.py | 金标准指标（P@3/P@5/MRR@10/NDCG@5）、HTML 详报渲染、对照基线 |
 
 ```
@@ -51,6 +52,12 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 - **综述**：`review_quality.py` 先修正确 canonical 纳排，再建 claim 矩阵、主题、冲突与研究空白矩阵，输出无占位句且逐句引用的综述草稿。
 - **数据/代码**：`datacode_enhance.py` 真实执行清洗、统计、效应量、CI、SVG 图表与代码运行，保留审计、日志和质量检查；源数据只读。
 - 验证：`.selftest/regress.py` 全绿；profile9 三题 rubrics 覆盖 100/100/100；datacase 16 项断言全绿。
+
+### v7.1 数据/代码与实验设计增强
+
+- `datacode_enhance.py` 的生成脚本直接复用同一引擎，已断言代码运行结果与交付统计完全一致；源数据只读。
+- `experiment_enhance.py` 输出变量矩阵、对照、满足重复次数与 run 上限的实验计划、资源可行性公式、参数范围、风险登记与有界优化计划；未知成本/时间不伪造。
+- `--profile experiment` 用于实验方案/参数优化/可行性/方案比较类题目。
 
 ## 2. 判分点逐条对策（原文映射）
 
@@ -116,7 +123,7 @@ result.json 完整首版字段（Agent 在其上增补，不从空骨架开始�
 ## 7. 依赖、版本与安装
 
 - Python ≥ 3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool / office-renderer / ocr-tool 等）。
-- 引擎 `bohrium-weekly-common@7.0`（2026-11-24，随仓库同版本锁定）。无构建步骤：将本目录放入评测约定位置后直接调用；新增 `finalize.py` 必须随包提交。
+- 引擎 `bohrium-weekly-common@7.1`（2026-11-24，随仓库同版本锁定）。无构建步骤：将本目录放入评测约定位置后直接调用；新增 `finalize.py` 必须随包提交。
 
 ## 8. 实例运行证据（本仓库自带，可复跑）
 

@@ -19,7 +19,7 @@ ENGINE_FILES = (
     "lib.py", "scan_index.py", "answer.py", "run_case.py", "finalize.py",
     "enhance.py", "classify_enhance.py", "search_enhance.py", "review_enhance.py",
     "enhance_v7.py", "version_metadata.py", "review_quality.py", "search_quality.py",
-    "datacode_enhance.py",
+    "datacode_enhance.py", "experiment_enhance.py",
     "baseline.py", "benchmark.py", "render_report.py",
 )
 
