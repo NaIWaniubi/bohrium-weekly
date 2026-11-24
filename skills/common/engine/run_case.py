@@ -139,7 +139,7 @@ def main():
     ap.add_argument("--ledger", default=None, help="operation ledger json")
     ap.add_argument("--force", action="store_true",
                     help="re-run even if result.json with matching case_id exists (resume default)")
-    ap.add_argument("--profile", choices=("auto", "classify", "search", "review", "data", "code"),
+    ap.add_argument("--profile", choices=("auto", "classify", "search", "review", "data", "code", "experiment"),
                     default="auto", help="delivery profile; auto infers from case/task text")
     args = ap.parse_args()
 

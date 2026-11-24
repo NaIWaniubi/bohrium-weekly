@@ -193,6 +193,18 @@ def _review(result, index, case, task_md, out_dir):
 def apply_enhancements(result, index, case, task_md, profile, out_dir, work_dir=None,
                        hits=None, kept_chunks=None, plans=None, search_meta=None):
     """Merge profile-specific fields into result; never hide base failures."""
+    if profile == "experiment":
+        try:
+            from experiment_enhance import apply_experiment
+            extra = apply_experiment(result, index, case, task_md, out_dir, work_dir or out_dir)
+            if extra.get("report"):
+                result["answer"]["content"] = extra["report"]
+            result["status"] = "ok"
+            result["enhancement_status"] = {"state": "ok", "profile": profile}
+            return extra
+        except Exception as exc:
+            result["enhancement_status"] = {"state": "failed", "profile": profile, "error": str(exc)}
+            return {}
     if profile in ("data", "code"):
         try:
             from datacode_enhance import apply_datacode

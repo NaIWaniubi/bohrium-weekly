@@ -29,11 +29,12 @@ description: |
 | search_quality.py | 去废词查询计划、canonical hits、章节/句子证据、带 [E#] 的直接答案、覆盖与效率报告 |
 | review_quality.py | claim 级证据矩阵、canonical 纳排、主题/冲突/空白矩阵、无占位句的引用综述草稿 |
 | datacode_enhance.py | 真实表格导入/清洗审计/描述与推断统计/效应量/CI/SVG 图表/代码执行/质量验证/报告 |
+| experiment_enhance.py | 实验设计：目标/假设/变量操作化、对照、可行 run plan、资源公式、参数范围、风险登记、方案比较与参数优化计划 |
 | benchmark.py / render_report.py / baseline.py | 金标准指标（P@3/P@5/MRR@10/NDCG@5）、HTML 详报渲染、对照基线 |
 
 ```
 python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json \
-        --index /app/work/index.json --work /app/work --out /app/output
+        --index /app/work/index.json --work /app/work --out /app/output --profile experiment
 ```
 
 链路对案例是确定性的、无需模型也能产出完整首版结果——这是相对基础 Agent 的增益证据：基础 Agent 需要逐文件翻页、肉眼比对版本；本链路先审计过滤、再定位章节、最后每条结论回链到源字节哈希。
@@ -49,6 +50,12 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 - **综述**：`review_quality.py` 先修正确 canonical 纳排，再建 claim 矩阵、主题、冲突与研究空白矩阵，输出无占位句且逐句引用的综述草稿。
 - **数据/代码**：`datacode_enhance.py` 真实执行清洗、统计、效应量、CI、SVG 图表与代码运行，保留审计、日志和质量检查；源数据只读。
 - 验证：`.selftest/regress.py` 全绿；profile9 三题 rubrics 覆盖 100/100/100；datacase 16 项断言全绿。
+
+### v7.1 数据/代码与实验设计增强
+
+- `datacode_enhance.py` 的生成脚本直接复用同一引擎，已断言代码运行结果与交付统计完全一致；源数据只读。
+- `experiment_enhance.py` 输出变量矩阵、对照、满足重复次数与 run 上限的实验计划、资源可行性公式、参数范围、风险登记与有界优化计划；未知成本/时间不伪造。
+- `--profile experiment` 用于实验方案/参数优化/可行性/方案比较类题目。
 
 ## 2. 解题总纲
 
@@ -106,7 +113,7 @@ result.json 完整首版：
 ## 7. 依赖版本与安装
 
 - Python ≥3.8 stdlib only，零第三方依赖；二进制解析走平台预装工具（pdf-text-tool/office-renderer/ocr-tool 等）。
-- 引擎 bohrium-weekly-common@7.0（2026-11-24）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
+- 引擎 bohrium-weekly-common@7.1（2026-11-24）。无构建：将本目录放入 `/skills/weekly-skill/`，引擎随附 common/engine/，直接调用。
 
 ## 8. 实例证据（仓库自带可复跑）
 
