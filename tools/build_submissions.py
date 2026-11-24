@@ -20,6 +20,7 @@ ENGINE_FILES = (
     "enhance.py", "classify_enhance.py", "search_enhance.py", "review_enhance.py",
     "enhance_v7.py", "version_metadata.py", "review_quality.py", "search_quality.py",
     "datacode_enhance.py", "experiment_enhance.py", "audit_enhance.py",
+    "reading_enhance.py", "writing_enhance.py", "graphics_enhance.py", "slides_enhance.py",
     "baseline.py", "benchmark.py", "render_report.py",
 )
 
