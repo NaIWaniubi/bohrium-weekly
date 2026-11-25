@@ -42,10 +42,30 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 ## 3. 单案例 SOP
 
 1. 读取任务、目标读者、文体/模板/字数/引用格式与全部证据材料。
-2. 运行 writing profile，确认 `task_type` 与题目一致；`answer.content` 必须是实际成稿/修订稿全文。
-3. 核对 `artifacts` 中的 MD/DOCX/PDF/HTML、`change_records`、`source_mapping` 与 `uncertainty`。
-4. 仅在有真实新材料时增量补写；禁止用报告、大纲或证据 bullet 覆盖主产物。
-5. 输出前验证 `output_contract_preserved=true`，所有文件存在且可打开。
+2. 先运行 writing profile 生成 source-grounded scaffold，确认 `task_type` 与题目一致；scaffold 必须包含原稿、证据定位与可编辑文件。
+3. **Agent 二次成稿（必须）**：用自身语言能力把 scaffold 改写成题目要求的完整成稿/修订稿——补足连贯段落、术语一致、引用落点与方法/结果细节；翻译题完成整篇翻译，LaTeX 题用平台 latex-compiler 编译，引用题完成插入/重编号/去重。不得把 scaffold、报告、大纲或证据 bullet 当最终答案。
+4. **回读核验（必须）**：逐项核对数字、单位、引用编号、图表指向、限定强度与源材料一致；把实际改动写入 `change_records`，将最终全文写回 `answer.content` 和对应 artifacts。
+5. 输出前验证 `output_contract_preserved=true`，所有文件存在且可打开；无法核验的内容进入 `uncertainty`，不得伪报完成。
+
+
+### Agent 二次成稿检查表（按题选用）
+
+- **润色**：交付完整润色稿与逐句 `original/revised/type/reason`；数字、单位、引用编号、限定强度守恒。
+- **格式**：真实 DOCX + PDF；字号、行距、页边距、栏数、题注、目录、参考文献样式逐项核对。
+- **引用**：正文引用插入/重编号、文献去重、格式转换、来源核验同步完成，正文与文献表一致。
+- **证据写作**：交付“论断清单—证据表—成稿”，每条论断有支持范围、强度与不确定性。
+- **结构**：逐章逐段诊断，给出问题位置、类型、编辑动作与理由，并交付修改后稿件。
+- **引言**：背景—相关工作分组—研究空白—贡献四部分承接，引用落在具体论断上。
+- **方法**：步骤、设置、参数、数据集划分、对照、复现、限制七类齐全，参数追到配置/日志。
+- **结果**：结果段与讨论段分开，图表读数、单位、误差、统计量、阴性结果与局限一致。
+- **审稿回复**：意见/子意见逐条回应，回复、修订稿、修改位置与证据状态一致。
+- **翻译**：整篇翻译 + 双语对齐；术语、数字、单位、引用、否定与限定条件守恒。
+- **LaTeX**：完整 `.tex` 工程、参考文献/图片依赖、编译命令、日志与 PDF；编译失败必须如实记录。
+- **基金/开题**：七要素成稿 + 要素/证据映射 + 时间线/风险/预期成果，不把计划写成已完成。
+- **长文档**：按提纲写章节，术语/符号/图表编号/交叉引用/版本记录跨章节一致。
+- **成果转化**：按受众与体裁完整改写，保留关键结论、数据、限定条件，并提供逐段对照。
+- **思维导图**：节点—层级—关系—证据挂接齐全，输出可编辑 JSON/Markdown/DOT 与预览。
+- **完整论文**：结构完整、图表/参考文献/声明齐全，事实与引用逐句可回溯。
 
 ## 4. 本题评分维度（题面原文）
 
@@ -63,7 +83,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 
 ## 5. 输出契约与验收
 
-- 主产物：与 `task_type` 对应的可编辑成稿/修订稿/引用结果/结构化写作产物；`answer.content` 为全文，`artifacts` 含 MD/DOCX/PDF/HTML 预览。
+- 主产物：Agent 二次成稿后的可编辑成稿/修订稿/引用结果/结构化写作产物；`answer.content` 为最终全文，`artifacts` 含 MD/DOCX/PDF/HTML 预览。deterministic scaffold 仅作证据底稿，不能替代最终成稿。
 - 每条实质结论/图表/页面必须回链 `file + sha256 + page/offset` 或可编辑源文件。
 - `result.json` 保留原 `output_contract` 全字段与 `case_id`；状态只写真实完成度。
 - 可编辑 Office/图形/幻灯片必须提供真实 PDF/PNG 预览。
