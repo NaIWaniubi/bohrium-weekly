@@ -184,7 +184,7 @@ def detect_task_type(question, task_md="", case=None):
         ("grant", ("基金申请书", "基金申请", "funding application", "grant application")),
         ("proposal", ("开题报告", "研究计划书", "research proposal", "thesis proposal")),
         ("longdoc", ("学位论文", "长文档", "thesis", "long document")),
-        ("transfer", ("科研成果转化", "成果转化", "科普写作", "technology transfer", "research impact")),
+        ("transfer", ("科研成果转化", "成果转化", "科普写作", "technology transfer", "research impact", "general audience", "commercialization", "research outcomes", "rewrite the research")),
         ("mindmap", ("思维导图", "mind map", "mindmap")),
         ("evidence", ("文献证据驱动", "证据驱动写作", "evidence-driven writing", "claim evidence", "claim-evidence", "evidence matrix", "grounded draft")),
     ]

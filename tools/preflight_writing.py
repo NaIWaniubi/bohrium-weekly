@@ -44,6 +44,13 @@ CASES = {
     "challenge-caca73b2": ("results", "Write the results and discussion section from the data"),
     "challenge-2815a418": ("rebuttal", "Write a point-by-point response to the reviewer comments"),
     "product-arena-07-865de7e4": ("latex", "Prepare a LaTeX manuscript and compile it"),
+    "challenge-bb17a294": ("translation", "Translate the full manuscript into English with bilingual alignment"),
+    "challenge-d403dce6": ("grant", "Write a funding application from the research materials"),
+    "challenge-142d91a2": ("proposal", "Write a research proposal with timeline and risks"),
+    "challenge-32c0210d": ("longdoc", "Write the thesis chapters according to the outline"),
+    "challenge-a7eb6816": ("transfer", "Rewrite the research outcomes for a general audience"),
+    "challenge-9313ad0a": ("mindmap", "Create an editable mind map of the manuscript"),
+    "challenge-308a6fdc": ("paper", "Write a complete academic paper from the materials"),
 }
 
 
