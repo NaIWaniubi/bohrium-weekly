@@ -1,7 +1,7 @@
 ---
 name: bohr-challenge_b810ef56-skill
 description: |
-  写作05｜文献证据驱动写作：玻尔周赛第四期 writing 赛道可执行 Skill，把学术写作做成证据驱动流程：先大纲与证据矩阵，再逐节成稿、润色、引用格式化与可编译产物。
+  写作05｜文献证据驱动写作：玻尔周赛第四期 writing 赛道可执行 Skill，把学术写作做成“读取原稿 → 识别任务 → 生成指定产物 → 来源/修改核验 → 预览”的闭环；直接交付可编辑成稿，不用大纲或报告替代。
 ---
 
 # 写作05｜文献证据驱动写作 Skill
@@ -22,7 +22,7 @@ description: |
 | run_case.py / finalize.py | 完整首版 result.json、全量 sources、证据四重复核、异常恢复 |
 | enhance.py / enhance_v7.py | canonical 版本、直接答案、claim 综述与各专项 profile 编排 |
 | reading_enhance.py | 文档/图表/公式/比较/结论提取/笔记/知识图谱 |
-| writing_enhance.py | 大纲、证据草稿、润色、引用、结构检查、LaTeX |
+| writing_enhance.py | 任务感知写作：原稿读取、逐句润色、模板格式、引用同步、结构诊断、引言/方法/结果/回复/翻译/LaTeX/基金/开题/长文档/成果转化/思维导图/证据驱动/完整论文；输出 MD/DOCX/PDF 预览与修改记录 |
 | graphics_enhance.py | 可编辑 SVG 图表/流程/通路/装置/图形摘要 + 预览 |
 | slides_enhance.py | slide plan、PPTX、讲者备注、PDF/PNG 预览 |
 | datacode_enhance.py / experiment_enhance.py / audit_enhance.py | 数据执行、实验设计、学术审查 |
@@ -34,7 +34,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 
 ## 2. 解题总纲
 
-把学术写作做成证据驱动流程：先大纲与证据矩阵，再逐节成稿、润色、引用格式化与可编译产物。
+把学术写作做成“读取原稿 → 识别任务 → 生成指定产物 → 来源/修改核验 → 预览”的闭环；直接交付可编辑成稿，不用大纲或报告替代。
 
 **本题突破方向（题面原文）：**
 - 以题目交付要求与真实材料为准
@@ -42,10 +42,10 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 ## 3. 单案例 SOP
 
 1. 读取任务、目标读者、文体/模板/字数/引用格式与全部证据材料。
-2. 用 writing_enhance 生成章节大纲与逐节证据草稿；每个实质句带 [E#]。
-3. 按题目补全引言/相关工作/方法/结果/讨论/回复/基金/开题等指定部分。
-4. 运行 polish_text、reference formatting、structure check；LaTeX 题目生成 .tex 并编译验证。
-5. 输出 manuscript/report/引用清单/变更记录；无法核验的科学论断降级为不确定性。
+2. 运行 writing profile，确认 `task_type` 与题目一致；`answer.content` 必须是实际成稿/修订稿全文。
+3. 核对 `artifacts` 中的 MD/DOCX/PDF/HTML、`change_records`、`source_mapping` 与 `uncertainty`。
+4. 仅在有真实新材料时增量补写；禁止用报告、大纲或证据 bullet 覆盖主产物。
+5. 输出前验证 `output_contract_preserved=true`，所有文件存在且可打开。
 
 ## 4. 本题评分维度（题面原文）
 
@@ -63,7 +63,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 
 ## 5. 输出契约与验收
 
-- 主产物：大纲、逐节草稿、润色稿、参考文献、结构检查、LaTeX/报告/思维导图。
+- 主产物：与 `task_type` 对应的可编辑成稿/修订稿/引用结果/结构化写作产物；`answer.content` 为全文，`artifacts` 含 MD/DOCX/PDF/HTML 预览。
 - 每条实质结论/图表/页面必须回链 `file + sha256 + page/offset` 或可编辑源文件。
 - `result.json` 保留原 `output_contract` 全字段与 `case_id`；状态只写真实完成度。
 - 可编辑 Office/图形/幻灯片必须提供真实 PDF/PNG 预览。
@@ -98,7 +98,7 @@ python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json
 ## 7. 版本与依赖
 
 - Python ≥3.8，stdlib only；平台预装 pdf-text-tool/office-renderer/ocr-tool/latex-compiler/browser-automation 等按 `environment/resources.yaml` 调用。
-- 引擎 `bohrium-weekly-common@7.2`，无构建，放入 `/skills/weekly-skill/` 直接运行。
+- 引擎 `bohrium-weekly-common@7.4`，无构建，放入 `/skills/weekly-skill/` 直接运行。
 
 ## 8. 组织方输入画像（必须遵守）
 
@@ -124,6 +124,6 @@ Resource entry point: environment/resources.yaml. Bundled files are relative to 
 
 ## 9. 实例证据
 
-- `.selftest/regress.py` 全绿；profile9 三题 rubrics 覆盖 100/100/100。
+- `.selftest/regress.py` 全绿；17 类写作任务专项回归与 10 包端到端 preflight 全绿；profile9 三题 rubrics 覆盖 100/100/100。
 - datacase 代码结果与交付统计完全一致；experimentcase 15 项、auditcase 14 项断言全绿。
 - 所有数字只证明本地方法与对照差异，不冒充平台正式评分。

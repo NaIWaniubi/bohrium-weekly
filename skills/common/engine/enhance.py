@@ -204,7 +204,10 @@ def apply_enhancements(result, index, case, task_md, profile, out_dir, work_dir=
             module_name, function_name, status_key = profile_modules[profile]
             module = __import__(module_name)
             extra = getattr(module, function_name)(result, index, case, task_md, out_dir, work_dir or out_dir)
-            if extra.get("report"):
+            if profile == "writing" and extra.get("answer_content"):
+                # Writing cases grade the actual editable artifact, not the audit report.
+                result["answer"]["content"] = extra["answer_content"]
+            elif extra.get("report"):
                 result["answer"]["content"] = extra["report"]
             state = (extra.get(status_key) or {}).get("state")
             result["status"] = "ok" if state == "ok" else "partial"

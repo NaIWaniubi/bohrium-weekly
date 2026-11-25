@@ -20,7 +20,7 @@ stdlib only，无第三方依赖；全部输出为机器可读 JSON，每一步�
 | `experiment_enhance.py` | 实验目标/假设/变量操作化、对照、满足重复次数与 run 上限的计划、资源公式、参数范围、风险登记、方案比较与有界参数优化 |
 | `audit_enhance.py` | 学术审查：claim-证据矩阵、数字/DOI 引用核验、方法学/统计/合规检查、文本重复检测、按严重度排序的 findings与报告 |
 | `reading_enhance.py` | 文档/图表/公式解析、比较多文档、结论/数据提取、事实核验、结构化笔记、知识图谱/nanopublication |
-| `writing_enhance.py` | 大纲、证据驱动逐节草稿、保守润色、引用格式化、结构检查、LaTeX、思维导图 |
+| `writing_enhance.py` | 任务感知写作交付：原稿/材料读取、润色与逐句修改、模板格式、引用同步、结构诊断、引言/方法/结果/回复/翻译/LaTeX/基金/开题/长文档/成果转化/思维导图/证据驱动/完整论文；输出可编辑 MD/DOCX、PDF/HTML 预览、修改记录与来源映射 |
 | `graphics_enhance.py` | 可编辑 SVG 柱状/折线图、流程图、通路图、装置图、图形摘要与 PNG 预览 |
 | `slides_enhance.py` | 论文转 slide plan、可编辑 PPTX、讲者备注、PDF/PNG 预览 |
 | `baseline.py` | 对照基线：模拟"未加载本 Skill 的朴素 Agent"——仅文件名匹配、无过滤审计、无定位、无哈希（题目评分点明批评的失败模式） |
