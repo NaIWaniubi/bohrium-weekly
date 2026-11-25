@@ -1,2 +1,1 @@
 https://github.com/NaIWaniubi/bohrium-weekly/blob/master/skills/bohr-benchmark_a1d81ca4-skill/SKILL.md
-SKILL.md

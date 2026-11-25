@@ -1,2 +1,1 @@
 https://github.com/NaIWaniubi/bohrium-weekly/blob/master/skills/bohr-research-file-search/SKILL.md
-SKILL.md
