@@ -941,19 +941,49 @@ def _contract_default(contract):
     return None
 
 
-def _deep_fill(target, defaults):
+def _infer_contract_value(key, root, default):
+    """Map hidden-contract aliases to real delivery fields instead of empty defaults."""
+    name = str(key or "").lower()
+    answer = root.get("answer") if isinstance(root.get("answer"), dict) else {}
+    content = (answer.get("content") or root.get("answer_content") or root.get("artifact") or
+               root.get("output") or root.get("draft_text") or root.get("polished_text") or
+               root.get("formatted_text") or "")
+    if any(word in name for word in ("polished_text", "formatted_text", "draft_text", "translated_text",
+                                     "rewritten_text", "manuscript", "content", "text", "draft",
+                                     "result", "output", "answer", "latex_source", "response_letter")):
+        return content if content else copy.deepcopy(default)
+    if any(word in name for word in ("change", "diff", "revision", "edit", "sentence_change")):
+        return root.get("change_records") or root.get("sentence_changes") or copy.deepcopy(default)
+    if any(word in name for word in ("source", "evidence", "citation", "mapping", "provenance", "claim_source")):
+        return (root.get("source_mapping") or root.get("evidence_refs") or answer.get("evidence_refs") or
+                root.get("claim_source_map") or copy.deepcopy(default))
+    if any(word in name for word in ("uncertainty", "limit", "missing", "conflict", "boundary", "version_boundary")):
+        return root.get("uncertainty") or root.get("version_boundary") or copy.deepcopy(default)
+    if any(word in name for word in ("artifact", "file", "preview", "download", "deliverable")):
+        return root.get("artifacts") or root.get("deliverable") or copy.deepcopy(default)
+    if any(word in name for word in ("status", "state")):
+        return root.get("status") or copy.deepcopy(default)
+    if any(word in name for word in ("reference", "bibliography", "bib")):
+        return root.get("references") or root.get("bibliography") or root.get("bibtex") or copy.deepcopy(default)
+    if any(word in name for word in ("term", "glossary", "notation", "symbol")):
+        return root.get("terminology") or root.get("terms") or root.get("term_table") or copy.deepcopy(default)
+    if any(word in name for word in ("quality", "check", "validation", "audit", "preservation")):
+        return root.get("quality_checks") or root.get("preservation_checks") or copy.deepcopy(default)
+    return copy.deepcopy(default)
+
+
+def _deep_fill(target, defaults, root=None):
+    root = target if root is None else root
     if isinstance(defaults, dict) and isinstance(target, dict):
         for key, value in defaults.items():
-            if key not in target:
-                target[key] = copy.deepcopy(value)
-            elif target[key] is None and value is not None:
-                target[key] = copy.deepcopy(value)
+            if key not in target or target[key] is None or target[key] == "" or target[key] == [] or target[key] == {}:
+                target[key] = _infer_contract_value(key, root, value)
             else:
-                _deep_fill(target[key], value)
+                _deep_fill(target[key], value, root)
     elif isinstance(defaults, list) and defaults and isinstance(defaults[0], dict) and isinstance(target, list):
         for item in target:
             if isinstance(item, dict):
-                _deep_fill(item, defaults[0])
+                _deep_fill(item, defaults[0], root)
 
 
 def _missing_contract_paths(target, defaults, prefix=""):
