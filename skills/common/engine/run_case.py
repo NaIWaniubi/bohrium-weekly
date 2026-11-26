@@ -211,7 +211,7 @@ def main():
 
     summary_meta = {}
 
-    if not args.index or args.rescan:
+    if not args.index or args.rescan or not os.path.exists(args.index):
         if not library_root:
             print("ERROR: no corpus library resolved (pass --library)", file=sys.stderr)
             sys.exit(2)

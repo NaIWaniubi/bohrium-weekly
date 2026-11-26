@@ -6,6 +6,15 @@ description: |
 
 # 写作02｜学术语言润色 Skill
 
+## MANDATORY FIRST ACTION — 必须先执行，禁止跳过
+
+```bash
+python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json         --work /app/work --out /app/output --profile writing
+```
+
+该命令会自动扫描材料并建立索引，生成 task-aware 证据底稿与可编辑产物。必须等命令退出码为 0 且 `/app/output/result.json` 存在后，才能继续改写或核对。若失败，读取 stderr 并修复路径/库根目录后重跑；禁止跳过引擎直接写答案。
+
+
 ## 0. 运行契约
 
 - 输入 `/input/case.json`（必要时 `task.md`、`library`、模板/数据字典）；真实 PDF/Office/图片为事实依据。
@@ -29,7 +38,7 @@ description: |
 
 ```
 python -I /skills/weekly-skill/common/engine/run_case.py --case /input/case.json \
-        --index /app/work/index.json --work /app/work --out /app/output --profile writing
+        --work /app/work --out /app/output --profile writing
 ```
 
 ## 2. 解题总纲
