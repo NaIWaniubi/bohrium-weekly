@@ -10,8 +10,8 @@ stdlib only，无第三方依赖；全部输出为机器可读 JSON，每一步�
 | `lib.py` | 基础工具：原子 JSON 写、哈希（CJK/BOM 容错读取）、标题归一化与版本族排序、操作账本 `ledger_append` |
 | `scan_index.py` | 语料库扫描与索引：`--root <库> --out <index.json>`。产出文件全量清单（relpath/ext/size/sha256/mtime/**meta 元数据**）、章节级文本块（chunk_id+字符偏移）、**分页感知**（PDF `[page N]` 标记→块携带 pages 与印刷页码偏移）、精确重复组、**近重复检测**（同标题族+字节不同+体积差≤25% 视为版本变体）、版本族别名链与推荐 canonical、无提取器文件的诚实标记（needs_tool） |
 | `answer.py` | 单题应答：`--index --question [--filter F] [--terms-file T] --top N --out`。**双路检索融合**：多路查询规划+跨语言扩展 + **字段加权 BM25**（正文 k1=1.5/b=0.75 主分 + 文件名字段加权 `_v2_final` 信号） + **语义 dense**（纯 stdlib TF-IDF 向量化器+余弦相似度，捕捉概念改写与同义词漂移） + RRF 融合保底；过滤先行逐条留痕；命中携带 file/sha256/chunk_id/offset/pages/**citations**（段落首句锚点+逐字引用四件套）；引用生成器输出证据回链bundle |
-| `run_case.py` | 固定案例编排：按契约读取 `/input/case.json` 与 `task.md`，合并过滤约束与跨语言扩展词，运行链路，落盘命中全文；调用 finalize 生成**非空完整首版 result.json**（answer、sources、evidence_matrix、screening_log、uncertainty、failure_recovery、version_lineage、operation_evidence），保留 output_contract；**断点续传**：result.json 已存在且 case_id 匹配时跳过（`--force` 强制重跑） |
-| `finalize.py` | 确定性完整交付层：生成可读答案、全量来源、绝对偏移证据引用、版本链、异常恢复与源文件哈希复核；`--profile classify` 还真实生成 `organized/` 规范副本、元数据侧车、精确重复别名、manifest 与回滚说明，源文件永不修改 |
+| `run_case.py` | 固定案例编排：按契约读取 `/input/case.json` 与 `task.md`，合并过滤约束与跨语言扩展词，运行链路，落盘命中全文；`--index` 缺失时自动扫描材料建索引；调用 finalize 写出**非空完整首版 result.json**（answer/sources/evidence_matrix/screening_log/uncertainty/failure_recovery/version_lineage/operation_evidence），保留 output_contract；**断点续传**：result.json 已存在且 case_id 匹配时跳过（`--force` 强制重跑） |
+| `finalize.py` | 确定性完整交付层：生成可读答案、全量来源、绝对偏移证据引用、版本链、异常恢复与源文件哈希复核；隐藏 output_contract 同义字段自动映射到真实交付内容；`--profile classify` 还真实生成 `organized/` 规范副本、元数据侧车、精确重复别名、manifest 与回滚说明，源文件永不修改 |
 | `enhance.py` / `enhance_v7.py` | v6/v7 编排：NL 约束、查询改写、PRF、多样化、canonical 版本、答案综合、claim 级综述与数据/代码真实执行 |
 | `version_metadata.py` | 行政版本说明状态机：canonical/alias/supersedes；SHA/DOI 去重；元数据 provenance；修正 hits/screening 的主文献 |
 | `search_quality.py` | 去指令废词查询计划、canonical hits、章节/句子证据、带 `[E#]` 的直接答案、覆盖/效率/rubric 报告 |
